@@ -1,0 +1,11 @@
+dotnet tool install -g dotnet-ef
+
+dotnet tool update -g dotnet-ef
+
+
+dotnet ef migrations add InitialCreate -c myDbContext
+
+
+dotnet ef database update
+
+dotnet ef database drop

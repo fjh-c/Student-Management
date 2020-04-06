@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Student.IServices\Student.IServices.csproj" />
+    <ProjectReference Include="..\Student.Model\Student.Model.csproj" />
+    <ProjectReference Include="..\yrjw.ORM.Chimp\yrjw.ORM.Chimp.csproj" />
+  </ItemGroup>
+
+</Project>
