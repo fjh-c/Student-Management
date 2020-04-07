@@ -24,12 +24,11 @@ namespace Student.Core.API
         {
             Configuration = configuration;
             configuration.GetSection("Setting").Bind(BasicSetting.Setting);
-            IChangeToken token = configuration.GetReloadToken();
 
             ChangeToken.OnChange(() => configuration.GetReloadToken(), () =>
             {
+                configuration.GetSection("Setting").Bind(BasicSetting.Setting);
                 Console.WriteLine($"Key1:{configuration["Key1"]}");
-                Console.WriteLine($"Key2:{configuration["Key2"]}");
             });
         }
 
