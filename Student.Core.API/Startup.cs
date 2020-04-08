@@ -25,14 +25,15 @@ namespace Student.Core.API
             Configuration = configuration;
             configuration.GetSection("Setting").Bind(BasicSetting.Setting);
 
+            //配置更改时重新绑定
             ChangeToken.OnChange(() => configuration.GetReloadToken(), () =>
             {
                 configuration.GetSection("Setting").Bind(BasicSetting.Setting);
-                Console.WriteLine($"Key1:{configuration["Key1"]}");
+                Console.WriteLine($"ConStr:{Configuration["Setting:ConnectionString"]}");
             });
         }
 
-        public IConfiguration Configuration { get; }
+        public IConfiguration Configuration { get; private set; }
 
         public ILifetimeScope AutofacContainer { get; private set; }
 
