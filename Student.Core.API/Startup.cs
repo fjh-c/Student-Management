@@ -33,7 +33,7 @@ namespace Student.Core.API
             });
         }
 
-        public IConfiguration Configuration { get; private set; }
+        public IConfiguration Configuration { get; }
 
         public ILifetimeScope AutofacContainer { get; private set; }
 
