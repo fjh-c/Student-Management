@@ -18,6 +18,11 @@
   <ItemGroup>
     <ProjectReference Include="..\Student.IServices\Student.IServices.csproj" />
     <ProjectReference Include="..\Student.Services\Student.Services.csproj" />
+    <ProjectReference Include="..\yrjw.CommonToolsCore\yrjw.CommonToolsCore.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Code\Helpers\" />
   </ItemGroup>
 
 

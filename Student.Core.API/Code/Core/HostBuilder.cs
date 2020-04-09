@@ -1,10 +1,8 @@
 ﻿using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+using Student.Core.API.Config;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Student.Core.API.Code.Core
 {
@@ -22,12 +20,15 @@ namespace Student.Core.API.Code.Core
 
         private IHostBuilder CreateBuilder<TStartup>(string[] args) where TStartup : AutofacStartup
         {
+            if (BasicSetting.Setting.Urls.IsNull())
+                BasicSetting.Setting.Urls = "http://*:5000";
+
             return Host.CreateDefaultBuilder(args)
                 .UseServiceProviderFactory(new AutofacServiceProviderFactory())
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<TStartup>()
-                    .UseUrls("http://*:5000");
+                    .UseUrls(BasicSetting.Setting.Urls);
                 });
         }
     }

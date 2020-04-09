@@ -20,6 +20,7 @@ namespace Student.Core.API
         public Startup(IConfiguration configuration, IWebHostEnvironment env) : base(configuration, env)
         {
             configuration.GetSection("Setting").Binding(BasicSetting.Setting);
+            configuration.Load("initializationdata", env).Bind(InitializationData.Initialization);
         }
 
         public void ConfigureServices(IServiceCollection services)

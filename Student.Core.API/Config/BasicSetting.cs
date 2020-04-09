@@ -10,6 +10,7 @@ namespace Student.Core.API.Config
     {
         public DbType DbType { get; set; }
         public string ConnectionString { get; set; }
+        public string Urls { get; set; }
         public static BasicSetting Setting { get; set; } = new BasicSetting();
     }
 }
