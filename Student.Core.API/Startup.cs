@@ -2,52 +2,26 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Primitives;
+using Student.Core.API.Code.Core;
 using Student.Core.API.Config;
 using Student.Model.Code;
 
 namespace Student.Core.API
 {
-    public class Startup
+    public class Startup: AutofacStartup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IWebHostEnvironment env) : base(configuration, env)
         {
-            Configuration = configuration;
-            configuration.GetSection("Setting").Bind(BasicSetting.Setting);
-
-            //配置更改时重新绑定
-            ChangeToken.OnChange(() => configuration.GetReloadToken(), () =>
-            {
-                configuration.GetSection("Setting").Bind(BasicSetting.Setting);
-                Console.WriteLine($"ConStr:{Configuration["Setting:ConnectionString"]}");
-            });
+            configuration.GetSection("Setting").Binding(BasicSetting.Setting);
         }
 
-        public IConfiguration Configuration { get; }
-
-        public ILifetimeScope AutofacContainer { get; private set; }
-
-        // ConfigureContainer is where you can register things directly
-        // with Autofac. This runs after ConfigureServices so the things
-        // here will override registrations made in ConfigureServices.
-        // Don't build the container; that gets done for you by the factory.
-        public void ConfigureContainer(ContainerBuilder builder)
-        {
-            // Register your own things directly with Autofac, like:
-            builder.RegisterModule<yrjw.ORM.Chimp.AutofacModule>();
-        }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers().AddControllersAsServices();
@@ -65,15 +39,14 @@ namespace Student.Core.API
             }
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app)
         {
-            if (env.IsDevelopment())
+            if (Env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
 
-            this.AutofacContainer = app.ApplicationServices.GetAutofacRoot();
+            base.AutofacContainer = app.ApplicationServices.GetAutofacRoot();
 
             app.UseRouting();
 
