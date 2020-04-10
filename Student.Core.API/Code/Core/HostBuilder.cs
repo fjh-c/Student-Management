@@ -1,8 +1,10 @@
 ﻿using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Student.Core.API.Config;
 using System;
+using System.IO;
 
 namespace Student.Core.API.Code.Core
 {
@@ -25,6 +27,12 @@ namespace Student.Core.API.Code.Core
 
             return Host.CreateDefaultBuilder(args)
                 .UseServiceProviderFactory(new AutofacServiceProviderFactory())
+                .ConfigureAppConfiguration((hostingContext, config) =>
+                {
+                    var filePath = Path.Combine(AppContext.BaseDirectory, "Config");
+                    //config.SetBasePath(filePath);
+                    config.AddJsonFile(filePath+ "/initializationdata.json", optional: false, reloadOnChange: true);
+                })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<TStartup>()
