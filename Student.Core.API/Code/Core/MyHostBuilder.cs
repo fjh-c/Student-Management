@@ -8,16 +8,18 @@ using System.IO;
 
 namespace Student.Core.API.Code.Core
 {
-    public class HostBuilder
+    public class MyHostBuilder
     {
+
         /// <summary>
-        /// 启动
+        /// 创建主机
         /// </summary>
         /// <typeparam name="TStartup"></typeparam>
         /// <param name="args">启动参数</param>
-        public void Run<TStartup>(string[] args) where TStartup : AutofacStartup
+        /// <returns></returns>
+        public IHostBuilder Create<TStartup>(string[] args) where TStartup : AutofacStartup
         {
-            CreateBuilder<TStartup>(args).Build().Run();
+            return CreateBuilder<TStartup>(args);
         }
 
         private IHostBuilder CreateBuilder<TStartup>(string[] args) where TStartup : AutofacStartup
@@ -27,12 +29,6 @@ namespace Student.Core.API.Code.Core
 
             return Host.CreateDefaultBuilder(args)
                 .UseServiceProviderFactory(new AutofacServiceProviderFactory())
-                .ConfigureAppConfiguration((hostingContext, config) =>
-                {
-                    var filePath = Path.Combine(AppContext.BaseDirectory, "Config");
-                    //config.SetBasePath(filePath);
-                    config.AddJsonFile(filePath+ "/initializationdata.json", optional: false, reloadOnChange: true);
-                })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<TStartup>()

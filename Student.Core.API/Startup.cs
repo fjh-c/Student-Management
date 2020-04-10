@@ -9,9 +9,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Primitives;
 using Student.Core.API.Code.Core;
 using Student.Core.API.Config;
 using Student.Model.Code;
+using yrjw.CommonToolsCore.Helper;
 
 namespace Student.Core.API
 {
@@ -19,9 +21,19 @@ namespace Student.Core.API
     {
         public Startup(IConfiguration configuration, IWebHostEnvironment env) : base(configuration, env)
         {
-            configuration.GetSection("Setting").Binding(BasicSetting.Setting);
-            configuration.GetSection("Initialization").Binding(InitializationData.Initialization);
-            //configuration.Load("initializationdata", env).Bind(InitializationData.Initialization);
+            configuration.GetSection("Setting").Bind(BasicSetting.Setting);
+            configuration.GetSection("Initialization").Bind(InitializationData.Initialization);
+
+            //配置更改时重新绑定
+            ChangeToken.OnChange(() => configuration.GetReloadToken(), () =>
+            {
+                BasicSetting.Setting = configuration.GetSection("Setting").Get<BasicSetting>();
+                InitializationData.Initialization = configuration.GetSection("Initialization").Get<InitializationData>();
+
+                Console.WriteLine($"To:{JsonHelper.SerializeJSON(BasicSetting.Setting)}");
+                Console.WriteLine($"To:{JsonHelper.SerializeJSON(InitializationData.Initialization)}");
+            });
+
         }
 
         public void ConfigureServices(IServiceCollection services)
