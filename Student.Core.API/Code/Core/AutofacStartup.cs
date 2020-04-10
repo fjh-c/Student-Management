@@ -7,13 +7,10 @@ namespace Student.Core.API.Code.Core
 {
     public class AutofacStartup
     {
-        public AutofacStartup(IConfiguration configuration, IWebHostEnvironment env)
+        public AutofacStartup(IWebHostEnvironment env)
         {
-            Configuration = configuration;
             Env = env;
         }
-
-        public IConfiguration Configuration { get; }
 
         public IWebHostEnvironment Env { get; }
 
