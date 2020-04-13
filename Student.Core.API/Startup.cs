@@ -9,11 +9,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Primitives;
 using Student.Core.API.Code.Core;
 using Student.Core.API.Config;
 using Student.Model.Code;
-using yrjw.CommonToolsCore.Helper;
 
 namespace Student.Core.API
 {

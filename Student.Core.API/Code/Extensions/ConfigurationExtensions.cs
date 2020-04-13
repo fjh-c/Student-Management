@@ -41,7 +41,6 @@ namespace Microsoft.Extensions.Configuration
             //配置更改时重新绑定
             ChangeToken.OnChange(() => configuration.GetReloadToken(), () =>
             {
-                int n = 0;
                 foreach (object item in pms)
                 {
                     var pro = item.GetType().GetProperties().FirstOrDefault(p => p.SetMethod.IsStatic);
@@ -50,7 +49,6 @@ namespace Microsoft.Extensions.Configuration
                         pro.SetValue(pro, configuration.GetSection(pro.Name).Get(item.GetType()));
                         Console.WriteLine($"To:{JsonHelper.SerializeJSON(pro.GetValue(pro.Name))}");
                     }
-                    n++;
                 }
             });
         }
