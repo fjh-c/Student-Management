@@ -8,9 +8,22 @@ namespace Student.Core.API.Config
 {
     public class BasicSetting
     {
+        /// <summary>
+        /// 数据库类型
+        /// </summary>
         public DbType DbType { get; set; }
+        /// <summary>
+        /// 数据库连接字符串
+        /// </summary>
         public string ConnectionString { get; set; }
+        /// <summary>
+        /// 自宿主启动IP端口
+        /// </summary>
         public string Urls { get; set; }
+        /// <summary>
+        /// 主程序集名称
+        /// </summary>
+        public string AssemblyName { get; set; }
         public static BasicSetting Setting { get; set; } = new BasicSetting();
     }
 }

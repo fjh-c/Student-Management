@@ -1,24 +1,37 @@
 ﻿using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Student.Core.API.Config;
 
 namespace Student.Core.API.Code.Core
 {
-    public class AutofacStartup
+    public abstract class AutofacStartup
     {
         public AutofacStartup(IWebHostEnvironment env)
         {
             Env = env;
         }
+        protected readonly IWebHostEnvironment Env;
 
-        public IWebHostEnvironment Env { get; }
+        protected ILifetimeScope AutofacContainer { get; set; }
 
-        public ILifetimeScope AutofacContainer { get; protected set; }
-
-        public void ConfigureContainer(ContainerBuilder builder)
+        public virtual void ConfigureContainer(ContainerBuilder builder)
         {
             builder.RegisterModule<yrjw.ORM.Chimp.AutofacModule>();
+        }
+
+        public virtual void ConfigureServices(IServiceCollection services)
+        {
+            services.AddWebHost(Env);
+        }
+
+        public virtual void Configure(IApplicationBuilder app)
+        {
+            AutofacContainer = app.ApplicationServices.GetAutofacRoot();
+            app.UseWebHost(Env, AutofacContainer);
         }
     }
 }
