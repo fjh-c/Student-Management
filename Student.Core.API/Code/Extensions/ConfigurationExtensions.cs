@@ -31,31 +31,22 @@ namespace Microsoft.Extensions.Configuration
             return configuration;
         }
 
-        public static void OnChange(this IConfiguration configuration, params object[] pms)
+        public static void OnChange(this IConfiguration configuration, params Object[] pms)
         {
-
-            foreach (var item in pms)
-            {
-                var t = item.GetType().GetProperties();
-                
-                //获取Setting
-            }
-
             //配置更改时重新绑定
             ChangeToken.OnChange(() => configuration.GetReloadToken(), () =>
             {
+                int n = 0;
                 foreach (object item in pms)
                 {
-                    var t = item.GetType();
-                    configuration.GetSection("Setting").Get(item.GetType());
+                    var pro = item.GetType().GetProperties().FirstOrDefault(p => p.SetMethod.IsStatic);
+                    if(pro != null)
+                    {
+                        pro.SetValue(pro, configuration.GetSection(pro.Name).Get(item.GetType()));
+                        Console.WriteLine($"To:{JsonHelper.SerializeJSON(pro.GetValue(pro.Name))}");
+                    }
+                    n++;
                 }
-                
-                
-                //BasicSetting.Setting = configuration.GetSection("Setting").Get<BasicSetting>();
-                //InitializationData.Initialization = configuration.GetSection("Initialization").Get<InitializationData>();
-
-                //Console.WriteLine($"To:{JsonHelper.SerializeJSON(BasicSetting.Setting)}");
-                //Console.WriteLine($"To:{JsonHelper.SerializeJSON(InitializationData.Initialization)}");
             });
         }
     }
