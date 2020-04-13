@@ -31,6 +31,11 @@ namespace Microsoft.Extensions.Configuration
             return configuration;
         }
 
+        /// <summary>
+        /// 热更新，运行时更改配置文件自动更新模型绑定值
+        /// </summary>
+        /// <param name="configuration"></param>
+        /// <param name="pms">配置模型中静态属性对象，多个使用逗号分隔</param>
         public static void OnChange(this IConfiguration configuration, params Object[] pms)
         {
             //配置更改时重新绑定
