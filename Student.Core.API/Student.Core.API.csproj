@@ -4,6 +4,12 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>bin\Debug\netcoreapp3.1\Student.Core.API\Swagger.Core.xml</DocumentationFile>
+    <NoWarn>1701;1702;1591</NoWarn>
+    <OutputPath></OutputPath>
+  </PropertyGroup>
+
   <ProjectExtensions><VisualStudio><UserProperties properties_4launchsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
 
   <ItemGroup>
@@ -13,6 +19,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.3.1" />
   </ItemGroup>
 
   <ItemGroup>

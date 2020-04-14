@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 using Student.Core.API.Config;
 using Student.Model.Code;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -32,6 +34,19 @@ namespace Microsoft.Extensions.DependencyInjection
                 services.AddChimp<myDbContext>(opt => opt.UseSqlServer(BasicSetting.Setting.ConnectionString,
                     b => b.MigrationsAssembly(BasicSetting.Setting.AssemblyName)));
             }
+
+            //注册 Swagger 生成器，定义一个和多个 Swagger 文档
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1.0", new OpenApiInfo
+                {
+                    Title = BasicSetting.Setting.AssemblyName,
+                    Description = "WebApi接口文档说明",
+                    Version = "1.0",
+                });
+                var filePath = Path.Combine(System.AppContext.BaseDirectory, "Student.Core.API/Swagger.Core.xml");
+                c.IncludeXmlComments(filePath);
+            });
             return services;
         }
     }

@@ -2,9 +2,7 @@
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Student.Core.API.Config;
 
 namespace Student.Core.API.Code.Core
 {
@@ -31,7 +29,7 @@ namespace Student.Core.API.Code.Core
         public virtual void Configure(IApplicationBuilder app)
         {
             AutofacContainer = app.ApplicationServices.GetAutofacRoot();
-            app.UseWebHost(Env, AutofacContainer);
+            app.UseWebHost(Env);
         }
     }
 }

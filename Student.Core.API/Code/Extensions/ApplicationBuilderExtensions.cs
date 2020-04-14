@@ -1,6 +1,6 @@
-﻿using Autofac;
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+using Student.Core.API.Config;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +16,7 @@ namespace Microsoft.AspNetCore.Builder
         /// <param name="app"></param>
         /// <param name="env">环境</param>
         /// <returns></returns>
-        public static IApplicationBuilder UseWebHost(this IApplicationBuilder app, IWebHostEnvironment env, ILifetimeScope autofacContainer)
+        public static IApplicationBuilder UseWebHost(this IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -31,6 +31,13 @@ namespace Microsoft.AspNetCore.Builder
             {
                 endpoints.MapControllers();
             });
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1.0/swagger.json", BasicSetting.Setting.AssemblyName);
+            });
+
             return app;
         }
     }
