@@ -8,8 +8,8 @@ using Student.IServices;
 
 namespace Student.Core.API.Controllers
 {
+    [Route("api/[controller]")]
     [ApiController]
-    [Route("[controller]")]
     public class StudentInfoController : Controller
     {
         private readonly ILogger<StudentInfoController> _logger;
@@ -20,7 +20,11 @@ namespace Student.Core.API.Controllers
         {
             _logger = logger;
         }
-
+        // GET api/StudentInfo
+        /// <summary>
+        /// 默认获取学生列表
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public IEnumerable<object> Get()
         {
