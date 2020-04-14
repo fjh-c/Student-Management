@@ -1,0 +1,24 @@
+﻿<Project>
+  <PropertyGroup>
+    <Code>yrjw</Code>
+    <Name>学生信息管理系统</Name>
+    <Authors>一如既往</Authors>
+    <Icon>permission</Icon>
+    <Version>1.0.0</Version>
+    <Description>($(Name)) - $(MSBuildProjectName)</Description>
+    <NoWarn>$(NoWarn);1591</NoWarn>
+    <LangVersion>Latest</LangVersion>
+    <RootNamespacePrefix>$(Code)</RootNamespacePrefix>
+    <AssemblyName>$(MSBuildProjectName)</AssemblyName>
+    <RootNamespace>$(AssemblyName)</RootNamespace>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <RunAnalyzersDuringLiveAnalysis>false</RunAnalyzersDuringLiveAnalysis>
+    <!--设置打包路径-->
+    <PackageOutputPath>$(SolutionDir)\_packages</PackageOutputPath>
+    <Company>一如既往</Company>
+    <Copyright>一如既往</Copyright>
+    <PackageProjectUrl>https://StudentManageSystem.com/docs/</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/han1982/StudentManageSystem</RepositoryUrl>
+  </PropertyGroup>
+</Project>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -8,7 +9,8 @@ using Student.IServices;
 
 namespace Student.Core.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Description("学生信息")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class StudentInfoController : Controller
     {
@@ -20,13 +22,10 @@ namespace Student.Core.API.Controllers
         {
             _logger = logger;
         }
-        // GET api/StudentInfo
-        /// <summary>
-        /// 默认获取学生列表
-        /// </summary>
-        /// <returns></returns>
+
+        [Description("默认获取学生列表")]
         [HttpGet]
-        public IEnumerable<object> Get()
+        public IEnumerable<object> QueryList()
         {
             var entity = StudentInfoService.Value.RepositoryStudentInfo.TableNoTracking.ToList();
             return entity;

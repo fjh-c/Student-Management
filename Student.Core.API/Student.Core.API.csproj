@@ -1,13 +1,15 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
+    <Description>学生信息管理系统API</Description>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <Copyright>一如既往qq:5715066</Copyright>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <RunAnalyzersDuringLiveAnalysis>false</RunAnalyzersDuringLiveAnalysis>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>bin\Debug\netcoreapp3.1\Student.Core.API\Swagger.Core.xml</DocumentationFile>
-    <NoWarn>1701;1702;1591</NoWarn>
-    <OutputPath></OutputPath>
+    <DocumentationFile></DocumentationFile>
   </PropertyGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties properties_4launchsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>

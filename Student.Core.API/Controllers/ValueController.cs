@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -9,6 +10,7 @@ namespace Student.Core.API.Controllers
     /// <summary>
     /// 通过api/values
     /// </summary>
+    [Description("通过api/values")]
     [Route("api/[controller]")]
     [ApiController]
     public class ValuesController : ControllerBase
@@ -18,6 +20,7 @@ namespace Student.Core.API.Controllers
         /// 默认获取
         /// </summary>
         /// <returns></returns>
+        [Description("默认获取")]
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {

@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Student.Core.API.Code.Filters;
 using Student.Core.API.Config;
 using Student.Model.Code;
 using System;
@@ -42,6 +43,9 @@ namespace Microsoft.Extensions.DependencyInjection
                 services.AddSwagger();
             }
 
+            //添加MVC功能
+            services.AddMvc();
+
             return services;
         }
 
@@ -60,8 +64,8 @@ namespace Microsoft.Extensions.DependencyInjection
                     Description = "WebApi接口文档说明",
                     Version = "1.0",
                 });
-                var filePath = Path.Combine(System.AppContext.BaseDirectory, "Student.Core.API/Swagger.Core.xml");
-                c.IncludeXmlComments(filePath);
+                //var filePath = Path.Combine(System.AppContext.BaseDirectory, "Student.Core.API/Swagger.Core.xml");
+                //c.IncludeXmlComments(filePath);
 
                 //var securityScheme = new OpenApiSecurityScheme
                 //{
@@ -95,14 +99,14 @@ namespace Microsoft.Extensions.DependencyInjection
                 //    }
                 //});
 
-                ////链接转小写过滤器
-                //c.DocumentFilter<LowercaseDocumentFilter>();
+                //链接转小写过滤器
+                c.DocumentFilter<LowercaseDocumentFilter>();
 
-                ////描述信息处理
-                //c.DocumentFilter<DescriptionDocumentFilter>();
+                //描述信息处理
+                c.DocumentFilter<DescriptionDocumentFilter>();
 
-                ////隐藏属性
-                //c.SchemaFilter<IgnorePropertySchemaFilter>();
+                //隐藏属性
+                c.SchemaFilter<IgnorePropertySchemaFilter>();
             });
 
             return services;
