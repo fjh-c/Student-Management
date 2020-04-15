@@ -30,9 +30,5 @@
     <ProjectReference Include="..\yrjw.CommonToolsCore\yrjw.CommonToolsCore.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Code\Helpers\" />
-  </ItemGroup>
-
 
 </Project>

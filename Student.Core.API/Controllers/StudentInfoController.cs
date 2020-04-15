@@ -6,13 +6,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Student.IServices;
+using yrjw.ORM.Chimp.Result;
 
 namespace Student.Core.API.Controllers
 {
     [Description("学生信息")]
-    [Route("api/[controller]/[action]")]
-    [ApiController]
-    public class StudentInfoController : Controller
+    public class StudentInfoController : ControllerAbstract
     {
         private readonly ILogger<StudentInfoController> _logger;
 
@@ -25,10 +24,10 @@ namespace Student.Core.API.Controllers
 
         [Description("默认获取学生列表")]
         [HttpGet]
-        public IEnumerable<object> QueryList()
+        public IResultModel QueryList()
         {
-            var entity = StudentInfoService.Value.RepositoryStudentInfo.TableNoTracking.ToList();
-            return entity;
+            var entity = StudentInfoService.Value.QueryList();
+            return ResultModel.Success<IList<Model.StudentInfo>>(entity);
         }
     }
 }

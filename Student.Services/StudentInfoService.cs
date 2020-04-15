@@ -1,6 +1,9 @@
 ﻿using Student.IServices;
 using Student.Model;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using yrjw.ORM.Chimp;
 
 namespace Student.Services
@@ -16,6 +19,11 @@ namespace Student.Services
         {
             this.UnitOfWork = unitOfWork;
             this.repStudentInfo = repStudentInfo;
+        }
+
+        public IList<StudentInfo> QueryList()
+        {
+            return RepositoryStudentInfo.TableNoTracking.ToList();
         }
     }
 }
