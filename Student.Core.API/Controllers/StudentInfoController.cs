@@ -23,7 +23,7 @@ namespace Student.Core.API.Controllers
             _logger = logger;
         }
 
-        [Description("默认获取学生列表")]
+        [Description("获取学生列表")]
         [HttpGet]
         public Task<IResultModel> QueryList()
         {
