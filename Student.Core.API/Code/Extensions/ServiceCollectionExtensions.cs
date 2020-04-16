@@ -39,7 +39,7 @@ namespace Microsoft.Extensions.DependencyInjection
                     b => b.MigrationsAssembly(BasicSetting.Setting.AssemblyName)));
             }
 
-
+            //添加AutoMapper
             services.AddAutoMapper(typeof(Student.DTO.Profiles.AutoMapperProfiles).Assembly);
 
             //主动或者开发模式下开启Swagger
