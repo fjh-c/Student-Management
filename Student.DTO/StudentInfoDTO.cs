@@ -16,7 +16,7 @@ namespace Student.DTO
         /// <summary>
         /// 民族
         /// </summary>
-        public int NationId { get; set; }
+        public string NationId { get; set; }
         /// <summary>
         /// 电话
         /// </summary>
