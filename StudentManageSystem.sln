@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StudentManageSystem", "StudentManageSystem\StudentManageSystem.csproj", "{A388DDCB-2B7F-4D9B-9236-857ADAC29F19}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Model", "Model", "{667BC32E-9DEF-483E-861E-DA065859720E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Student.Model", "Student.Model\Student.Model.csproj", "{6641C6EB-7930-4F57-88DD-93F5AF5C0557}"
@@ -23,7 +21,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "yrjw.ORM.Chimp", "yrjw.ORM.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "yrjw.CommonToolsCore", "yrjw.CommonToolsCore\yrjw.CommonToolsCore.csproj", "{E1D13576-1367-4EF9-947B-23EAA4BDF73F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Student.DTO", "Student.DTO\Student.DTO.csproj", "{FFA0BD7E-B9DC-45BA-8E76-09840A3ED118}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Student.DTO", "Student.DTO\Student.DTO.csproj", "{FFA0BD7E-B9DC-45BA-8E76-09840A3ED118}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentManageSystem", "StudentManageSystem\StudentManageSystem.csproj", "{BCDA220C-AA73-46A1-A5A2-FE824D54B811}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,10 +31,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A388DDCB-2B7F-4D9B-9236-857ADAC29F19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A388DDCB-2B7F-4D9B-9236-857ADAC29F19}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A388DDCB-2B7F-4D9B-9236-857ADAC29F19}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A388DDCB-2B7F-4D9B-9236-857ADAC29F19}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6641C6EB-7930-4F57-88DD-93F5AF5C0557}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6641C6EB-7930-4F57-88DD-93F5AF5C0557}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6641C6EB-7930-4F57-88DD-93F5AF5C0557}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -63,6 +59,10 @@ Global
 		{FFA0BD7E-B9DC-45BA-8E76-09840A3ED118}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FFA0BD7E-B9DC-45BA-8E76-09840A3ED118}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FFA0BD7E-B9DC-45BA-8E76-09840A3ED118}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BCDA220C-AA73-46A1-A5A2-FE824D54B811}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCDA220C-AA73-46A1-A5A2-FE824D54B811}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCDA220C-AA73-46A1-A5A2-FE824D54B811}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCDA220C-AA73-46A1-A5A2-FE824D54B811}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
