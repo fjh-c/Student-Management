@@ -25,10 +25,9 @@ namespace Student.Core.API.Controllers
 
         [Description("默认获取学生列表")]
         [HttpGet]
-        public IResultModel QueryList()
+        public Task<IResultModel> QueryList()
         {
-            var entity = StudentInfoService.Value.QueryList();
-            return ResultModel.Success<IList<StudentInfoDTO>>(entity);
+            return StudentInfoService.Value.QueryList();
         }
     }
 }

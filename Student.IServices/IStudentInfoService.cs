@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using yrjw.ORM.Chimp;
-using Student.Model;
+﻿using yrjw.ORM.Chimp;
 using System.Threading.Tasks;
-using Student.DTO;
+using yrjw.ORM.Chimp.Result;
 
 namespace Student.IServices
 {
@@ -12,6 +8,6 @@ namespace Student.IServices
     {
         IUnitOfWork UnitOfWork { get; }
 
-        IList<StudentInfoDTO> QueryList();
+        Task<IResultModel> QueryList();
     }
 }
