@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Student.DTO;
 using Student.IServices;
 using yrjw.ORM.Chimp.Result;
 
@@ -27,7 +28,7 @@ namespace Student.Core.API.Controllers
         public IResultModel QueryList()
         {
             var entity = StudentInfoService.Value.QueryList();
-            return ResultModel.Success<IList<Model.StudentInfo>>(entity);
+            return ResultModel.Success<IList<StudentInfoDTO>>(entity);
         }
     }
 }

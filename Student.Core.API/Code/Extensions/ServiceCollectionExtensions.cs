@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
@@ -9,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace Microsoft.Extensions.DependencyInjection
@@ -36,6 +38,9 @@ namespace Microsoft.Extensions.DependencyInjection
                 services.AddChimp<myDbContext>(opt => opt.UseSqlServer(BasicSetting.Setting.ConnectionString,
                     b => b.MigrationsAssembly(BasicSetting.Setting.AssemblyName)));
             }
+
+
+            services.AddAutoMapper(typeof(Student.DTO.Profiles.AutoMapperProfiles).Assembly);
 
             //主动或者开发模式下开启Swagger
             if (env.IsDevelopment())

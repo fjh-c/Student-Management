@@ -1,4 +1,7 @@
-﻿using Student.IServices;
+﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using Student.DTO;
+using Student.IServices;
 using Student.Model;
 using System;
 using System.Collections.Generic;
@@ -10,20 +13,21 @@ namespace Student.Services
 {
     public class StudentInfoService: IStudentInfoService, IDependency
     {
+        private readonly IMapper _mapper;
         private readonly Lazy<IRepository<StudentInfo>> repStudentInfo;
 
         public IUnitOfWork UnitOfWork { get; }
-        public IRepository<StudentInfo> RepositoryStudentInfo { get { return repStudentInfo.Value; } }
 
-        public StudentInfoService(IUnitOfWork unitOfWork, Lazy<IRepository<StudentInfo>> repStudentInfo)
+        public StudentInfoService(IMapper mapper, IUnitOfWork unitOfWork, Lazy<IRepository<StudentInfo>> repStudentInfo)
         {
+            this._mapper = mapper;
             this.UnitOfWork = unitOfWork;
             this.repStudentInfo = repStudentInfo;
         }
 
-        public IList<StudentInfo> QueryList()
+        public IList<StudentInfoDTO> QueryList()
         {
-            return RepositoryStudentInfo.TableNoTracking.ToList();
+            return repStudentInfo.Value.TableNoTracking.ProjectTo<StudentInfoDTO>(_mapper.ConfigurationProvider).ToList();
         }
     }
 }
