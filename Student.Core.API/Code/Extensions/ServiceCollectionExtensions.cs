@@ -125,24 +125,31 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <returns></returns>
         public static IServiceCollection AddCors(this IServiceCollection services, BasicSetting setting)
         {
-            services.AddCors(options =>
+            if (setting.WithOrigins != null && setting.WithOrigins.Length > 0)
             {
-                options.AddPolicy("Default",
-                    builder => builder.AllowAnyOrigin()
-                        .SetPreflightMaxAge(new TimeSpan(0, 0, 180))
-                        .AllowAnyMethod()
-                        .AllowAnyHeader()
-                        .WithExposedHeaders("Content-Disposition"));//下载文件时，文件名称会保存在headers的Content-Disposition属性里面
-            });
-            services.AddCors(options =>
+                services.AddCors(options =>
+                {
+                    options.AddPolicy("AnotherPolicy",
+                        builder =>
+                        {
+                            builder.WithOrigins(setting.WithOrigins)
+                            .SetPreflightMaxAge(new TimeSpan(0, 0, 180))
+                            .AllowAnyMethod()
+                            .AllowAnyHeader();
+                        });
+                });
+            }
+            else
             {
-                options.AddPolicy("AnotherPolicy",
-                    builder => builder.WithOrigins(setting.WithOrigins)
-                        .SetPreflightMaxAge(new TimeSpan(0, 0, 180))
-                        .AllowAnyMethod()
-                        .AllowAnyHeader()
-                        .WithExposedHeaders("Content-Disposition"));
-            });
+                services.AddCors(options =>
+                {
+                    options.AddPolicy("Default",
+                        builder => builder.AllowAnyOrigin()
+                            .SetPreflightMaxAge(new TimeSpan(0, 0, 180))
+                            .AllowAnyMethod()
+                            .AllowAnyHeader());
+                });
+            }
             return services;
         }
 
