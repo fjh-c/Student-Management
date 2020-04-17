@@ -25,8 +25,18 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <returns></returns>
         public static IServiceCollection AddWebHost(this IServiceCollection services, IWebHostEnvironment env)
         {
-            services.AddControllers().AddControllersAsServices();
+            //将控制器的寄宿器转为注册的服务
+            services.AddControllers().AddControllersAsServices().AddNewtonsoftJson(options =>
+            {
+                //设置日期格式化
+                options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
+            }).SetCompatibilityVersion(AspNetCore.Mvc.CompatibilityVersion.Version_3_0);
             services.AddOptions();
+
+            //使用Session
+            services.AddSession();
+            services.AddResponseCaching();
+
             //使用ORM
             if (BasicSetting.Setting.DbType == yrjw.ORM.Chimp.DbType.MYSQL)
             {
@@ -42,14 +52,11 @@ namespace Microsoft.Extensions.DependencyInjection
             //添加AutoMapper
             services.AddAutoMapper(typeof(Student.DTO.Profiles.AutoMapperProfiles).Assembly);
 
-            //主动或者开发模式下开启Swagger
+            //添加Swagger
             if (env.IsDevelopment())
             {
                 services.AddSwagger();
             }
-
-            //添加MVC功能
-            services.AddMvc();
 
             return services;
         }

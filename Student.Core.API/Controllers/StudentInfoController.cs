@@ -24,6 +24,7 @@ namespace Student.Core.API.Controllers
         }
 
         [Description("获取学生列表")]
+        [ResponseCache(Duration = 0)]
         [HttpGet]
         public Task<IResultModel> QueryList()
         {
