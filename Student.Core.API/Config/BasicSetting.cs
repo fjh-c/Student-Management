@@ -28,6 +28,10 @@ namespace Student.Core.API.Config
         /// CORS允许域名
         /// </summary>
         public string[] WithOrigins { get; set; }
+        /// <summary>
+        /// 接入webapi地址
+        /// </summary>
+        public string ApiUrl { get; set; }
         public static BasicSetting Setting { get; set; } = new BasicSetting();
     }
 }

@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Student.Core.API.Code.Filters;
+using Student.Core.API.Code.WebApi;
 using Student.Core.API.Config;
 using Student.Model.Code;
 using System;
@@ -12,6 +13,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using WebApiClient;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -50,6 +52,21 @@ namespace Microsoft.Extensions.DependencyInjection
             {
                 services.AddSwagger();
             }
+
+            //添加HttpClient相关
+            services.AddSingleton<IHttpApiFactory<IWebApiHelper>, HttpApiFactory<IWebApiHelper>>(p =>
+            {
+                return new HttpApiFactory<IWebApiHelper>().ConfigureHttpApiConfig(c =>
+                {
+                    // Api 地址
+                    c.HttpHost = new Uri(BasicSetting.Setting.ApiUrl);
+                });
+            });
+            services.AddTransient(p =>
+            {
+                var factory = p.GetRequiredService<IHttpApiFactory<IWebApiHelper>>();
+                return factory.CreateHttpApi();
+            });
 
             return services;
         }
