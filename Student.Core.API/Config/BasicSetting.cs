@@ -24,6 +24,10 @@ namespace Student.Core.API.Config
         /// 主程序集名称
         /// </summary>
         public string AssemblyName { get; set; }
+        /// <summary>
+        /// CORS允许域名
+        /// </summary>
+        public string[] WithOrigins { get; set; }
         public static BasicSetting Setting { get; set; } = new BasicSetting();
     }
 }

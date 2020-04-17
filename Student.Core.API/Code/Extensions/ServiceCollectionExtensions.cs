@@ -36,28 +36,11 @@ namespace Microsoft.Extensions.DependencyInjection
             //服务端缓存
             services.AddResponseCaching();
 
-            //CORS
-            services.AddCors(options =>
-            {
-                options.AddPolicy("Default",
-                    builder => builder.AllowAnyOrigin() //builder.WithOrigins("http://127.0.0.1:8080", "http://127.0.0.1:5500")
-                        .SetPreflightMaxAge(new TimeSpan(0, 0, 180))
-                        .AllowAnyMethod()
-                        .AllowAnyHeader()
-                        .WithExposedHeaders("Content-Disposition"));//下载文件时，文件名称会保存在headers的Content-Disposition属性里面
-            });
+            //添加CORS
+            services.AddCors(BasicSetting.Setting);
 
-            //使用ORM
-            if (BasicSetting.Setting.DbType == yrjw.ORM.Chimp.DbType.MYSQL)
-            {
-                services.AddChimp<myDbContext>(opt => opt.UseMySql(BasicSetting.Setting.ConnectionString,
-                    b => b.MigrationsAssembly(BasicSetting.Setting.AssemblyName)));
-            }
-            else
-            {
-                services.AddChimp<myDbContext>(opt => opt.UseSqlServer(BasicSetting.Setting.ConnectionString,
-                    b => b.MigrationsAssembly(BasicSetting.Setting.AssemblyName)));
-            }
+            //添加ORM
+            services.AddORM(BasicSetting.Setting);
 
             //添加AutoMapper
             services.AddAutoMapper(typeof(Student.DTO.Profiles.AutoMapperProfiles).Assembly);
@@ -131,6 +114,56 @@ namespace Microsoft.Extensions.DependencyInjection
                 c.SchemaFilter<IgnorePropertySchemaFilter>();
             });
 
+            return services;
+        }
+
+        /// <summary>
+        /// 添加CORS允许跨域访问
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="setting"></param>
+        /// <returns></returns>
+        public static IServiceCollection AddCors(this IServiceCollection services, BasicSetting setting)
+        {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("Default",
+                    builder => builder.AllowAnyOrigin()
+                        .SetPreflightMaxAge(new TimeSpan(0, 0, 180))
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .WithExposedHeaders("Content-Disposition"));//下载文件时，文件名称会保存在headers的Content-Disposition属性里面
+            });
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AnotherPolicy",
+                    builder => builder.WithOrigins(setting.WithOrigins)
+                        .SetPreflightMaxAge(new TimeSpan(0, 0, 180))
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .WithExposedHeaders("Content-Disposition"));
+            });
+            return services;
+        }
+
+        /// <summary>
+        /// 添加ORM
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="setting"></param>
+        /// <returns></returns>
+        public static IServiceCollection AddORM(this IServiceCollection services, BasicSetting setting)
+        {
+            if (setting.DbType == yrjw.ORM.Chimp.DbType.MYSQL)
+            {
+                services.AddChimp<myDbContext>(opt => opt.UseMySql(setting.ConnectionString,
+                    b => b.MigrationsAssembly(setting.AssemblyName)));
+            }
+            else
+            {
+                services.AddChimp<myDbContext>(opt => opt.UseSqlServer(setting.ConnectionString,
+                    b => b.MigrationsAssembly(setting.AssemblyName)));
+            }
             return services;
         }
     }
