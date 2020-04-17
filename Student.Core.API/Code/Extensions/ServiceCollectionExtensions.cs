@@ -33,9 +33,19 @@ namespace Microsoft.Extensions.DependencyInjection
             }).SetCompatibilityVersion(AspNetCore.Mvc.CompatibilityVersion.Version_3_0);
             services.AddOptions();
 
-            //使用Session
-            services.AddSession();
+            //服务端缓存
             services.AddResponseCaching();
+
+            //CORS
+            services.AddCors(options =>
+            {
+                options.AddPolicy("Default",
+                    builder => builder.AllowAnyOrigin() //builder.WithOrigins("http://127.0.0.1:8080", "http://127.0.0.1:5500")
+                        .SetPreflightMaxAge(new TimeSpan(0, 0, 180))
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .WithExposedHeaders("Content-Disposition"));//下载文件时，文件名称会保存在headers的Content-Disposition属性里面
+            });
 
             //使用ORM
             if (BasicSetting.Setting.DbType == yrjw.ORM.Chimp.DbType.MYSQL)

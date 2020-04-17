@@ -22,12 +22,22 @@ namespace Microsoft.AspNetCore.Builder
             {
                 app.UseDeveloperExceptionPage();
             }
+            else
+            {
+                app.UseHsts();
+            }
 
             //设置默认文档
             var defaultFilesOptions = new DefaultFilesOptions();
             defaultFilesOptions.DefaultFileNames.Clear();
             defaultFilesOptions.DefaultFileNames.Add("index.html");
             app.UseDefaultFiles(defaultFilesOptions);
+
+            //app.UseStaticFiles();
+            //app.UseHttpsRedirection();
+
+            //CORS
+            app.UseCors("Default");
 
             //路由
             app.UseRouting();
