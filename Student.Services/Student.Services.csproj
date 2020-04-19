@@ -5,10 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="yrjw.ORM.Chimp" Version="1.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Student.IServices\Student.IServices.csproj" />
     <ProjectReference Include="..\Student.Model\Student.Model.csproj" />
     <ProjectReference Include="..\yrjw.CommonToolsCore\yrjw.CommonToolsCore.csproj" />
