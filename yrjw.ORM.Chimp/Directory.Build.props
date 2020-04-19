@@ -18,6 +18,6 @@
     <Company>yirujiwang</Company>
     <Copyright>yirujiwang</Copyright>
     <PackageProjectUrl>https://gitee.com/h_gxi/yrjw.ORM.Chimp</PackageProjectUrl>
-    <RepositoryUrl>https://gitee.com/h_gxi/yrjw.ORM.Chimp</RepositoryUrl>
+    <RepositoryUrl>https://gitee.com/h_gxi/yrjw.ORM.Chimp.git</RepositoryUrl>
   </PropertyGroup>
 </Project>
