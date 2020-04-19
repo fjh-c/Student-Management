@@ -19,7 +19,7 @@ namespace Student.Core.API.Code.WebApi
     /// <summary>
     /// 接口返回模型
     /// </summary>
-    public class StudentInfoListResultModel
+    public class StudentInfoListResultModel: IResultModel
     {
         public bool Success { get; set; }
 
