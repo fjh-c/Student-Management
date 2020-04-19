@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+using Student.Core.API.Code.Middleware;
 using Student.Core.API.Config;
 using System;
 using System.Collections.Generic;
@@ -18,14 +19,8 @@ namespace Microsoft.AspNetCore.Builder
         /// <returns></returns>
         public static IApplicationBuilder UseWebHost(this IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseHsts();
-            }
+            //异常处理
+            app.UseExceptionHandle();
 
             //设置默认文档
             var defaultFilesOptions = new DefaultFilesOptions();
@@ -75,6 +70,17 @@ namespace Microsoft.AspNetCore.Builder
             {
                 c.SwaggerEndpoint("/swagger/v1.0/swagger.json", BasicSetting.Setting.AssemblyName);
             });
+            return app;
+        }
+
+        /// <summary>
+        /// 异常处理
+        /// </summary>
+        /// <param name="app"></param>
+        /// <returns></returns>
+        public static IApplicationBuilder UseExceptionHandle(this IApplicationBuilder app)
+        {
+            app.UseMiddleware<ExceptionHandleMiddleware>();
             return app;
         }
     }
