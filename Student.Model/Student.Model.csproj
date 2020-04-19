@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\yrjw.ORM.Chimp\yrjw.ORM.Chimp.csproj" />
+    <PackageReference Include="yrjw.ORM.Chimp" Version="1.0.0" />
   </ItemGroup>
 
 </Project>

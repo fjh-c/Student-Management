@@ -5,9 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="yrjw.ORM.Chimp" Version="1.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Student.DTO\Student.DTO.csproj" />
     <ProjectReference Include="..\Student.Model\Student.Model.csproj" />
-    <ProjectReference Include="..\yrjw.ORM.Chimp\yrjw.ORM.Chimp.csproj" />
   </ItemGroup>
 
 </Project>
