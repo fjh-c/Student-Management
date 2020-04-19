@@ -4,7 +4,7 @@
     <Description>学生信息管理系统API</Description>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <Copyright>一如既往qq:5715066</Copyright>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <RunAnalyzersDuringLiveAnalysis>false</RunAnalyzersDuringLiveAnalysis>
   </PropertyGroup>
 
