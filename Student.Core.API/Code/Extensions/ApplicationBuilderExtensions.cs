@@ -1,11 +1,15 @@
 ﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using Student.Core.API.Code.Middleware;
 using Student.Core.API.Config;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using yrjw.ORM.Chimp.Result;
 
 namespace Microsoft.AspNetCore.Builder
 {
@@ -81,6 +85,19 @@ namespace Microsoft.AspNetCore.Builder
         public static IApplicationBuilder UseExceptionHandle(this IApplicationBuilder app)
         {
             app.UseMiddleware<ExceptionHandleMiddleware>();
+            app.UseStatusCodePages(async context =>
+            {
+                if(context.HttpContext.Response.StatusCode != 200)
+                {
+                    context.HttpContext.Response.ContentType = "application/json"; ;
+                    await context.HttpContext.Response.WriteAsync(
+                        JsonConvert.SerializeObject(ResultModel.Failed($"Status code page, status code: {context.HttpContext.Response.StatusCode}"),
+                        new JsonSerializerSettings
+                        {
+                            ContractResolver = new CamelCasePropertyNamesContractResolver()
+                        }));
+                }
+            });
             return app;
         }
     }
