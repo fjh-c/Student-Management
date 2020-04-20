@@ -1,43 +1,43 @@
 {
-  //³õÊ¼»¯Êı¾İ
+  //åˆå§‹åŒ–æ•°æ®
   "Initialization": {
     "StudentInfo": [
       {
         "Id": 1,
-        "Name": "ÕÅÈı",
+        "Name": "å¼ ä¸‰",
         "Sex": 1,
         "NationId": 1,
         "Phone": "13902451189",
         "Email": "zhangsan@stu.com",
         "PersonId": "230210199802127323",
-        "Address": "°²ÈıÇøºÍµÀ½Ö102ºÅ",
+        "Address": "å®‰ä¸‰åŒºå’Œé“è¡—102å·",
         "Photos": "stu_1.jpg"
       }
     ],
     "Nation": [
       {
         "Id": 1,
-        "Name": "ºº×å"
+        "Name": "æ±‰æ—"
       },
       {
         "Id": 2,
-        "Name": "ÃÉ¹Å×å"
+        "Name": "è’™å¤æ—"
       },
       {
         "Id": 3,
-        "Name": "»Ø×å"
+        "Name": "å›æ—"
       },
       {
         "Id": 4,
-        "Name": "²Ø×å"
+        "Name": "è—æ—"
       },
       {
         "Id": 5,
-        "Name": "Î¬Îá¶û×å"
+        "Name": "ç»´å¾å°”æ—"
       },
       {
         "Id": 6,
-        "Name": "Ãç×å"
+        "Name": "è‹—æ—"
       }
     ]
   }

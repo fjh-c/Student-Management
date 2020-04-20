@@ -9,7 +9,7 @@ using Student.Model.Code;
 namespace Student.Core.API.Migrations
 {
     [DbContext(typeof(myDbContext))]
-    [Migration("20200404175802_InitialCreate")]
+    [Migration("20200420055207_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
