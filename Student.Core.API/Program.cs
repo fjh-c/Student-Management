@@ -1,3 +1,5 @@
+using Autofac.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Student.Core.API.Code.Core;
@@ -8,9 +10,13 @@ namespace Student.Core.API
     {
         public static void Main(string[] args)
         {
-            new MyHostBuilder().Create<Startup>(args)
-                .Configure("initializationdata", false, true)
-                .Run();
+            CreateHostBuilder(args).Run();
         }
+        public static IHostBuilder CreateHostBuilder(string[] args)
+        {
+            return new MyHostBuilder().Create<Startup>(args)
+                .Configure("initializationdata", false, true);
+        }
+            
     }
 }
