@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -11,6 +12,7 @@ namespace StudentManageSystem.ViewModels
         [DisplayName("学生编号")]
         public int Id { get; set; }
         [DisplayName("学生姓名")]
+        [Required]
         public string Name { get; set; }
         [DisplayName("学生性别")]
         public string Sex { get; set; }
