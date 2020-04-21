@@ -15,7 +15,8 @@ namespace Student.Core.API
         public static IHostBuilder CreateHostBuilder(string[] args)
         {
             return new MyHostBuilder().Create<Startup>(args)
-                .Configure("initializationdata", false, true);
+                .Configure("initializationdata", false, true)
+                .Configure("logging", false, false);
         }
             
     }

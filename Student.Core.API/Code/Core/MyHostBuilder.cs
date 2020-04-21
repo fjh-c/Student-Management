@@ -1,7 +1,9 @@
 ﻿using Autofac.Extensions.DependencyInjection;
+using Logging.Serilog;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
+using Serilog;
 using Student.Core.API.Config;
 using System;
 using System.IO;
@@ -32,6 +34,7 @@ namespace Student.Core.API.Code.Core
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<TStartup>()
+                    .UseLogging()
                     .UseUrls(BasicSetting.Setting.Urls);
                 });
         }
