@@ -17,7 +17,7 @@
     <script>
         var device = layui.device();
         if (device.android || device.ios || device.weixin) {
-            location.href = "/Login/IndexMobi";
+            location.href = "/Login/Index";
         }
         console.log(device);
     </script>
@@ -29,7 +29,7 @@
         <div class="login-wrap">
             <div class="login-right">
                 <div class="login-cir"></div>
-                <div class="login-logo" alt="健康感知系统"></div>
+                <div class="login-logo" alt="学生信息管理系统"></div>
                 <div class="login-form" style="padding: 20px 30px">
                     <div class="col">
                         @Html.TextBoxFor(model => model.userid, new { @id = "userid", @class = "login-input", @placeholder = "用户名", @lay_verify = "required|number", @lay_verType = "tips" })
@@ -51,11 +51,11 @@
                     <span style="color:firebrick;word-break: break-all;">@Html.ValidationSummary()</span>
                 </div>
             </div>
-            <div class="login-left"><img src="~/images/leftimg.png" style="width:500px" /></div>
+            <div class="login-left"><img src="~/images/leftimg.png" style="width:500px;height:445px;" asp-append-version="true" /></div>
         </div>
         <div class="footer ">
             <div class=" layui-row" style="width:980px; margin:0 auto;">
-                <div class="layui-col-md6"><a href="#" style=" color: #fff;">一如既往 222222</a></div>
+                <div class="layui-col-md6"><a href="#" style=" color: #fff;"></a></div>
             </div>
         </div>
     </form>

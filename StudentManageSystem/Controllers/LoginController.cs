@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using StudentManageSystem.Models;
+using yrjw.CommonToolsCore.Helper;
 
 namespace StudentManageSystem.Controllers
 {
@@ -70,6 +71,13 @@ namespace StudentManageSystem.Controllers
         private async Task<int> LogCheckIn(LoginViewModel model)
         {
             return 0;
+        }
+
+        public IActionResult GetValidataCode()
+        {
+            var code = ValidateCodeHelper.CreateRandomNums(4);
+            TempData["ValidateCode"] = code;
+            return File(ValidateCodeHelper.CreateValidateGraphic(code), "image/jpeg");
         }
 
     }
