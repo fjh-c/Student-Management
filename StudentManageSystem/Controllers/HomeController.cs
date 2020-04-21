@@ -5,21 +5,25 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using StudentManageSystem.Models;
+using StudentManageSystem.Code.WebApi;
+using StudentManageSystem.ViewModels;
 
 namespace StudentManageSystem.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IWebApiHelper _webApi;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IWebApiHelper webApi)
         {
             _logger = logger;
+            _webApi = webApi;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            var text = await _webApi.GetStudentInfoListAsync();
             return View();
         }
 

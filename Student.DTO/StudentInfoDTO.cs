@@ -6,6 +6,10 @@ namespace Student.DTO
     public class StudentInfoDTO
     {
         /// <summary>
+        /// 学生编号
+        /// </summary>
+        public int Id { get; set; }
+        /// <summary>
         /// 学生姓名
         /// </summary>
         public string Name { get; set; }
@@ -37,6 +41,9 @@ namespace Student.DTO
         /// 学生照片
         /// </summary>
         public string Photos { get; set; }
-
+        /// <summary>
+        /// 激活状态
+        /// </summary>
+        public int Status { get; set; }
     }
 }

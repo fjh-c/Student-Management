@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using StudentManageSystem.Models;
+using StudentManageSystem.ViewModels;
 using yrjw.CommonToolsCore.Helper;
 
 namespace StudentManageSystem.Controllers

@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using StudentManageSystem.Code.WebApi;
+using WebApiClient;
 
 namespace StudentManageSystem
 {
@@ -23,6 +25,20 @@ namespace StudentManageSystem
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            //添加HttpClient相关
+            services.AddSingleton<IHttpApiFactory<IWebApiHelper>, HttpApiFactory<IWebApiHelper>>(p =>
+            {
+                return new HttpApiFactory<IWebApiHelper>().ConfigureHttpApiConfig(c =>
+                {
+                    // Api 地址
+                    c.HttpHost = new Uri(Configuration.GetSection("Setting:ApiUrl").Value);
+                });
+            });
+            services.AddTransient(p =>
+            {
+                var factory = p.GetRequiredService<IHttpApiFactory<IWebApiHelper>>();
+                return factory.CreateHttpApi();
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
