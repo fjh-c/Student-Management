@@ -2,9 +2,10 @@
   "Serilog": {
     "MinimumLevel": {
       "Default": "Debug",
+      //覆盖掉微软自带的日志
       "Override": {
         "Microsoft": "Debug",
-        "System": "Debug"
+        "System": "Warning"
       }
     },
     "WriteTo": [
