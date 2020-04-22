@@ -14,7 +14,7 @@ namespace Microsoft.Extensions.Hosting
         /// </summary>
         /// <param name="hostBuilder"></param>
         /// <param name="filename">配置文件名称，使用约定配置文件放在项目的Config目录中</param>
-        /// <param name="optional"></param>
+        /// <param name="optional">是否忽略检查文件，true忽略</param>
         /// <param name="reloadOnChange">支持热更新</param>
         /// <returns></returns>
         public static IHostBuilder Configure(this IHostBuilder hostBuilder, string filename, bool optional = false, bool reloadOnChange = false)

@@ -10,9 +10,7 @@ namespace Student.DTO.Profiles
     {
         public AutoMapperProfiles()
         {
-            CreateMap<StudentInfo, StudentInfoDTO>()
-                .ForMember(d => d.Sex, opt => opt.MapFrom(i => i.Sex == 1 ? "男" : "女"))
-                .ForMember(d => d.NationId, opt => opt.MapFrom(i => i.Nation.Name.ToString()));
+            CreateMap<StudentInfo, StudentInfoDTO>();
             CreateMap<StudentInfoDTO, StudentInfo>();
         }
     }

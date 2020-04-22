@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Student.Model.Enums;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -8,7 +9,7 @@ namespace Student.Model
     /// 学生信息表
     /// </summary>
     [Table("StudentInfo")]
-    public class StudentInfo: EntityBase
+    public partial class StudentInfo: EntityBase
     {
         /// <summary>
         /// 学生姓名
@@ -19,11 +20,11 @@ namespace Student.Model
         /// <summary>
         /// 性别
         /// </summary>
-        public int Sex { get; set; }
+        public EnumGender Gender { get; set; }
         /// <summary>
         /// 民族
         /// </summary>
-        public int NationId { get; set; }
+        public EnumNation Nation { get; set; } = EnumNation.hanzu;
         /// <summary>
         /// 电话
         /// </summary>
@@ -48,7 +49,5 @@ namespace Student.Model
         /// </summary>
         public string Photos { get; set; }
 
-        [ForeignKey("NationId")]
-        public Nation Nation { get; set; }
     }
 }

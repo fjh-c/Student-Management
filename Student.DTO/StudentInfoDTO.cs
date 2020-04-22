@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Student.Model;
+using Student.Model.Enums;
+using System;
 using System.Collections.Generic;
 
 namespace Student.DTO
@@ -16,11 +18,11 @@ namespace Student.DTO
         /// <summary>
         /// 性别
         /// </summary>
-        public string Sex { get; set; }
+        public EnumGender Gender { get; set; }
         /// <summary>
         /// 民族
         /// </summary>
-        public string NationId { get; set; }
+        public EnumNation Nation { get; set; }
         /// <summary>
         /// 电话
         /// </summary>
@@ -45,5 +47,9 @@ namespace Student.DTO
         /// 激活状态
         /// </summary>
         public int Status { get; set; }
+        /// <summary>
+        /// 性别
+        /// </summary>
+        public string GenderName { get; set; }
     }
 }

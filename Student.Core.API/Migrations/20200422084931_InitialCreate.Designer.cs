@@ -9,7 +9,7 @@ using Student.Model.Code;
 namespace Student.Core.API.Migrations
 {
     [DbContext(typeof(myDbContext))]
-    [Migration("20200420055207_InitialCreate")]
+    [Migration("20200422084931_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -19,53 +19,6 @@ namespace Student.Core.API.Migrations
                 .HasAnnotation("ProductVersion", "3.1.3")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("Student.Model.Nation", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Nation");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "汉族"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "蒙古族"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "回族"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "藏族"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Name = "维吾尔族"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Name = "苗族"
-                        });
-                });
 
             modelBuilder.Entity("Student.Model.StudentInfo", b =>
                 {
@@ -80,11 +33,14 @@ namespace Student.Core.API.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("varchar(50)");
 
+                    b.Property<int>("Gender")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("varchar(50)");
 
-                    b.Property<int>("NationId")
+                    b.Property<int>("Nation")
                         .HasColumnType("int");
 
                     b.Property<string>("PersonId")
@@ -97,15 +53,10 @@ namespace Student.Core.API.Migrations
                     b.Property<string>("Photos")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Sex")
-                        .HasColumnType("int");
-
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("NationId");
 
                     b.ToTable("StudentInfo");
 
@@ -115,23 +66,14 @@ namespace Student.Core.API.Migrations
                             Id = 1,
                             Address = "安三区和道街102号",
                             Email = "zhangsan@stu.com",
+                            Gender = 0,
                             Name = "张三",
-                            NationId = 1,
+                            Nation = 0,
                             PersonId = "230210199802127323",
                             Phone = "13902451189",
                             Photos = "stu_1.jpg",
-                            Sex = 1,
                             Status = 0
                         });
-                });
-
-            modelBuilder.Entity("Student.Model.StudentInfo", b =>
-                {
-                    b.HasOne("Student.Model.Nation", "Nation")
-                        .WithMany()
-                        .HasForeignKey("NationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

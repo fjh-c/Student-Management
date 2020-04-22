@@ -15,7 +15,14 @@
       "launchUrl": "swagger",
       "applicationUrl": "http://localhost:5000",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        // 开发环境
+        //"ASPNETCORE_ENVIRONMENT": "Development"
+
+        // 演示（模拟、临时环境）
+        //"ASPNETCORE_ENVIRONMENT": "Staging"
+
+        // 生产环境
+        "ASPNETCORE_ENVIRONMENT": "Production"
       }
     },
     "IIS Express": {

@@ -14,7 +14,6 @@ namespace Student.Model.Code
         public static void Seed(this ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<StudentInfo>().HasData(InitializationData.Initialization.StudentInfo);
-            modelBuilder.Entity<Nation>().HasData(InitializationData.Initialization.Nation);
         }
     }
 }
