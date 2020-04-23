@@ -30,6 +30,10 @@ namespace Student.Model
         /// </summary>
         public DateTime EnrollmentDT { get; set; }
         /// <summary>
+        /// 部门
+        /// </summary>
+        public int DepartId { get; set; }
+        /// <summary>
         /// 学生电话
         /// </summary>
         public string Phone { get; set; }

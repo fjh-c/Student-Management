@@ -11,10 +11,15 @@ namespace Student.Model
     /// 数据模型标准父类
     /// </summary>
     /// <typeparam name="T">类型</typeparam>
-    public class EntityBase<T> : EntityBase where T: struct
+    public class EntityBase<T> where T: struct
     {
         [Key]
-        public new T Id { get; set; }
+        public T Id { get; set; }
+        /// <summary>
+        /// 激活状态
+        /// </summary>
+        [DefaultValue(0)]
+        public virtual int Status { get; set; }
     }
 
     /// <summary>
