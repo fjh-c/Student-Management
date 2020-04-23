@@ -30,9 +30,6 @@ namespace Student.Core.API.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(50)");
 
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
                     b.Property<string>("UserName")
                         .IsRequired()
                         .HasColumnType("varchar(50)");
@@ -46,7 +43,6 @@ namespace Student.Core.API.Migrations
                         {
                             Id = 1,
                             PassWord = "admin",
-                            Status = 0,
                             UserName = "admin"
                         });
                 });

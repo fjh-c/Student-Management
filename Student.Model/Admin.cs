@@ -27,5 +27,8 @@ namespace Student.Model
         [Column(TypeName = "varchar(50)")]
         public string PassWord { get; set; }
 
+        [NotMapped]
+        public override int Status { get => base.Status; set => base.Status = value; }
+
     }
 }

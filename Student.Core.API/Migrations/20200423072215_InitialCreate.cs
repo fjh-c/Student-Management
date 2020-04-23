@@ -13,7 +13,6 @@ namespace Student.Core.API.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Status = table.Column<int>(nullable: false),
                     UserName = table.Column<string>(type: "varchar(50)", nullable: false),
                     PassWord = table.Column<string>(type: "varchar(50)", nullable: false)
                 },
@@ -69,8 +68,8 @@ namespace Student.Core.API.Migrations
 
             migrationBuilder.InsertData(
                 table: "Admin",
-                columns: new[] { "Id", "PassWord", "Status", "UserName" },
-                values: new object[] { 1, "admin", 0, "admin" });
+                columns: new[] { "Id", "PassWord", "UserName" },
+                values: new object[] { 1, "admin", "admin" });
 
             migrationBuilder.InsertData(
                 table: "Depart",

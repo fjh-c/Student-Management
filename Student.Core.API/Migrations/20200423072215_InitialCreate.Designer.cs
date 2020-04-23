@@ -10,7 +10,7 @@ using Student.Model.Code;
 namespace Student.Core.API.Migrations
 {
     [DbContext(typeof(myDbContext))]
-    [Migration("20200423051431_InitialCreate")]
+    [Migration("20200423072215_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -32,9 +32,6 @@ namespace Student.Core.API.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(50)");
 
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
                     b.Property<string>("UserName")
                         .IsRequired()
                         .HasColumnType("varchar(50)");
@@ -48,7 +45,6 @@ namespace Student.Core.API.Migrations
                         {
                             Id = 1,
                             PassWord = "admin",
-                            Status = 0,
                             UserName = "admin"
                         });
                 });
