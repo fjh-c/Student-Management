@@ -10,14 +10,20 @@ namespace StudentManageSystem.ViewModels
     public class StudentInfoViewModel
     {
         [DisplayName("学生编号")]
-        public int Id { get; set; }
+        public long Id { get; set; }
+        [DisplayName("激活状态")]
+        public int Status { get; set; }
         [DisplayName("学生姓名")]
         [Required]
         public string Name { get; set; }
         [DisplayName("学生性别")]
-        public string Sex { get; set; }
+        public int Gender { get; set; }
         [DisplayName("学生民族")]
-        public string NationId { get; set; }
+        public int Nation { get; set; }
+        [DisplayName("入学时间")]
+        public DateTime EnrollmentDT { get; set; }
+        [DisplayName("部门")]
+        public int DepartId { get; set; }
         [DisplayName("学生电话")]
         public string Phone { get; set; }
         [DisplayName("学生邮箱")]
@@ -28,7 +34,12 @@ namespace StudentManageSystem.ViewModels
         public string Address { get; set; }
         [DisplayName("学生照片")]
         public string Photos { get; set; }
-        [DisplayName("激活状态")]
-        public int Status { get; set; }
+        [DisplayName("性别")]
+        public string GenderName { get; set; }
+        [DisplayName("民族")]
+        public string NationName { get; set; }
+        [DisplayName("部门")]
+        public string DepartName { get; set; }
+
     }
 }
