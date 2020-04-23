@@ -10,7 +10,8 @@ namespace Student.DTO.Profiles
     {
         public AutoMapperProfiles()
         {
-            CreateMap<StudentInfo, StudentInfoDTO>();
+            CreateMap<StudentInfo, StudentInfoDTO>()
+                .ForMember(d => d.DepartName, opt => opt.MapFrom(i => i.Depart.DepartName));
             CreateMap<StudentInfoDTO, StudentInfo>();
         }
     }

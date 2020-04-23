@@ -10,7 +10,7 @@ using Student.Model.Code;
 namespace Student.Core.API.Migrations
 {
     [DbContext(typeof(myDbContext))]
-    [Migration("20200423043311_InitialCreate")]
+    [Migration("20200423045701_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -113,9 +113,9 @@ namespace Student.Core.API.Migrations
 
             modelBuilder.Entity("Student.Model.StudentInfo", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Address")
@@ -162,7 +162,7 @@ namespace Student.Core.API.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 1L,
+                            Id = 1,
                             Address = "朝阳区朝阳公园西路9号院九号",
                             DepartId = 4,
                             Email = "xiaoan@stu.com",
@@ -177,7 +177,7 @@ namespace Student.Core.API.Migrations
                         },
                         new
                         {
-                            Id = 2L,
+                            Id = 2,
                             Address = "北京市朝阳区东三环中路甲10号",
                             DepartId = 3,
                             Email = "laoli@stu.com",
