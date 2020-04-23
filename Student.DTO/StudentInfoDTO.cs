@@ -10,7 +10,7 @@ namespace Student.DTO
         /// <summary>
         /// 编号
         /// </summary>
-        public int Id { get; set; }
+        public long Id { get; set; }
         /// <summary>
         /// 激活状态
         /// </summary>

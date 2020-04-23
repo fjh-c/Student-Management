@@ -42,7 +42,7 @@ namespace Student.Core.API.Migrations
                 name: "StudentInfo",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Status = table.Column<int>(nullable: false),
                     Name = table.Column<string>(type: "varchar(50)", nullable: false),
@@ -86,12 +86,12 @@ namespace Student.Core.API.Migrations
             migrationBuilder.InsertData(
                 table: "StudentInfo",
                 columns: new[] { "Id", "Address", "DepartId", "Email", "EnrollmentDT", "Gender", "Name", "Nation", "PersonId", "Phone", "Photos", "Status" },
-                values: new object[] { 2, "北京市朝阳区东三环中路甲10号", 3, "laoli@stu.com", new DateTime(2020, 4, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, "老李", 0, "230210199802127323", "13902451189", "stu_2.jpg", 0 });
+                values: new object[] { 2L, "北京市朝阳区东三环中路甲10号", 3, "laoli@stu.com", new DateTime(2020, 4, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, "老李", 0, "230210199802127323", "13902451189", "stu_2.jpg", 0 });
 
             migrationBuilder.InsertData(
                 table: "StudentInfo",
                 columns: new[] { "Id", "Address", "DepartId", "Email", "EnrollmentDT", "Gender", "Name", "Nation", "PersonId", "Phone", "Photos", "Status" },
-                values: new object[] { 1, "朝阳区朝阳公园西路9号院九号", 4, "xiaoan@stu.com", new DateTime(2020, 4, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "小安", 1, "230210199708162251", "13902451188", "stu_1.jpg", 0 });
+                values: new object[] { 1L, "朝阳区朝阳公园西路9号院九号", 4, "xiaoan@stu.com", new DateTime(2020, 4, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "小安", 1, "230210199708162251", "13902451188", "stu_1.jpg", 0 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_StudentInfo_DepartId",

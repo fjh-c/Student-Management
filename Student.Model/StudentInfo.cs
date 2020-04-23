@@ -9,7 +9,7 @@ namespace Student.Model
     /// 学生信息表
     /// </summary>
     [Table("StudentInfo")]
-    public partial class StudentInfo: EntityBase
+    public partial class StudentInfo: EntityBase<long>
     {
         /// <summary>
         /// 学生姓名
