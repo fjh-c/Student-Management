@@ -6,21 +6,19 @@ using System.Text;
 namespace Student.Model.Enums
 {
     /// <summary>
-    /// 性别
+    /// 部门类别
     /// </summary>
-    public enum EnumGender
+    public enum EnumDeptType
     {
-        [Description("未知")]
-        UnKnown = -1,
         /// <summary>
-        /// 男
+        /// 年组
         /// </summary>
-        [Description("男")]
-        Man,
+        [Description("年组")]
+        grade,
         /// <summary>
-        /// 女
+        /// 班级
         /// </summary>
-        [Description("女")]
-        Woman
+        [Description("班级")]
+        classes
     }
 }

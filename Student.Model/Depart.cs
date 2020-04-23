@@ -1,0 +1,33 @@
+﻿using Student.Model.Enums;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Text;
+
+namespace Student.Model
+{
+    /// <summary>
+    /// 部门表
+    /// </summary>
+    [Table("Depart")]
+    public partial class Depart : EntityBase
+    {
+        /// <summary>
+        /// 部门名称
+        /// </summary>
+        [Required]
+        [Column(TypeName = "varchar(50)")]
+        public string DepartName { get; set; }
+
+        /// <summary>
+        /// 部门类别
+        /// </summary>
+        public EnumDeptType DeptType { get; set; }
+
+        /// <summary>
+        /// 年组编号
+        /// </summary>
+        public int? GradeId { get; set; } = null;
+    }
+}

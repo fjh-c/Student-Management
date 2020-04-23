@@ -1,17 +1,64 @@
 {
   //初始化数据
   "Initialization": {
+    "Admin": [
+      {
+        "Id": 1,
+        "UserName": "admin",
+        "PassWord": "admin"
+      }
+    ],
+    "Depart": [
+      {
+        "Id": 1,
+        "DepartName": "2020级",
+        "DeptType": 0
+      },
+      {
+        "Id": 2,
+        "DepartName": ".net core 基础班",
+        "DeptType": 1,
+        "GradeId": 1
+      },
+      {
+        "Id": 3,
+        "DepartName": ".net core 精英班",
+        "DeptType": 1,
+        "GradeId": 1
+      },
+      {
+        "Id": 4,
+        "DepartName": "java EE 基础班",
+        "DeptType": 1,
+        "GradeId": 1
+      }
+    ],
     "StudentInfo": [
       {
         "Id": 1,
-        "Name": "张三",
+        "Name": "小安",
+        "Gender": 1,
+        "Nation": 1,
+        "EnrollmentDT": "2020-4-23",
+        "Phone": "13902451188",
+        "Email": "xiaoan@stu.com",
+        "PersonId": "230210199708162251",
+        "Address": "朝阳区朝阳公园西路9号院九号",
+        "Photos": "stu_1.jpg",
+        "DepartId": 4
+      },
+      {
+        "Id": 2,
+        "Name": "老李",
         "Gender": 0,
         "Nation": 0,
+        "EnrollmentDT": "2020-4-23",
         "Phone": "13902451189",
-        "Email": "zhangsan@stu.com",
+        "Email": "laoli@stu.com",
         "PersonId": "230210199802127323",
-        "Address": "安三区和道街102号",
-        "Photos": "stu_1.jpg"
+        "Address": "北京市朝阳区东三环中路甲10号",
+        "Photos": "stu_2.jpg",
+        "DepartId": 3
       }
     ]
   }

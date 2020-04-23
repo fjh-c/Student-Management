@@ -9,7 +9,7 @@ namespace Student.Model
     /// 学生信息表
     /// </summary>
     [Table("StudentInfo")]
-    public partial class StudentInfo: EntityBase
+    public partial class StudentInfo: EntityBase<Int64>
     {
         /// <summary>
         /// 学生姓名
@@ -18,19 +18,23 @@ namespace Student.Model
         [Column(TypeName = "varchar(50)")]
         public string Name { get; set; }
         /// <summary>
-        /// 性别
+        /// 学生性别
         /// </summary>
         public EnumGender Gender { get; set; }
         /// <summary>
-        /// 民族
+        /// 学生民族
         /// </summary>
         public EnumNation Nation { get; set; } = EnumNation.hanzu;
         /// <summary>
-        /// 电话
+        /// 入学时间
+        /// </summary>
+        public DateTime EnrollmentDT { get; set; }
+        /// <summary>
+        /// 学生电话
         /// </summary>
         public string Phone { get; set; }
         /// <summary>
-        /// 邮箱
+        /// 学生邮箱
         /// </summary>
         [Column(TypeName = "varchar(50)")]
         public string Email { get; set; }
@@ -40,7 +44,7 @@ namespace Student.Model
         [Required]
         public string PersonId { get; set; }
         /// <summary>
-        /// 家庭地址
+        /// 学生地址
         /// </summary>
         [Column(TypeName = "varchar(200)")]
         public string Address { get; set; }
@@ -48,6 +52,10 @@ namespace Student.Model
         /// 学生照片
         /// </summary>
         public string Photos { get; set; }
-
+        /// <summary>
+        /// 学生部门
+        /// </summary>
+        [ForeignKey("DepartId")]
+        public Depart Depart { get; set; }
     }
 }

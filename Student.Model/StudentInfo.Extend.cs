@@ -10,5 +10,9 @@ namespace Student.Model
         /// 性别
         /// </summary>
         public string GenderName => Gender.ToDescription();
+        /// <summary>
+        /// 民族
+        /// </summary>
+        public string NationName => Nation.ToDescription();
     }
 }

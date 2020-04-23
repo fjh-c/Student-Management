@@ -5,6 +5,9 @@ using System.Text;
 
 namespace Student.Model.Enums
 {
+    /// <summary>
+    /// 民族
+    /// </summary>
     public enum EnumNation
     {
         /// <summary>

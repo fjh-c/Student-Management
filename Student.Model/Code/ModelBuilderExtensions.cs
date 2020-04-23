@@ -13,6 +13,8 @@ namespace Student.Model.Code
         /// <param name="modelBuilder"></param>
         public static void Seed(this ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Admin>().HasData(InitializationData.Initialization.Admin);
+            modelBuilder.Entity<Depart>().HasData(InitializationData.Initialization.Depart);
             modelBuilder.Entity<StudentInfo>().HasData(InitializationData.Initialization.StudentInfo);
         }
     }
