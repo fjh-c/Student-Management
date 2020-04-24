@@ -1,6 +1,7 @@
 ﻿using yrjw.ORM.Chimp;
 using System.Threading.Tasks;
 using yrjw.ORM.Chimp.Result;
+using Student.DTO;
 
 namespace Student.IServices
 {
@@ -10,5 +11,6 @@ namespace Student.IServices
 
         Task<IResultModel> Query(long id);
         Task<IResultModel> QueryList();
+        Task<IResultModel> Insert(StudentInfoInsert model);
     }
 }

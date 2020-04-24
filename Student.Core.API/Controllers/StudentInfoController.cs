@@ -24,21 +24,31 @@ namespace Student.Core.API.Controllers
             _logger = logger;
         }
 
-        [Description("获取学生信息")]
+        [Description("根据ID获取指定学生信息")]
         [ResponseCache(Duration = 0)]
         [HttpGet]
         public Task<IResultModel> Query([Required]long id)
         {
-            _logger.LogDebug("获取学生信息");
+            _logger.LogDebug($"根据ID获取指定学生信息{id}");
             return StudentInfoService.Value.Query(id);
         }
 
-        [Description("获取学生列表")]
+        [Description("获取全部学生列表")]
         [ResponseCache(Duration = 0)]
         [HttpGet]
         public Task<IResultModel> QueryList()
         {
+            _logger.LogDebug($"获取全部学生列表");
             return StudentInfoService.Value.QueryList();
+        }
+
+        [Description("添加学生信息")]
+        [ResponseCache(Duration = 0)]
+        [HttpGet]
+        public Task<IResultModel> Insert(StudentInfoInsert model)
+        {
+            _logger.LogDebug("添加学生信息");
+            return StudentInfoService.Value.Insert(model);
         }
     }
 }

@@ -12,7 +12,7 @@ namespace Student.DTO.Profiles
         {
             CreateMap<StudentInfo, StudentInfoQuery>()
                 .ForMember(d => d.DepartName, opt => opt.MapFrom(i => i.Depart.DepartName));
-            CreateMap<StudentInfoQuery, StudentInfo>();
+            CreateMap<StudentInfoInsert, StudentInfo>();
         }
     }
 }

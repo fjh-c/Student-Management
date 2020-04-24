@@ -38,5 +38,17 @@ namespace Student.Services
             var list = await repStudentInfo.Value.TableNoTracking.ProjectTo<StudentInfoQuery>(_mapper.Value.ConfigurationProvider).ToListAsync();
             return ResultModel.Success(list);
         }
+
+        public async Task<IResultModel> Insert(StudentInfoInsert model)
+        {
+            var entity = _mapper.Value.Map<StudentInfo>(model);
+            await repStudentInfo.Value.InsertAsync(entity);
+
+            if (await UnitOfWork.SaveChangesAsync() > 0)
+            {
+                return ResultModel.Success(entity);
+            }
+            return ResultModel.Failed("error：Insert Save failed");
+        }
     }
 }
