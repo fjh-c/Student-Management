@@ -5,12 +5,16 @@ using System.Collections.Generic;
 
 namespace Student.DTO
 {
-    public class StudentInfoInsert
+    public class StudentInfoDTO
     {
         /// <summary>
         /// 编号
         /// </summary>
         public long Id { get; set; }
+        /// <summary>
+        /// 激活状态
+        /// </summary>
+        public int Status { get; set; }
         /// <summary>
         /// 学生姓名
         /// </summary>
@@ -51,5 +55,17 @@ namespace Student.DTO
         /// 学生照片
         /// </summary>
         public string Photos { get; set; }
+        /// <summary>
+        /// 性别
+        /// </summary>
+        public string GenderName { get; set; }
+        /// <summary>
+        /// 民族
+        /// </summary>
+        public string NationName { get; set; }
+        /// <summary>
+        /// 部门名称
+        /// </summary>
+        public string DepartName { get; set; }
     }
 }

@@ -30,16 +30,16 @@ namespace Student.Services
         public async Task<IResultModel> Query(long id)
         {
             var info = await repStudentInfo.Value.GetByIdAsync(id);
-            return ResultModel.Success(_mapper.Value.Map<StudentInfoQuery>(info));
+            return ResultModel.Success(_mapper.Value.Map<StudentInfoDTO>(info));
         }
 
         public async Task<IResultModel> QueryList()
         {
-            var list = await repStudentInfo.Value.TableNoTracking.ProjectTo<StudentInfoQuery>(_mapper.Value.ConfigurationProvider).ToListAsync();
+            var list = await repStudentInfo.Value.TableNoTracking.ProjectTo<StudentInfoDTO>(_mapper.Value.ConfigurationProvider).ToListAsync();
             return ResultModel.Success(list);
         }
 
-        public async Task<IResultModel> Insert(StudentInfoInsert model)
+        public async Task<IResultModel> Insert(StudentInfoDTO model)
         {
             var entity = _mapper.Value.Map<StudentInfo>(model);
             await repStudentInfo.Value.InsertAsync(entity);
