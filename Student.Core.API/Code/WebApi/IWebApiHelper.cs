@@ -27,6 +27,6 @@ namespace Student.Core.API.Code.WebApi
 
         public int Code { get; set; }
 
-        public List<StudentInfoDTO> Data { get; set; }
+        public List<StudentInfoQuery> Data { get; set; }
     }
 }

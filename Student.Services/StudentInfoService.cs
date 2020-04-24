@@ -28,8 +28,8 @@ namespace Student.Services
 
         public async Task<IResultModel> QueryList()
         {
-            var list = await repStudentInfo.Value.TableNoTracking.ProjectTo<StudentInfoDTO>(_mapper.Value.ConfigurationProvider).ToListAsync();
-            return ResultModel.Success<IList<StudentInfoDTO>>(list);
+            var list = await repStudentInfo.Value.TableNoTracking.ProjectTo<StudentInfoQuery>(_mapper.Value.ConfigurationProvider).ToListAsync();
+            return ResultModel.Success(list);
         }
     }
 }

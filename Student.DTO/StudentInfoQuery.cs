@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Student.DTO
 {
-    public class StudentInfoDTO
+    public class StudentInfoQuery
     {
         /// <summary>
         /// 编号
