@@ -1,10 +1,10 @@
 {
   "Serilog": {
     "MinimumLevel": {
-      "Default": "Error",
+      "Default": "Debug",
       //覆盖掉微软自带的日志
       "Override": {
-        "Microsoft": "Error",
+        "Microsoft": "Information",
         "System": "Error"
       }
     },

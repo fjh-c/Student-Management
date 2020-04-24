@@ -8,6 +8,7 @@ namespace Student.IServices
     {
         IUnitOfWork UnitOfWork { get; }
 
+        Task<IResultModel> Query(long id);
         Task<IResultModel> QueryList();
     }
 }

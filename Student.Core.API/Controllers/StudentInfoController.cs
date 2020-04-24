@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -21,6 +22,15 @@ namespace Student.Core.API.Controllers
         public StudentInfoController(ILogger<StudentInfoController> logger)
         {
             _logger = logger;
+        }
+
+        [Description("获取学生信息")]
+        [ResponseCache(Duration = 0)]
+        [HttpGet]
+        public Task<IResultModel> Query([Required]long id)
+        {
+            _logger.LogDebug("获取学生信息");
+            return StudentInfoService.Value.Query(id);
         }
 
         [Description("获取学生列表")]

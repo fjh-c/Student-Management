@@ -6,6 +6,7 @@ using Student.IServices;
 using Student.Model;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using yrjw.ORM.Chimp;
 using yrjw.ORM.Chimp.Result;
@@ -24,6 +25,12 @@ namespace Student.Services
             this._mapper = mapper;
             this.UnitOfWork = unitOfWork;
             this.repStudentInfo = repStudentInfo;
+        }
+
+        public async Task<IResultModel> Query(long id)
+        {
+            var info = await repStudentInfo.Value.GetByIdAsync(id);
+            return ResultModel.Success(_mapper.Value.Map<StudentInfoQuery>(info));
         }
 
         public async Task<IResultModel> QueryList()

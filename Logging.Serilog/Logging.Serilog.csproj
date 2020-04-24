@@ -12,10 +12,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Config\" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <None Update="Config\logging.Development.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Config\logging.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
