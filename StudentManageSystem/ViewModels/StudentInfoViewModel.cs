@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StudentManageSystem.ViewModels.Enums;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -17,12 +18,12 @@ namespace StudentManageSystem.ViewModels
         [Required]
         public string Name { get; set; }
         [DisplayName("学生性别")]
-        public int Gender { get; set; }
+        public EnumGender Gender { get; set; }
         [DisplayName("学生民族")]
-        public int Nation { get; set; }
+        public EnumNation Nation { get; set; }
         [DisplayName("入学时间")]
         public DateTime EnrollmentDT { get; set; }
-        [DisplayName("部门")]
+        [DisplayName("部门ID")]
         public int DepartId { get; set; }
         [DisplayName("学生电话")]
         public string Phone { get; set; }
@@ -38,7 +39,7 @@ namespace StudentManageSystem.ViewModels
         public string GenderName { get; set; }
         [DisplayName("民族")]
         public string NationName { get; set; }
-        [DisplayName("部门")]
+        [DisplayName("部门名称")]
         public string DepartName { get; set; }
 
     }

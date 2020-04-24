@@ -32,7 +32,7 @@ namespace Student.DTO
         /// </summary>
         public DateTime EnrollmentDT { get; set; }
         /// <summary>
-        /// 部门
+        /// 部门ID
         /// </summary>
         public int DepartId { get; set; }
         /// <summary>
