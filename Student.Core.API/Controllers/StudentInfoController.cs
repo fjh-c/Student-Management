@@ -43,8 +43,7 @@ namespace Student.Core.API.Controllers
         }
 
         [Description("添加学生信息")]
-        [ResponseCache(Duration = 0)]
-        [HttpGet]
+        [HttpPost]
         public Task<IResultModel> Insert(StudentInfoDTO model)
         {
             _logger.LogDebug("添加学生信息");
