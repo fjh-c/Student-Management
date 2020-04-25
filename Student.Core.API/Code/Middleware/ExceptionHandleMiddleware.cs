@@ -4,8 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
+using yrjw.CommonToolsCore.Helper;
 using yrjw.ORM.Chimp.Result;
 
 namespace Student.Core.API.Code.Middleware
@@ -43,10 +42,7 @@ namespace Student.Core.API.Code.Middleware
 
             _logger.LogError(error);
 
-            return context.Response.WriteAsync(JsonConvert.SerializeObject(ResultModel.Failed(error), new JsonSerializerSettings
-            {
-                ContractResolver = new CamelCasePropertyNamesContractResolver()
-            }));
+            return context.Response.WriteAsync(JsonHelper.SerializeJSON(ResultModel.Failed(error)));
         }
     }
 }
