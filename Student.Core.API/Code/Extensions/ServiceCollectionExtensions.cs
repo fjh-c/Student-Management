@@ -86,8 +86,8 @@ namespace Microsoft.Extensions.DependencyInjection
                     Description = "WebApi接口文档说明",
                     Version = "1.0",
                 });
-                //var filePath = Path.Combine(System.AppContext.BaseDirectory, "Student.Core.API/Swagger.Core.xml");
-                //c.IncludeXmlComments(filePath);
+                var filePath = Path.Combine(System.AppContext.BaseDirectory, BasicSetting.Setting.AssemblyName + ".xml");
+                c.IncludeXmlComments(filePath);
 
                 //var securityScheme = new OpenApiSecurityScheme
                 //{
