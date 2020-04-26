@@ -22,11 +22,11 @@ namespace Student.DTO
         /// <summary>
         /// 学生性别
         /// </summary>
-        public EnumGender Gender { get; set; }
+        public int Gender { get; set; }
         /// <summary>
         /// 学生民族
         /// </summary>
-        public EnumNation Nation { get; set; }
+        public int Nation { get; set; }
         /// <summary>
         /// 入学时间
         /// </summary>
