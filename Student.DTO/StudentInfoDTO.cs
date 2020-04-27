@@ -17,7 +17,9 @@ namespace Student.DTO
         [Required]
         public string Name { get; set; }
         [Description("学生性别")]
+        [Range(0, 1)]
         public int Gender { get; set; }
+        [Range(0, 55)]
         [Description("学生民族")]
         public int Nation { get; set; }
         [Description("入学时间")]

@@ -17,14 +17,18 @@ namespace Student.Services
     {
         private readonly Lazy<IMapper> _mapper;
         private readonly Lazy<IRepository<StudentInfo>> repStudentInfo;
+        private readonly Lazy<IRepository<Depart>> repDepart;
 
         public IUnitOfWork UnitOfWork { get; }
 
-        public StudentInfoService(Lazy<IMapper> mapper, IUnitOfWork unitOfWork, Lazy<IRepository<StudentInfo>> repStudentInfo)
+        public StudentInfoService(Lazy<IMapper> mapper, IUnitOfWork unitOfWork, 
+            Lazy<IRepository<StudentInfo>> repStudentInfo, 
+            Lazy<IRepository<Depart>> repDepart)
         {
             this._mapper = mapper;
             this.UnitOfWork = unitOfWork;
             this.repStudentInfo = repStudentInfo;
+            this.repDepart = repDepart;
         }
 
         public async Task<IResultModel> Query(long id)
@@ -42,6 +46,12 @@ namespace Student.Services
         public async Task<IResultModel> Insert(StudentInfoDTO model)
         {
             var entity = _mapper.Value.Map<StudentInfo>(model);
+            //外键判断
+            var dept = repDepart.Value.GetById(entity.DepartId);
+            if (dept == null || dept.DeptType != Model.Enums.EnumDeptType.classes)
+            {
+                return ResultModel.Failed("error：Departid does not exist or the EnumDeptType is not classes");
+            }
             await repStudentInfo.Value.InsertAsync(entity);
 
             if (await UnitOfWork.SaveChangesAsync() > 0)
