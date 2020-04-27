@@ -84,5 +84,31 @@ namespace Student.Services
             }
             return ResultModel.Failed("error：Insert Save failed");
         }
+
+        public async Task<IResultModel> Delete(long id)
+        {
+            //主键判断
+            var entity = await repStudentInfo.Value.GetByIdAsync(id);
+            if (entity == null)
+            {
+                return ResultModel.Failed("error：entity Id does not exist");
+            }
+            //软删除
+            if(entity.Status == 0)
+            {
+                entity.Status = 1;
+                repStudentInfo.Value.Update(entity);
+            }
+            else
+            {
+                //数据库中删除
+                repStudentInfo.Value.Delete(entity);
+            }
+            if (await UnitOfWork.SaveChangesAsync() > 0)
+            {
+                return ResultModel.Success("Delete succeeded");
+            }
+            return ResultModel.Failed("error：Delete failed");
+        }
     }
 }

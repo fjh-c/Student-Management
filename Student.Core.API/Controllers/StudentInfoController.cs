@@ -57,5 +57,13 @@ namespace Student.Core.API.Controllers
             _logger.LogDebug("修改学生信息");
             return StudentInfoService.Value.Update(model);
         }
+
+        [Description("删除学生信息")]
+        [HttpDelete]
+        public Task<IResultModel> Delete([Required]long id)
+        {
+            _logger.LogDebug("删除学生信息");
+            return StudentInfoService.Value.Delete(id);
+        }
     }
 }

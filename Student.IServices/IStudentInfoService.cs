@@ -13,5 +13,6 @@ namespace Student.IServices
         Task<IResultModel> QueryList();
         Task<IResultModel> Insert(StudentInfoDTO model);
         Task<IResultModel> Update(StudentInfoDTO model);
+        Task<IResultModel> Delete(long id);
     }
 }

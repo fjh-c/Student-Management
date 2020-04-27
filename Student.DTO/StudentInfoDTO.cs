@@ -11,8 +11,8 @@ namespace Student.DTO
     {
         [Description("学生编号")]
         public long Id { get; set; }
-        [Description("激活状态")]
-        public int Status { get; set; }
+        //[Description("激活状态")]
+        //public int Status { get; set; }
         [Description("学生姓名")]
         [Required]
         public string Name { get; set; }
