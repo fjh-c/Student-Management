@@ -51,7 +51,7 @@ namespace Student.Core.API.Controllers
         }
 
         [Description("修改学生信息")]
-        [HttpPost]
+        [HttpPut]
         public Task<IResultModel> Update(StudentInfoDTO model)
         {
             _logger.LogDebug("修改学生信息");
