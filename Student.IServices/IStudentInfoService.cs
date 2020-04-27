@@ -12,5 +12,6 @@ namespace Student.IServices
         Task<IResultModel> Query(long id);
         Task<IResultModel> QueryList();
         Task<IResultModel> Insert(StudentInfoDTO model);
+        Task<IResultModel> Update(StudentInfoDTO model);
     }
 }

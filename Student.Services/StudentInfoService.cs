@@ -60,5 +60,29 @@ namespace Student.Services
             }
             return ResultModel.Failed("error：Insert Save failed");
         }
+
+        public async Task<IResultModel> Update(StudentInfoDTO model)
+        {
+            //主键判断
+            var entity = await repStudentInfo.Value.GetByIdAsync(model.Id);
+            if(entity == null)
+            {
+                return ResultModel.Failed("error：entity Id does not exist");
+            }
+            //外键判断
+            var dept = repDepart.Value.GetById(model.DepartId);
+            if (dept == null || dept.DeptType != Model.Enums.EnumDeptType.classes)
+            {
+                return ResultModel.Failed("error：Departid does not exist or the EnumDeptType is not classes");
+            }
+            _mapper.Value.Map(model, entity);
+            repStudentInfo.Value.Update(entity);
+
+            if (await UnitOfWork.SaveChangesAsync() > 0)
+            {
+                return ResultModel.Success(entity);
+            }
+            return ResultModel.Failed("error：Insert Save failed");
+        }
     }
 }

@@ -49,5 +49,13 @@ namespace Student.Core.API.Controllers
             _logger.LogDebug("添加学生信息");
             return StudentInfoService.Value.Insert(model);
         }
+
+        [Description("修改学生信息")]
+        [HttpPost]
+        public Task<IResultModel> Update(StudentInfoDTO model)
+        {
+            _logger.LogDebug("修改学生信息");
+            return StudentInfoService.Value.Update(model);
+        }
     }
 }
