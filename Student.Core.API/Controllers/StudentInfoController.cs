@@ -42,6 +42,15 @@ namespace Student.Core.API.Controllers
             return StudentInfoService.Value.QueryList();
         }
 
+        [Description("获取学生分页列表")]
+        [ResponseCache(Duration = 0)]
+        [HttpGet]
+        public Task<IResultModel> QueryPagedList([Required]int pageIndex, int pageSize = 10)
+        {
+            _logger.LogDebug($"获取学生分页列表");
+            return StudentInfoService.Value.QueryPagedList(pageIndex, pageSize);
+        }
+
         [Description("添加学生信息")]
         [HttpPost]
         public Task<IResultModel> Insert(StudentInfoDTO model)
@@ -64,6 +73,22 @@ namespace Student.Core.API.Controllers
         {
             _logger.LogDebug("删除学生信息");
             return StudentInfoService.Value.Delete(id);
+        }
+
+        [Description("批量删除学生信息")]
+        [HttpDelete]
+        public async Task<IResultModel> DeleteAll([Required]IList<long> ids)
+        {
+            _logger.LogDebug("批量删除学生信息");
+            foreach (var id in ids)
+            {
+                await StudentInfoService.Value.Delete(id, false);
+            }
+            if (StudentInfoService.Value.UnitOfWork.SaveChanges() > 0)
+            {
+                return ResultModel.Success();
+            }
+            return ResultModel.Failed();
         }
     }
 }

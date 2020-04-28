@@ -46,6 +46,12 @@ namespace Student.Services
             return ResultModel.Success(list);
         }
 
+        public async Task<IResultModel> QueryPagedList(int pageIndex, int pageSize)
+        {
+            var list = await repStudentInfo.Value.TableNoTracking.ProjectTo<StudentInfoDTO>(_mapper.Value.ConfigurationProvider).ToPagedListAsync(pageIndex, pageSize);
+            return ResultModel.Success(list);
+        }
+
         public async Task<IResultModel> Insert(StudentInfoDTO model)
         {
             var entity = _mapper.Value.Map<StudentInfo>(model);
@@ -93,7 +99,7 @@ namespace Student.Services
             return ResultModel.Failed("修改失败");
         }
 
-        public async Task<IResultModel> Delete(long id)
+        public async Task<IResultModel> Delete(long id, bool isSave = true)
         {
             //主键判断
             var entity = await repStudentInfo.Value.GetByIdAsync(id);
@@ -112,6 +118,10 @@ namespace Student.Services
             {
                 //数据库中删除
                 repStudentInfo.Value.Delete(entity);
+            }
+            if (!isSave)
+            {
+                return ResultModel.Success();
             }
             if (await UnitOfWork.SaveChangesAsync() > 0)
             {
