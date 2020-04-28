@@ -42,13 +42,13 @@ namespace Student.Services
 
         public async Task<IResultModel> QueryList()
         {
-            var list = await repStudentInfo.Value.TableNoTracking.ProjectTo<StudentInfoDTO>(_mapper.Value.ConfigurationProvider).ToListAsync();
+            var list = await repStudentInfo.Value.TableNoTracking.Where(p => p.Deleted == 0).ProjectTo<StudentInfoDTO>(_mapper.Value.ConfigurationProvider).ToListAsync();
             return ResultModel.Success(list);
         }
 
         public async Task<IResultModel> QueryPagedList(int pageIndex, int pageSize)
         {
-            var list = await repStudentInfo.Value.TableNoTracking.ProjectTo<StudentInfoDTO>(_mapper.Value.ConfigurationProvider).ToPagedListAsync(pageIndex, pageSize);
+            var list = await repStudentInfo.Value.TableNoTracking.Where(p => p.Deleted == 0).ProjectTo<StudentInfoDTO>(_mapper.Value.ConfigurationProvider).ToPagedListAsync(pageIndex, pageSize);
             return ResultModel.Success(list);
         }
 
