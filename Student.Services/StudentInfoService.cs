@@ -33,8 +33,8 @@ namespace Student.Services
 
         public async Task<IResultModel> Query(long id)
         {
-            var info = await repStudentInfo.Value.GetByIdAsync(id);
-            return ResultModel.Success(_mapper.Value.Map<StudentInfoDTO>(info));
+            var info = await repStudentInfo.Value.TableNoTracking.ProjectTo<StudentInfoDTO>(_mapper.Value.ConfigurationProvider).FirstAsync(p => p.Id == id);
+            return ResultModel.Success(info);
         }
 
         public async Task<IResultModel> QueryList()
