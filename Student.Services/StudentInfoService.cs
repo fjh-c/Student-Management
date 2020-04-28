@@ -94,9 +94,9 @@ namespace Student.Services
                 return ResultModel.Failed("error：entity Id does not exist");
             }
             //软删除
-            if(entity.Status == 0)
+            if(entity.Deleted == 0)
             {
-                entity.Status = 1;
+                entity.Deleted = 1;
                 repStudentInfo.Value.Update(entity);
             }
             else

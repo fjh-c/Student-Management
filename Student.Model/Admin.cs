@@ -11,7 +11,7 @@ namespace Student.Model
     /// 管理员表
     /// </summary>
     [Table("Admin")]
-    public partial class Admin : EntityBase
+    public partial class Admin : EntityBaseNoDeleted
     {
         /// <summary>
         /// 管理员账号
@@ -28,7 +28,9 @@ namespace Student.Model
         public string PassWord { get; set; }
 
         [NotMapped]
-        public override int Status { get => base.Status; set => base.Status = value; }
+        public override DateTime CreatedTime { get => base.CreatedTime; set => base.CreatedTime = value; }
+        [NotMapped]
+        public override string OperatorName { get => base.OperatorName; set => base.OperatorName = value; }
 
     }
 }

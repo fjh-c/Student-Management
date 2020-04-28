@@ -10,7 +10,7 @@ using Student.Model.Code;
 namespace Student.Core.API.Migrations
 {
     [DbContext(typeof(myDbContext))]
-    [Migration("20200423072215_InitialCreate")]
+    [Migration("20200428023727_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -28,6 +28,9 @@ namespace Student.Core.API.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<DateTime>("ModifiedTime")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("PassWord")
                         .IsRequired()
                         .HasColumnType("varchar(50)");
@@ -44,6 +47,7 @@ namespace Student.Core.API.Migrations
                         new
                         {
                             Id = 1,
+                            ModifiedTime = new DateTime(2020, 4, 28, 10, 37, 26, 481, DateTimeKind.Local).AddTicks(4400),
                             PassWord = "admin",
                             UserName = "admin"
                         });
@@ -56,6 +60,9 @@ namespace Student.Core.API.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("DepartName")
                         .IsRequired()
                         .HasColumnType("varchar(50)");
@@ -66,8 +73,11 @@ namespace Student.Core.API.Migrations
                     b.Property<int?>("GradeId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("ModifiedTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("OperatorName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -77,33 +87,37 @@ namespace Student.Core.API.Migrations
                         new
                         {
                             Id = 1,
+                            CreatedTime = new DateTime(2020, 4, 28, 10, 37, 26, 483, DateTimeKind.Local).AddTicks(737),
                             DepartName = "2020级",
                             DeptType = 0,
-                            Status = 0
+                            ModifiedTime = new DateTime(2020, 4, 28, 10, 37, 26, 483, DateTimeKind.Local).AddTicks(743)
                         },
                         new
                         {
                             Id = 2,
+                            CreatedTime = new DateTime(2020, 4, 28, 10, 37, 26, 483, DateTimeKind.Local).AddTicks(5890),
                             DepartName = ".net core 基础班",
                             DeptType = 1,
                             GradeId = 1,
-                            Status = 0
+                            ModifiedTime = new DateTime(2020, 4, 28, 10, 37, 26, 483, DateTimeKind.Local).AddTicks(5896)
                         },
                         new
                         {
                             Id = 3,
+                            CreatedTime = new DateTime(2020, 4, 28, 10, 37, 26, 483, DateTimeKind.Local).AddTicks(8803),
                             DepartName = ".net core 精英班",
                             DeptType = 1,
                             GradeId = 1,
-                            Status = 0
+                            ModifiedTime = new DateTime(2020, 4, 28, 10, 37, 26, 483, DateTimeKind.Local).AddTicks(8808)
                         },
                         new
                         {
                             Id = 4,
+                            CreatedTime = new DateTime(2020, 4, 28, 10, 37, 26, 484, DateTimeKind.Local).AddTicks(520),
                             DepartName = "java EE 基础班",
                             DeptType = 1,
                             GradeId = 1,
-                            Status = 0
+                            ModifiedTime = new DateTime(2020, 4, 28, 10, 37, 26, 484, DateTimeKind.Local).AddTicks(524)
                         });
                 });
 
@@ -117,6 +131,12 @@ namespace Student.Core.API.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("varchar(200)");
 
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Deleted")
+                        .HasColumnType("int");
+
                     b.Property<int>("DepartId")
                         .HasColumnType("int");
 
@@ -129,12 +149,18 @@ namespace Student.Core.API.Migrations
                     b.Property<int>("Gender")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("ModifiedTime")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("varchar(50)");
 
                     b.Property<int>("Nation")
                         .HasColumnType("int");
+
+                    b.Property<string>("OperatorName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PersonId")
                         .IsRequired()
@@ -160,10 +186,13 @@ namespace Student.Core.API.Migrations
                         {
                             Id = 1L,
                             Address = "朝阳区朝阳公园西路9号院九号",
+                            CreatedTime = new DateTime(2020, 4, 28, 10, 37, 26, 484, DateTimeKind.Local).AddTicks(7321),
+                            Deleted = 0,
                             DepartId = 4,
                             Email = "xiaoan@stu.com",
                             EnrollmentDT = new DateTime(2020, 4, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Gender = 1,
+                            ModifiedTime = new DateTime(2020, 4, 28, 10, 37, 26, 484, DateTimeKind.Local).AddTicks(7327),
                             Name = "小安",
                             Nation = 1,
                             PersonId = "230210199708162251",
@@ -175,10 +204,13 @@ namespace Student.Core.API.Migrations
                         {
                             Id = 2L,
                             Address = "北京市朝阳区东三环中路甲10号",
+                            CreatedTime = new DateTime(2020, 4, 28, 10, 37, 26, 488, DateTimeKind.Local).AddTicks(1050),
+                            Deleted = 0,
                             DepartId = 3,
                             Email = "laoli@stu.com",
                             EnrollmentDT = new DateTime(2020, 4, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Gender = 0,
+                            ModifiedTime = new DateTime(2020, 4, 28, 10, 37, 26, 488, DateTimeKind.Local).AddTicks(1059),
                             Name = "老李",
                             Nation = 0,
                             PersonId = "230210199802127323",

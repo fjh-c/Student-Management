@@ -11,8 +11,6 @@ namespace Student.DTO
     {
         [Description("学生编号")]
         public long Id { get; set; }
-        //[Description("激活状态")]
-        //public int Status { get; set; }
         [Description("学生姓名")]
         [Required]
         public string Name { get; set; }
@@ -40,11 +38,22 @@ namespace Student.DTO
         public string Address { get; set; }
         [Description("学生照片")]
         public string Photos { get; set; }
-        [Description("学生性别")]
+        [Description("激活状态")]
+        public int Status { get; set; }
+        [Description("创建时间")]
+        public DateTime CreatedTime { get; set; }
+        [Description("修改时间")]
+        public DateTime ModifiedTime { get; set; }
+        [Description("操作人名称")]
+        public string OperatorName { get; set; }
+
+        [Description("性别展示")]
         public string GenderName { get; set; }
-        [Description("民族显示")]
+        [Description("民族展示")]
         public string NationName { get; set; }
-        [Description("部门显示")]
+        [Description("激活状态展示")]
+        public string StatusName { get; set; }
+        [Description("部门展示")]
         public string DepartName { get; set; }
     }
 }

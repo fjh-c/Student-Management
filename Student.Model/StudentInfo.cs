@@ -57,6 +57,10 @@ namespace Student.Model
         /// </summary>
         public string Photos { get; set; }
         /// <summary>
+        /// 激活状态
+        /// </summary>
+        public EnumStatus Status { get; set; }
+        /// <summary>
         /// 学生部门
         /// </summary>
         [ForeignKey("DepartId")]

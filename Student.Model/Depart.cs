@@ -11,7 +11,7 @@ namespace Student.Model
     /// 部门表
     /// </summary>
     [Table("Depart")]
-    public partial class Depart : EntityBase
+    public partial class Depart : EntityBaseNoDeleted
     {
         /// <summary>
         /// 部门名称

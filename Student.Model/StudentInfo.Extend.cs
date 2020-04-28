@@ -14,5 +14,9 @@ namespace Student.Model
         /// 民族展示
         /// </summary>
         public string NationName => Nation.ToDescription();
+        /// <summary>
+        /// 激活状态展示
+        /// </summary>
+        public string StatusName => Status.ToDescription();
     }
 }
