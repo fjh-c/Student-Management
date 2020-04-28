@@ -64,6 +64,6 @@ namespace Student.Model
         /// 学生部门
         /// </summary>
         [ForeignKey("DepartId")]
-        public Depart Depart { get; set; }
+        public virtual Depart Depart { get; set; }
     }
 }

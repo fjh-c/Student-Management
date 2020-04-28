@@ -180,12 +180,12 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             if (setting.DbType == yrjw.ORM.Chimp.DbType.MYSQL)
             {
-                services.AddChimp<myDbContext>(opt => opt.UseMySql(setting.ConnectionString,
+                services.AddChimp<myDbContext>(opt => opt.UseLazyLoadingProxies().UseMySql(setting.ConnectionString,
                     b => b.MigrationsAssembly(setting.AssemblyName)));
             }
             else
             {
-                services.AddChimp<myDbContext>(opt => opt.UseSqlServer(setting.ConnectionString,
+                services.AddChimp<myDbContext>(opt => opt.UseLazyLoadingProxies().UseSqlServer(setting.ConnectionString,
                     b => b.MigrationsAssembly(setting.AssemblyName)));
             }
             return services;
