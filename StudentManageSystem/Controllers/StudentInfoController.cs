@@ -31,7 +31,6 @@ namespace StudentManageSystem.Controllers
         [HttpGet]
         public async Task<IActionResult> GetQueryPagedList(int page, int limit, string search)
         {
-            var a = await _webApi.GetStudentInfoListAsync();
             var result = await _webApi.GetStudentInfoPagedListAsync(page, limit, search);
             if (result.Success)
             {

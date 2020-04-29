@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="yrjw.ORM.Chimp" Version="1.0.3" />
+    <PackageReference Include="yrjw.ORM.Chimp" Version="1.0.4" />
   </ItemGroup>
 
 </Project>

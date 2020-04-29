@@ -17,10 +17,10 @@
         <div class="layui-form">
             <div class="layui-form-item">
                 <div class="layui-inline">
-                    <input class="layui-input layui-input-sm" type="text" name="username" placeholder="快速查找" autocomplete="off">
+                    <input class="layui-input layui-input-sm" type="text" name="search" placeholder="快速查找" autocomplete="off">
                 </div>
                 <div class="layui-inline layui-show-xs-block">
-                    <button class="layui-btn layui-btn-sm layui-btn-normal" lay-submit lay-filter="sreach">
+                    <button class="layui-btn layui-btn-sm layui-btn-normal" lay-submit lay-filter="querysubmit">
                         <i class="layui-icon layui-icon-sm">&#xe615;</i>
                     </button>
                 </div>
@@ -37,8 +37,8 @@
 @section Scripts{
     <script type="text/javascript">
         //监听表单提交事件
-        hg.form.onsubmit('sreach', function (data) {
-            if (data.name.length > 0) {
+        hg.form.onsubmit('querysubmit', function (data) {
+            if (data.search.length > 0) {
                 table && table.reload(data);
             }
         });
@@ -47,55 +47,52 @@
             {
                 field: 'id',
                 width: 80,
-                title: '学生编号',
+                title: '编号',
                 sort: true
             }, {
-                field: 'Name',
+                field: 'name',
                 width: 100,
                 title: '学生姓名',
                 sort: true
             }, {
-                field: 'GenderName',
+                field: 'genderName',
                 title: '学生性别',
                 minWidth: 80,
                 sort: true
             }, {
-                field: 'NationName',
+                field: 'nationName',
                 title: '学生民族',
                 minWidth: 80,
                 sort: true
             }, {
-                field: 'EnrollmentDT',
+                field: 'enrollmentDT',
                 title: '入学时间',
                 minWidth: 80,
                 sort: true
             }, {
-                field: 'DepartName',
+                field: 'departName',
                 title: '学生部门',
                 minWidth: 80,
                 sort: true
             }, {
-                field: 'Phone',
+                field: 'phone',
                 title: '学生电话',
-                minWidth: 80,
-                sort: true
+                minWidth: 80
             }, {
-                field: 'Email',
+                field: 'email',
                 title: '学生邮箱',
-                minWidth: 80,
-                sort: true
+                minWidth: 80
             }, {
-                field: 'Address',
+                field: 'address',
                 title: '学生地址',
                 minWidth: 80,
                 sort: true
             }, {
-                field: 'Photos',
+                field: 'photos',
                 title: '学生照片',
-                minWidth: 80,
-                sort: true
+                minWidth: 80
             }, {
-                field: 'Status',
+                field: 'status',
                 title: '激活状态',
                 minWidth: 80,
                 sort: true
