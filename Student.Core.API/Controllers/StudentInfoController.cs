@@ -15,14 +15,12 @@ namespace Student.Core.API.Controllers
     [Description("学生信息")]
     public class StudentInfoController : ControllerAbstract
     {
-        private readonly ILogger<StudentInfoController> _logger;
+        public StudentInfoController(ILogger<ControllerAbstract> logger) : base(logger)
+        {
+        }
 
         public Lazy<IStudentInfoService> StudentInfoService { get; set; }
 
-        public StudentInfoController(ILogger<StudentInfoController> logger)
-        {
-            _logger = logger;
-        }
 
         [Description("根据ID获取指定学生信息")]
         [ResponseCache(Duration = 0)]

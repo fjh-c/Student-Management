@@ -15,12 +15,10 @@ namespace Student.Core.API.Controllers
     [Description("测试")]
     public class TestController : ControllerAbstract
     {
-        private readonly ILogger<TestController> _logger;
-
         private readonly IWebApiHelper _webApi;
-        public TestController(ILogger<TestController> logger, IWebApiHelper webApi)
+
+        public TestController(ILogger<ControllerAbstract> logger, IWebApiHelper webApi) : base(logger)
         {
-            _logger = logger;
             _webApi = webApi;
         }
 

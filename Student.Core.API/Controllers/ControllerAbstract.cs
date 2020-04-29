@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Student.Core.API.Code.Attributes;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,11 @@ namespace Student.Core.API.Controllers
     [ApiController]
     public abstract class ControllerAbstract : ControllerBase
     {
+        protected readonly ILogger<ControllerAbstract> _logger;
+        public ControllerAbstract(ILogger<ControllerAbstract> logger)
+        {
+            _logger = logger;
+        }
         /// <summary>
         /// 导出Excel
         /// </summary>
