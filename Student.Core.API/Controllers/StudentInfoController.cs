@@ -75,7 +75,7 @@ namespace Student.Core.API.Controllers
 
         [Description("批量删除学生信息")]
         [HttpDelete]
-        public async Task<IResultModel> DeleteAll([Required]IList<long> ids)
+        public async Task<IResultModel> DeleteAll([FromBody]IList<long> ids)
         {
             _logger.LogDebug("批量删除学生信息");
             foreach (var id in ids)
