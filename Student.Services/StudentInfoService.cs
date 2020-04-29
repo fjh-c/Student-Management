@@ -46,9 +46,33 @@ namespace Student.Services
             return ResultModel.Success(list);
         }
 
-        public async Task<IResultModel> QueryPagedList(int pageIndex, int pageSize)
+        public async Task<IResultModel> QueryPagedList(int pageIndex, int pageSize, string search)
         {
-            var list = await repStudentInfo.Value.TableNoTracking.Where(p => p.Deleted == 0).ProjectTo<StudentInfoDTO>(_mapper.Value.ConfigurationProvider).ToPagedListAsync(pageIndex, pageSize);
+            var data = repStudentInfo.Value.TableNoTracking.Where(p => p.Deleted == 0);
+            if (!search.IsNull())
+            {
+                if (search.IsMobileNumber())
+                {
+                    data = data.Where(p => p.Phone == search);
+                }
+                else if (search.IsIdentityCard())
+                {
+                    data = data.Where(p => p.PersonId == search);
+                }
+                else if (search.IsEmail())
+                {
+                    data = data.Where(p => p.Email == search);
+                }
+                else if (search.IsNumeric())
+                {
+                    data = data.Where(p => p.Id == search.ToLong());
+                }
+                else
+                {
+                    data = data.Where(p => p.Name.Contains(search));
+                }
+            }
+            var list = await data.ProjectTo<StudentInfoDTO>(_mapper.Value.ConfigurationProvider).ToPagedListAsync(pageIndex, pageSize);
             return ResultModel.Success(list);
         }
 

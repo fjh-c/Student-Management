@@ -43,10 +43,10 @@ namespace Student.Core.API.Controllers
         [Description("获取学生分页列表")]
         [ResponseCache(Duration = 0)]
         [HttpGet]
-        public Task<IResultModel> QueryPagedList([Required]int pageIndex, int pageSize = 10)
+        public Task<IResultModel> QueryPagedList([Required]int pageIndex, int pageSize, string search)
         {
             _logger.LogDebug($"获取学生分页列表");
-            return StudentInfoService.Value.QueryPagedList(pageIndex, pageSize);
+            return StudentInfoService.Value.QueryPagedList(pageIndex, pageSize, search);
         }
 
         [Description("添加学生信息")]

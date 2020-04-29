@@ -21,9 +21,13 @@ namespace StudentManageSystem.Controllers
             _webApi = webApi;
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            var text = await _webApi.GetStudentInfoListAsync();
+            return View();
+        }
+
+        public IActionResult MainPC()
+        {
             return View();
         }
 
