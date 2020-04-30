@@ -1,12 +1,12 @@
 ﻿
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "学生信息管理";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
 <div class="layui-card">
     <div class="layui-card-header">
-        <i class="fa fa-file-text fa-fw"></i> @ViewBag.Title
+        <i class="fa fa-file-text-o fa-fw"></i> @ViewBag.Title
         <span class="layui-layout-right">
             <a href="javascript:;" hg-event="fullscreen">
                 <i class="layui-icon layui-icon-screen-full"></i>
@@ -92,7 +92,7 @@
                 title: '学生照片',
                 minWidth: 80
             }, {
-                field: 'status',
+                field: 'statusName',
                 title: '激活状态',
                 minWidth: 80,
                 sort: true
@@ -178,6 +178,6 @@
         }
         ];
         //基本数据表格
-        var table = hg.table.datatable('test', '学生信息管理', '/StudentInfo/GetQueryPagedList', {}, tableCols, toolbar, true, 'full-210', ['filter', 'print', 'exports']);
+        var table = hg.table.datatable('test', '学生信息管理', '/StudentInfo/GetQueryPagedList', {}, tableCols, toolbar, true, 'full-140', ['filter', 'print', 'exports']);
     </script>
 }

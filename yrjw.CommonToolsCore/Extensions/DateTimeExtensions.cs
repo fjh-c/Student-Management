@@ -19,6 +19,26 @@ namespace System
         }
 
         /// <summary>
+        /// 转换为日期字符串
+        /// </summary>
+        /// <param name="dateTime"></param>
+        /// <returns></returns>
+        public static string ToDate(this DateTime dateTime)
+        {
+            return dateTime.ToString("yyyy-MM-dd");
+        }
+
+        /// <summary>
+        /// 转换为日期时间字符串
+        /// </summary>
+        /// <param name="dateTime"></param>
+        /// <returns></returns>
+        public static string ToDateTime(this DateTime dateTime)
+        {
+            return dateTime.ToString("yyyy-MM-dd HH:mm:ss");
+        }
+
+        /// <summary>
         /// 转换为时间戳
         /// </summary>
         /// <param name="dateTime"></param>

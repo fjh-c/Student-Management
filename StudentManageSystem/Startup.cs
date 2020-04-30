@@ -24,7 +24,8 @@ namespace StudentManageSystem
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            //RazorRuntimeCompilation 运行时编译 
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
             //添加HttpClient相关
             services.AddSingleton<IHttpApiFactory<IWebApiHelper>, HttpApiFactory<IWebApiHelper>>(p =>
             {

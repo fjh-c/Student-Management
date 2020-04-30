@@ -180,6 +180,7 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             if (setting.DbType == yrjw.ORM.Chimp.DbType.MYSQL)
             {
+                //UseLazyLoadingProxies 通过延迟加载获取导航属性数据
                 services.AddChimp<myDbContext>(opt => opt.UseLazyLoadingProxies().UseMySql(setting.ConnectionString,
                     b => b.MigrationsAssembly(setting.AssemblyName)));
             }

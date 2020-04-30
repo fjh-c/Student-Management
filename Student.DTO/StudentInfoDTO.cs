@@ -22,7 +22,7 @@ namespace Student.DTO
         public int Nation { get; set; }
         [Description("入学时间")]
         [DataType(DataType.Date)]
-        public DateTime EnrollmentDT { get; set; }
+        public string EnrollmentDT { get; set; }
         [Description("学生部门")]
         public int DepartId { get; set; }
         [Description("学生电话")]
@@ -41,9 +41,9 @@ namespace Student.DTO
         [Description("激活状态")]
         public int Status { get; set; }
         [Description("创建时间")]
-        public DateTime CreatedTime { get; set; }
+        public string CreatedTime { get; set; }
         [Description("修改时间")]
-        public DateTime ModifiedTime { get; set; }
+        public string ModifiedTime { get; set; }
         [Description("操作人名称")]
         public string OperatorName { get; set; }
 
