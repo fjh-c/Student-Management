@@ -14,6 +14,9 @@ namespace Student.DTO.Profiles
                 .ForMember(d => d.DepartName, opt => opt.MapFrom(i => i.Depart.DepartName))
                 .ForMember(d => d.EnrollmentDT, opt => opt.MapFrom(i => i.EnrollmentDT.ToDate()));
             CreateMap<StudentInfoDTO, StudentInfo>();
+
+            CreateMap<Depart, DepartDTO>();
+            CreateMap<DepartDTO, Depart>();
         }
     }
 }

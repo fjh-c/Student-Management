@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using StudentManageSystem.Code.WebApi;
 using StudentManageSystem.ViewModels;
@@ -13,7 +14,7 @@ namespace StudentManageSystem.Controllers
     public class StudentInfoController : Controller
     {
         private readonly ILogger<StudentInfoController> _logger;
-        private readonly IWebApiHelper _webApi;
+        public readonly IWebApiHelper _webApi;
 
         public StudentInfoController(ILogger<StudentInfoController> logger, IWebApiHelper webApi)
         {
@@ -28,8 +29,11 @@ namespace StudentManageSystem.Controllers
         }
 
         [HttpGet]
-        public IActionResult Add()
+        public async Task<IActionResult> AddAsync()
         {
+            var result = await _webApi.GetDepartListAsync();
+            var list = result.Data.Select(p => new SelectListItem(p.DepartName, p.Id.ToString(), false, p.GradeId == null));
+            ViewBag.DepartClassesList = list;
             return View();
         }
 
