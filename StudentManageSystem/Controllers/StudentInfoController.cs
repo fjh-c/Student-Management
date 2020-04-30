@@ -21,8 +21,14 @@ namespace StudentManageSystem.Controllers
             _webApi = webApi;
         }
 
-        
+        [HttpGet]
         public IActionResult Index()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult Add()
         {
             return View();
         }
