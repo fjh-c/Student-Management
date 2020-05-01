@@ -16,14 +16,10 @@
     <link rel="stylesheet" href="~/lib/layui/css/layui.css" media="all">
     <link rel="stylesheet" href="~/lib/admin/admin.css" media="all">
     <link rel="stylesheet" href="~/lib/Scrollbar/jquery.scrollbar.css">
-    <script type="text/javascript" src="~/lib/admin/jquery-1.9.1.min.js"></script>
-    <script type="text/javascript" src="~/lib/Scrollbar/jquery.scrollBar.js"></script>
+    <link rel='stylesheet' href='~/lib/nprogress/nprogress.css' />
     <script type="text/javascript" src="~/lib/layui/layui.js"></script>
     <script type="text/javascript" src="~/lib/admin/admin.js"></script>
 
-    <!-- 请求进度条插件 -->
-    <script src='~/lib/nprogress/nprogress.js'></script>
-    <link rel='stylesheet' href='~/lib/nprogress/nprogress.css' />
     <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
     <!--[if lt IE 9]>
           <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
@@ -213,18 +209,21 @@
             console.log('触发了layui.element');
 
         });
-        function cleancache(){
-            var a = hg.load(function(){
+        function cleancache() {
+            var a = hg.load(function () {
                 var that = this;
-                setTimeout(function(){
+                setTimeout(function () {
                     //that.close(); //关闭加载层
                     a.close();
                     hg.msghide('清除服务器缓存成功.');
-                },2000);
+                }, 2000);
             })
         }
     </script>
-
+    <script type="text/javascript" src="~/lib/admin/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="~/lib/Scrollbar/jquery.scrollBar.js"></script>
+    <!-- 请求进度条插件 -->
+    <script src='~/lib/nprogress/nprogress.js'></script>
 </body>
 
 </html>

@@ -4,7 +4,6 @@
     ViewData["Title"] = "Add";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
-<link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
 
 <div class="layui-row">
     <div class="layui-card">
@@ -78,6 +77,9 @@
     </div>
 </div>
 
+@section Style {
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+}
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
