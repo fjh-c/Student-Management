@@ -31,6 +31,13 @@ namespace StudentManageSystem.Controllers
             return View();
         }
 
+        public IActionResult Message(string Status, string Redirect)
+        {
+            ViewBag.Status = Status;
+            ViewBag.Redirect = Redirect;
+            return View();
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

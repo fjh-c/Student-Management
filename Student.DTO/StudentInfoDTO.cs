@@ -62,7 +62,7 @@ namespace Student.DTO
         /// </summary>
         [Display(Name = "身份证号码")]
         [Required(ErrorMessage = "{0} 不能为空")]
-        public string PersonId { get; set; }
+        public string IdentityCard { get; set; }
         /// <summary>
         /// 学生地址
         /// </summary>

@@ -46,7 +46,7 @@ namespace Student.Model
         /// 身份证号码
         /// </summary>
         [Required]
-        public string PersonId { get; set; }
+        public string IdentityCard { get; set; }
         /// <summary>
         /// 学生地址
         /// </summary>

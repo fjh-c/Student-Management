@@ -42,7 +42,7 @@
         "EnrollmentDT": "2020-4-23",
         "Phone": "13902451188",
         "Email": "xiaoan@stu.com",
-        "PersonId": "230210199708162251",
+        "IdentityCard": "230210199708162251",
         "Address": "朝阳区朝阳公园西路9号院九号",
         "Photos": "stu_1.jpg",
         "DepartId": 4
@@ -55,7 +55,7 @@
         "EnrollmentDT": "2020-4-23",
         "Phone": "13902451189",
         "Email": "laoli@stu.com",
-        "PersonId": "230210199802127323",
+        "IdentityCard": "230210199802127323",
         "Address": "北京市朝阳区东三环中路甲10号",
         "Photos": "stu_2.jpg",
         "DepartId": 3

@@ -57,7 +57,7 @@ namespace Student.Services
                 }
                 else if (search.IsIdentityCard())
                 {
-                    data = data.Where(p => p.PersonId == search);
+                    data = data.Where(p => p.IdentityCard == search);
                 }
                 else if (search.IsEmail())
                 {
