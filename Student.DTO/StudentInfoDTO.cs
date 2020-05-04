@@ -18,7 +18,8 @@ namespace Student.DTO
         /// 学生姓名
         /// </summary>
         [Display(Name = "学生姓名")]
-        [Required(ErrorMessage ="{0} 不能为空")]
+        [Required(ErrorMessage ="{0},不能为空")]
+        [StringLength(7, ErrorMessage = "{0},不能大于{1}")]
         public string Name { get; set; }
         /// <summary>
         /// 学生性别
@@ -34,39 +35,40 @@ namespace Student.DTO
         /// 入学时间
         /// </summary>
         [Display(Name = "入学时间")]
-        [Required(ErrorMessage = "{0} 不能为空")]
+        [Required(ErrorMessage = "{0},不能为空")]
         [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public string EnrollmentDT { get; set; }
         /// <summary>
         /// 学生部门
         /// </summary>
         [Display(Name = "学生部门")]
-        [Required(ErrorMessage = "{0} 不能为空")]
+        [Required(ErrorMessage = "{0},不能为空")]
         public int DepartId { get; set; }
         /// <summary>
         /// 学生电话
         /// </summary>
         [Display(Name = "学生电话")]
-        [Required(ErrorMessage = "{0} 不能为空")]
-        [Phone(ErrorMessage = "电话号码 格式不正确")]
+        [RegularExpression("^1[3|4|5|6|7|8|9][0-9]{9}$", ErrorMessage = "{0}的格式不正确")]
         public string Phone { get; set; }
         /// <summary>
         /// 学生邮箱
         /// </summary>
         [Display(Name = "学生邮箱")]
-        [Required(ErrorMessage = "{0} 不能为空")]
-        [EmailAddress(ErrorMessage = "邮箱地址 格式不正确")]
+        [EmailAddress(ErrorMessage = "{0}的格式不正确")]
         public string Email { get; set; }
         /// <summary>
         /// 身份证号码
         /// </summary>
         [Display(Name = "身份证号码")]
-        [Required(ErrorMessage = "{0} 不能为空")]
+        [Required(ErrorMessage = "{0},不能为空")]
+        [RegularExpression(@"\d{17}[\d|x]|\d{15}", ErrorMessage = "{0}的格式不正确")]
         public string IdentityCard { get; set; }
         /// <summary>
         /// 学生地址
         /// </summary>
         [Display(Name = "学生地址")]
+        [StringLength(50, ErrorMessage = "{0},不能大于{1}")]
         public string Address { get; set; }
         /// <summary>
         /// 学生照片

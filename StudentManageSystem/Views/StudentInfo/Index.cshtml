@@ -41,6 +41,9 @@
             if (data.search.length > 0) {
                 table && table.reload(data);
             }
+            else {
+                table && table.reload();
+            }
         });
         var tableCols = [[
             { type: 'checkbox' },
@@ -107,8 +110,8 @@
         ];
         //通过行tool编辑，lay-event="edit"
         function edit(obj) {
-            if (obj.data.nid) {
-                hg.open('编辑', '/BasicInfo/CreateTabNation/' + obj.data.nid, 400, 300);
+            if (obj.data.id) {
+                hg.open('编辑', '/StudentInfo/Details/' + obj.data.id, 700, 420);
             }
         }
         //通过行tool删除，lay-event="del"

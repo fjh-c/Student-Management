@@ -11,11 +11,11 @@ namespace StudentManageSystem.Code.WebApi
     public interface IWebApiHelper : IHttpApi
     {
         /// <summary>
-        /// 获取全部学生列表
+        /// 根据ID获取指定学生信息
         /// </summary>
         /// <returns></returns>
-        [HttpGet("api/StudentInfo/QueryList")]
-        ITask<ResultModel<List<StudentInfoDTO>>> GetStudentInfoListAsync();
+        [HttpGet("api/StudentInfo/Query")]
+        ITask<ResultModel<StudentInfoDTO>> GetStudentInfoAsync(long id);
         /// <summary>
         /// 获取学生分页列表
         /// </summary>
@@ -23,10 +23,26 @@ namespace StudentManageSystem.Code.WebApi
         [HttpGet("api/StudentInfo/QueryPagedList")]
         ITask<ResultModel<PagedList<StudentInfoDTO>>> GetStudentInfoPagedListAsync(int pageIndex, int pageSize, string search);
         /// <summary>
+        /// 添加学生信息
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost("api/StudentInfo/Insert")]
+        ITask<ResultModel<StudentInfoDTO>> PutStudentInfoInsertAsync([JsonContent]StudentInfoDTO model);
+
+
+        /// <summary>
+        /// 根据ID获取指定部门
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("api/Depart/Query")]
+        ITask<ResultModel<DepartDTO>> GetDepartAsync(int id);
+        /// <summary>
         /// 获取全部部门列表
         /// </summary>
         /// <returns></returns>
         [HttpGet("api/Depart/QueryList")]
         ITask<ResultModel<List<DepartDTO>>> GetDepartListAsync();
+
+
     }
 }

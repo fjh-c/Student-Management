@@ -49,11 +49,28 @@ namespace StudentManageSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                return RedirectToAction("Message", "Home", new { Status = "Success", Redirect = "/StudentInfo/Add" });
+                var result = await _webApi.PutStudentInfoInsertAsync(model);
+                if (result.Success)
+                {
+                    return View("Details", result.Data);
+                }
+                else
+                {
+                    ModelState.AddModelError("error", result.Msg);
+                }
             }
-            ModelState.AddModelError("error", "添加失败！");
             await GetDepartList();
             return View("Add", model);
+        }
+
+        public async Task<IActionResult> DetailsAsync(long? id)
+        {
+            var result = await _webApi.GetStudentInfoAsync(id.Value);
+            if(result.Success == false)
+            {
+                return View();  //建议跳转到指定错误页面
+            }
+            return View(result.Data);
         }
 
         [ResponseCache(Duration = 0)]

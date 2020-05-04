@@ -86,11 +86,32 @@ namespace Student.Services
                 _logger.LogError($"error：Departid {entity.DepartId} does not exist or the EnumDeptType is not classes");
                 return ResultModel.Failed("error：Departid does not exist or the EnumDeptType is not classes");
             }
+            //检查手机号是否唯一
+            if (model.Phone.NotNull())
+            {
+                var isphone = await repStudentInfo.Value.TableNoTracking.AnyAsync(p => p.Phone == model.Phone);
+                if (isphone)
+                {
+                    _logger.LogError($"error：Phone {model.Phone} It's not the only one");
+                    return ResultModel.Failed("error：Phone It's not the only one");
+                }
+            }
+            //检查身份证号是否唯一
+            if (model.IdentityCard.NotNull())
+            {
+                var isIdentityCard = await repStudentInfo.Value.TableNoTracking.AnyAsync(p => p.IdentityCard == model.IdentityCard);
+                if (isIdentityCard)
+                {
+                    _logger.LogError($"error：IdentityCard {model.IdentityCard} It's not the only one");
+                    return ResultModel.Failed("error：IdentityCard It's not the only one");
+                }
+            }
+
             await repStudentInfo.Value.InsertAsync(entity);
 
             if (await UnitOfWork.SaveChangesAsync() > 0)
             {
-                return ResultModel.Success(entity);
+                return ResultModel.Success(_mapper.Value.Map<StudentInfoDTO>(entity)); //返回模型一定要DTO一下，否则导航属性数据拿不到
             }
             _logger.LogError($"error：Insert Save failed");
             return ResultModel.Failed("添加失败");
