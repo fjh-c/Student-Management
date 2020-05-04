@@ -38,12 +38,7 @@
     <script type="text/javascript">
         //监听表单提交事件
         hg.form.onsubmit('querysubmit', function (data) {
-            if (data.search.length > 0) {
-                table && table.reload(data);
-            }
-            else {
-                table && table.reload();
-            }
+            table && table.reload(data);
         });
         var tableCols = [[
             { type: 'checkbox' },
