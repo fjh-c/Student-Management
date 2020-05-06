@@ -52,7 +52,7 @@ namespace StudentManageSystem.Controllers
                 var result = await _webApi.PutStudentInfoInsertAsync(model);
                 if (result.Success)
                 {
-                    return View("Details", result.Data);
+                    return RedirectToAction("ShowMsg", "Home");
                 }
                 else
                 {

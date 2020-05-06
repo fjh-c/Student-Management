@@ -1,0 +1,17 @@
+﻿
+@{
+    ViewData["Title"] = "ShowMsg";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@section Scripts {
+    <script type="text/javascript">
+        //关闭弹出层
+        hg.close();
+        hg.msg("添加成功！");
+        //刷新列表
+        parent.table.reload();
+    </script>
+}
+
+
