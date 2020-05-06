@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
+using Microsoft.VisualBasic;
 using Student.DTO;
 using StudentManageSystem.Code.WebApi;
 using StudentManageSystem.ViewModels;
@@ -49,10 +50,18 @@ namespace StudentManageSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = await _webApi.PutStudentInfoInsertAsync(model);
+                var result = new yrjw.ORM.Chimp.Result.ResultModel<StudentInfoDTO>();
+                if(model.Id == 0)
+                {
+                    result = await _webApi.PutStudentInfoInsertAsync(model);
+                }
+                else
+                {
+                    result = await _webApi.PutStudentInfoUpdateAsync(model);
+                }
                 if (result.Success)
                 {
-                    return RedirectToAction("ShowMsg", "Home");
+                    return RedirectToAction("ShowMsg", "Home", new { msg = result.Msg });
                 }
                 else
                 {
@@ -75,6 +84,17 @@ namespace StudentManageSystem.Controllers
             }
             await GetDepartList();
             return View("Add", model);
+        }
+
+        public async Task<IActionResult> EditAsync(long? id)
+        {
+            var result = await _webApi.GetStudentInfoAsync(id.Value);
+            if (result.Success == false)
+            {
+                return View();  //建议跳转到指定错误页面
+            }
+            await GetDepartList();
+            return View("Add", result.Data);
         }
 
         public async Task<IActionResult> DetailsAsync(long? id)

@@ -31,8 +31,9 @@ namespace StudentManageSystem.Controllers
             return View();
         }
 
-        public IActionResult ShowMsg()
+        public IActionResult ShowMsg(string msg= "保存成功！")
         {
+            ViewBag.Msg = msg;
             return View();
         }
 
