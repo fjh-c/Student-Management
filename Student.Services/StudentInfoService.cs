@@ -6,7 +6,6 @@ using Student.DTO;
 using Student.IServices;
 using Student.Model;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using yrjw.ORM.Chimp;
@@ -83,8 +82,8 @@ namespace Student.Services
             var dept = repDepart.Value.GetById(entity.DepartId);
             if (dept == null || dept.DeptType != Model.Enums.EnumDeptType.classes)
             {
-                _logger.LogError($"error：Departid {entity.DepartId} does not exist or the EnumDeptType is not classes");
-                return ResultModel.Failed("外键不存在，或部门必须指定班级", -10001);
+                _logger.LogError($"ErrorCode：{EnumErrorCode.Departid.ToInt()}，DepartId：{entity.DepartId}，{EnumErrorCode.Departid.ToDescription()}");
+                return ResultModel.Failed(EnumErrorCode.Departid.ToDescription(), EnumErrorCode.Departid.ToInt());
             }
             //检查手机号是否唯一
             if (model.Phone.NotNull())
@@ -92,8 +91,8 @@ namespace Student.Services
                 var isphone = await repStudentInfo.Value.TableNoTracking.AnyAsync(p => p.Phone == model.Phone);
                 if (isphone)
                 {
-                    _logger.LogError($"error：Phone {model.Phone} It's not the only one");
-                    return ResultModel.Failed("该手机号已被其他账号绑定使用", -10002);
+                    _logger.LogError($"ErrorCode：{EnumErrorCode.Phone.ToInt()}，Phone：{model.Phone}，{EnumErrorCode.Phone.ToDescription()}");
+                    return ResultModel.Failed(EnumErrorCode.Phone.ToDescription(), EnumErrorCode.Phone.ToInt());
                 }
             }
             //检查身份证号是否唯一
@@ -102,8 +101,8 @@ namespace Student.Services
                 var isIdentityCard = await repStudentInfo.Value.TableNoTracking.AnyAsync(p => p.IdentityCard == model.IdentityCard);
                 if (isIdentityCard)
                 {
-                    _logger.LogError($"error：IdentityCard {model.IdentityCard} It's not the only one");
-                    return ResultModel.Failed("该身份证号已被其他账号绑定使用", -10003);
+                    _logger.LogError($"ErrorCode：{EnumErrorCode.IdentityCard.ToInt()}，IdentityCard：{model.IdentityCard}，{EnumErrorCode.IdentityCard.ToDescription()}");
+                    return ResultModel.Failed(EnumErrorCode.IdentityCard.ToDescription(), EnumErrorCode.IdentityCard.ToInt());
                 }
             }
 
@@ -130,8 +129,8 @@ namespace Student.Services
             var dept = repDepart.Value.GetById(model.DepartId);
             if (dept == null || dept.DeptType != Model.Enums.EnumDeptType.classes)
             {
-                _logger.LogError($"error：Departid {model.DepartId} does not exist or the EnumDeptType is not classes");
-                return ResultModel.Failed("外键不存在，或部门必须指定班级", -10001);
+                _logger.LogError($"ErrorCode：{EnumErrorCode.Departid.ToInt()}，DepartId：{model.DepartId}，{EnumErrorCode.Departid.ToDescription()}");
+                return ResultModel.Failed(EnumErrorCode.Departid.ToDescription(), EnumErrorCode.Departid.ToInt());
             }
             _mapper.Value.Map(model, entity);
             repStudentInfo.Value.Update(entity);
@@ -150,7 +149,7 @@ namespace Student.Services
             var entity = await repStudentInfo.Value.GetByIdAsync(id);
             if (entity == null)
             {
-                _logger.LogError($"error：entity Id {id} does not exist");
+                _logger.LogError($"error：entity Id：{id} does not exist");
                 return ResultModel.NotExists;
             }
             //软删除

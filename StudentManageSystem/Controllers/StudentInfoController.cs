@@ -58,13 +58,13 @@ namespace StudentManageSystem.Controllers
                 {
                     switch (result.Code)
                     {
-                        case -10001:
+                        case (int)EnumErrorCode.Departid:
                             ModelState.AddModelError("DepartId", result.Msg);
                             break;
-                        case -10002:
+                        case (int)EnumErrorCode.Phone:
                             ModelState.AddModelError("Phone", result.Msg);
                             break;
-                        case -10003:
+                        case (int)EnumErrorCode.IdentityCard:
                             ModelState.AddModelError("IdentityCard", result.Msg);
                             break;
                         default:
