@@ -84,7 +84,7 @@ namespace Student.Services
             if (dept == null || dept.DeptType != Model.Enums.EnumDeptType.classes)
             {
                 _logger.LogError($"error：Departid {entity.DepartId} does not exist or the EnumDeptType is not classes");
-                return ResultModel.Failed("error：Departid does not exist or the EnumDeptType is not classes");
+                return ResultModel.Failed("外键不存在，或部门必须指定班级", -10001);
             }
             //检查手机号是否唯一
             if (model.Phone.NotNull())
@@ -93,7 +93,7 @@ namespace Student.Services
                 if (isphone)
                 {
                     _logger.LogError($"error：Phone {model.Phone} It's not the only one");
-                    return ResultModel.Failed("error：Phone It's not the only one");
+                    return ResultModel.Failed("该手机号已被其他账号绑定使用", -10002);
                 }
             }
             //检查身份证号是否唯一
@@ -103,7 +103,7 @@ namespace Student.Services
                 if (isIdentityCard)
                 {
                     _logger.LogError($"error：IdentityCard {model.IdentityCard} It's not the only one");
-                    return ResultModel.Failed("error：IdentityCard It's not the only one");
+                    return ResultModel.Failed("该身份证号已被其他账号绑定使用", -10003);
                 }
             }
 
@@ -131,7 +131,7 @@ namespace Student.Services
             if (dept == null || dept.DeptType != Model.Enums.EnumDeptType.classes)
             {
                 _logger.LogError($"error：Departid {model.DepartId} does not exist or the EnumDeptType is not classes");
-                return ResultModel.Failed("外键不存在，或部门必须指定班级");
+                return ResultModel.Failed("外键不存在，或部门必须指定班级", -10001);
             }
             _mapper.Value.Map(model, entity);
             repStudentInfo.Value.Update(entity);

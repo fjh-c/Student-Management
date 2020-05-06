@@ -56,7 +56,21 @@ namespace StudentManageSystem.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("error", result.Msg);
+                    switch (result.Code)
+                    {
+                        case -10001:
+                            ModelState.AddModelError("DepartId", result.Msg);
+                            break;
+                        case -10002:
+                            ModelState.AddModelError("Phone", result.Msg);
+                            break;
+                        case -10003:
+                            ModelState.AddModelError("IdentityCard", result.Msg);
+                            break;
+                        default:
+                            ModelState.AddModelError("error", result.Msg);
+                            break;
+                    }
                 }
             }
             await GetDepartList();
