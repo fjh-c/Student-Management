@@ -661,7 +661,7 @@
         for (var i = 0; i < toolbar.length; i++) {
           var element = toolbar[i];
           _status.btns.push(element.handler);
-          var btn = '<button class="layui-btn layui-btn-sm" lay-event="' + i + '"><i class="layui-icon">' + element.layuiicon + '</i>' + element.text + '</button>';
+          var btn = '<button class="layui-btn layui-btn-sm ' + element.class +'" lay-event="' + i + '"><i class="layui-icon">' + element.layuiicon + '</i>' + element.text + '</button>';
           html = html + btn;
         }
         _toolbar = html + '</div>';

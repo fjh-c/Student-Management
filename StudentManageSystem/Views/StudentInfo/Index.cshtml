@@ -134,6 +134,7 @@
         var toolbar = [{
             text: '删除',
             layuiicon: '&#xe640;',
+            class: 'layui-btn-danger',
             handler: function (obj, row) {
                 if (obj.checkstatus && obj.checkstatus.data.length > 0) {
                     hg.confirm("批量删除所有选中的数据，确定要删除吗？", function () {
@@ -167,6 +168,7 @@
         }, {
             text: '添加',
             layuiicon: '&#xe608;',
+            class: 'layui-btn-normal',
             handler: function () {
                 hg.open('添加学生', '/StudentInfo/Add', 700, 420);
             }
