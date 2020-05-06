@@ -91,12 +91,12 @@
 
 @section Scripts {
     <script type="text/javascript">
+        //关闭弹出层，不显示详情页
+        hg.close();
+        hg.msg("添加成功！");
         //修改窗口标题
         parent.$('.layui-layer-title').html('@ViewData["Title"]');
         //刷新列表
         parent.table.reload();
-        //关闭弹出层，不显示详情页
-        hg.close();
-        hg.msg("添加成功！");
     </script>
 }
