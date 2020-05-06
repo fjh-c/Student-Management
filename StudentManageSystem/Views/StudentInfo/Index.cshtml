@@ -6,26 +6,23 @@
 
 <div class="layui-card">
     <div class="layui-card-header">
-        <i class="fa fa-file-text-o fa-fw"></i> @ViewBag.Title
-        <span class="layui-layout-right">
-            <a href="javascript:;" hg-event="fullscreen">
-                <i class="layui-icon layui-icon-screen-full"></i>
-            </a>
-        </span>
-    </div>
-    <div class="layui-card-body">
         <div class="layui-form">
-            <div class="layui-form-item">
+            <div class="layui-form-item ">
+                <div class="layui-inline"><i class="fa fa-file-text-o fa-fw"></i> @ViewBag.Title</div>
+            </div>
+            <div class="layui-form-item layui-layout-left">
                 <div class="layui-inline">
                     <input class="layui-input layui-input-sm" type="text" name="search" placeholder="快速查找" autocomplete="off">
                 </div>
                 <div class="layui-inline layui-show-xs-block">
-                    <button class="layui-btn layui-btn-sm layui-btn-normal" lay-submit lay-filter="querysubmit">
+                    <button class="layui-btn layui-btn-sm" lay-submit lay-filter="querysubmit">
                         <i class="layui-icon layui-icon-sm">&#xe615;</i>
                     </button>
                 </div>
             </div>
         </div>
+    </div>
+    <div class="layui-card-body">
         <table class="layui-hide" id="test" lay-filter="test"></table>
     </div>
 </div>
@@ -176,6 +173,6 @@
         }
         ];
         //基本数据表格
-        var table = hg.table.datatable('test', '学生信息管理', '/StudentInfo/GetQueryPagedList', {}, tableCols, toolbar, true, 'full-140', ['filter', 'print', 'exports']);
+        var table = hg.table.datatable('test', '学生信息管理', '/StudentInfo/GetQueryPagedList', {}, tableCols, toolbar, true, 'full-100', ['filter', 'print', 'exports']);
     </script>
 }
