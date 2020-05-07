@@ -1,0 +1,92 @@
+﻿@model Student.DTO.StudentInfoDTO
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="layui-row">
+    <div class="layui-card">
+        <div class="layui-card-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <form asp-action="Save" asp-controller="StudentInfo">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group">
+                            <label asp-for="Name" class="control-label"></label>
+                            <input asp-for="Name" class="form-control" placeholder="请输入学生姓名" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Gender" class="control-label"></label>
+                            <select asp-for="Gender" asp-items="Html.GetEnumSelectList<EnumGender>()" class="custom-select"></select>
+                            <span asp-validation-for="Gender" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Nation" class="control-label"></label>
+                            <select asp-for="Nation" asp-items="Html.GetEnumSelectList<EnumNation>()" class="custom-select"></select>
+                            <span asp-validation-for="Nation" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="EnrollmentDT" class="control-label"></label>
+                            <input asp-for="EnrollmentDT" class="form-control" />
+                            <span asp-validation-for="EnrollmentDT" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="DepartId" class="control-label"></label>
+                            <select asp-for="DepartId" asp-items="@ViewBag.DepartClassesList" class="custom-select"></select>
+                            <span asp-validation-for="DepartId" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Phone" class="control-label"></label>
+                            <input asp-for="Phone" class="form-control" placeholder="Student Phone" />
+                            <span asp-validation-for="Phone" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Email" class="control-label"></label>
+                            <input asp-for="Email" class="form-control" placeholder="name@example.com" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="IdentityCard" class="control-label"></label>
+                            <input asp-for="IdentityCard" class="form-control" placeholder="Student Identity Card" />
+                            <span asp-validation-for="IdentityCard" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Address" class="control-label"></label>
+                            <input asp-for="Address" class="form-control" placeholder="Student Address" />
+                            <span asp-validation-for="Address" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Photos" class="control-label"></label>
+                            <input asp-for="Photos" class="form-control" placeholder="Upload Student Photo" />
+                            <span asp-validation-for="Photos" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Status" class="control-label"></label>
+                            <select asp-for="Status" asp-items="Html.GetEnumSelectList<EnumStatus>()" class="custom-select"></select>
+                            <span asp-validation-for="Status" class="text-danger"></span>
+                        </div>
+                        <span style="color:firebrick;word-break: break-all;">@Html.ValidationMessage("error")</span>
+                        <div class="form-group">
+                            <input type="submit" value="保存" class="btn btn-primary" />
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Style {
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+}
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script type="text/javascript">
+        
+    </script>
+}

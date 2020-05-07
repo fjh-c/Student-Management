@@ -10,6 +10,7 @@ using Microsoft.VisualBasic;
 using Student.DTO;
 using StudentManageSystem.Code.WebApi;
 using StudentManageSystem.ViewModels;
+using yrjw.ORM.Chimp.Result;
 
 namespace StudentManageSystem.Controllers
 {
@@ -31,10 +32,22 @@ namespace StudentManageSystem.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> AddAsync()
+        public async Task<IActionResult> CreateAsync()
         {
             await GetDepartList();
             return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> EditAsync(long? id)
+        {
+            var result = await _webApi.GetStudentInfoAsync(id.Value);
+            if (result.Success == false)
+            {
+                return View();  //建议跳转到指定错误页面
+            }
+            await GetDepartList();
+            return View(result.Data);
         }
 
         private async Task GetDepartList()
@@ -46,14 +59,14 @@ namespace StudentManageSystem.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddAsync(StudentInfoDTO model)
+        public async Task<IActionResult> SaveAsync(StudentInfoDTO model)
         {
             if (ModelState.IsValid)
             {
-                var result = new yrjw.ORM.Chimp.Result.ResultModel<StudentInfoDTO>();
-                if(model.Id == 0)
+                IResultModel result;
+                if (model.Id == 0)
                 {
-                    result = await _webApi.PutStudentInfoInsertAsync(model);
+                    result = await _webApi.PostStudentInfoInsertAsync(model);
                 }
                 else
                 {
@@ -61,7 +74,8 @@ namespace StudentManageSystem.Controllers
                 }
                 if (result.Success)
                 {
-                    return RedirectToAction("ShowMsg", "Home", new { msg = result.Msg });
+                    var _msg = model.Id == 0 ? "添加成功！" : "修改成功！";
+                    return RedirectToAction("ShowMsg", "Home", new { msg = _msg });
                 }
                 else
                 {
@@ -83,19 +97,14 @@ namespace StudentManageSystem.Controllers
                 }
             }
             await GetDepartList();
-            return View("Add", model);
+            if (model.Id == 0)
+            {
+                return View("Create", model);
+            }
+            return View("Edit", model);
         }
 
-        public async Task<IActionResult> EditAsync(long? id)
-        {
-            var result = await _webApi.GetStudentInfoAsync(id.Value);
-            if (result.Success == false)
-            {
-                return View();  //建议跳转到指定错误页面
-            }
-            await GetDepartList();
-            return View("Add", result.Data);
-        }
+        
 
         public async Task<IActionResult> DetailsAsync(long? id)
         {
