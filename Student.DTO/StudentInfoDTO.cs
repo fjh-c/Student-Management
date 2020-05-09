@@ -77,6 +77,11 @@ namespace Student.DTO
         [Display(Name = "学生照片")]
         public string Photos { get; set; }
         /// <summary>
+        /// 学生照片文件
+        /// </summary>
+        [Display(Name = "学生照片")]
+        public IFormFile PhotosFile { get; set; }
+        /// <summary>
         /// 激活状态
         /// </summary>
         [Display(Name = "激活状态")]

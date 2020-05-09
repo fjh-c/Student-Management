@@ -55,6 +55,7 @@ namespace Student.Core.API.Controllers
         public Task<IResultModel> Insert([FromForm]StudentInfoDTO model, IFormFile file)
         {
             _logger.LogDebug("添加学生信息");
+            model.PhotosFile = file;
             return StudentInfoService.Value.Insert(model);
         }
 

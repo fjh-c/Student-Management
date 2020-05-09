@@ -61,14 +61,19 @@ namespace StudentManageSystem.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> SaveAsync(StudentInfoDTO model, [FromForm]IFormFile file)
+        public async Task<IActionResult> SaveAsync(StudentInfoDTO model)
         {
             if (ModelState.IsValid)
             {
                 IResultModel result;
                 if (model.Id == 0)
                 {
-                    result = await _webApi.PostStudentInfoInsertAsync(model, new MulitpartFile(file.OpenReadStream(), file.FileName));
+                    MulitpartFile file = null;
+                    if (model.PhotosFile != null && model.PhotosFile.Length > 0)
+                    {
+                        file = new MulitpartFile(model.PhotosFile.OpenReadStream(), model.PhotosFile.FileName);
+                    }
+                    result = await _webApi.PostStudentInfoInsertAsync(model, file);
                 }
                 else
                 {
