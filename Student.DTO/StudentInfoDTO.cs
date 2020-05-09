@@ -1,4 +1,5 @@
-﻿using Student.Model;
+﻿using Microsoft.AspNetCore.Http;
+using Student.Model;
 using Student.Model.Enums;
 using System;
 using System.Collections.Generic;
@@ -75,6 +76,11 @@ namespace Student.DTO
         /// </summary>
         [Display(Name = "学生照片")]
         public string Photos { get; set; }
+        /// <summary>
+        /// 上传学生照片
+        /// </summary>
+        [Display(Name = "学生照片")]
+        public IFormFile PhotoFile { get; set; }
         /// <summary>
         /// 激活状态
         /// </summary>

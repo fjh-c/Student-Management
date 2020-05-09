@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using WebApiClient;
 using WebApiClient.Attributes;
+using WebApiClient.Parameterables;
 using yrjw.ORM.Chimp;
 using yrjw.ORM.Chimp.Result;
 
