@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Student.DTO;
@@ -51,7 +52,7 @@ namespace Student.Core.API.Controllers
 
         [Description("添加学生信息")]
         [HttpPost]
-        public Task<IResultModel> Insert(StudentInfoDTO model)
+        public Task<IResultModel> Insert([FromForm]StudentInfoDTO model, IFormFile file)
         {
             _logger.LogDebug("添加学生信息");
             return StudentInfoService.Value.Insert(model);

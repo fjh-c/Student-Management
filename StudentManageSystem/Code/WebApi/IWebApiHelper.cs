@@ -28,7 +28,7 @@ namespace StudentManageSystem.Code.WebApi
         /// </summary>
         /// <returns></returns>
         [HttpPost("api/StudentInfo/Insert")]
-        ITask<ResultModel<StudentInfoDTO>> PostStudentInfoInsertAsync([JsonContent]StudentInfoDTO model);
+        ITask<ResultModel<StudentInfoDTO>> PostStudentInfoInsertAsync([MulitpartContent]StudentInfoDTO model, MulitpartFile file);
         /// <summary>
         /// 修改学生信息
         /// </summary>

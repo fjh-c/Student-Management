@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
@@ -10,6 +11,7 @@ using Microsoft.VisualBasic;
 using Student.DTO;
 using StudentManageSystem.Code.WebApi;
 using StudentManageSystem.ViewModels;
+using WebApiClient.Parameterables;
 using yrjw.ORM.Chimp.Result;
 
 namespace StudentManageSystem.Controllers
@@ -59,14 +61,14 @@ namespace StudentManageSystem.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> SaveAsync(StudentInfoDTO model)
+        public async Task<IActionResult> SaveAsync(StudentInfoDTO model, [FromForm]IFormFile file)
         {
             if (ModelState.IsValid)
             {
                 IResultModel result;
                 if (model.Id == 0)
                 {
-                    result = await _webApi.PostStudentInfoInsertAsync(model);
+                    result = await _webApi.PostStudentInfoInsertAsync(model, new MulitpartFile(file.OpenReadStream(), file.FileName));
                 }
                 else
                 {
