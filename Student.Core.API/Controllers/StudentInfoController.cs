@@ -54,12 +54,16 @@ namespace Student.Core.API.Controllers
 
         [Description("添加学生信息")]
         [HttpPost]
-        public Task<IResultModel> Insert([FromForm]StudentInfoDTO model, IFormFile file)
+        public async Task<IResultModel> Insert([FromForm]StudentInfoDTO model, IFormFile file)
         {
             _logger.LogDebug("添加学生信息");
-            model.Photos = SystemConfig.photosPath();
-            model.PhotosFile = file;
-            return StudentInfoService.Value.Insert(model);
+            //保存上传图片
+            if (file != null)
+            {
+                var photopath = await SystemConfig.UploadSave(file, SystemConfig.photosPath(), true, SystemConfig.FileExt.jpg);
+                model.Photos = photopath;
+            }
+            return await StudentInfoService.Value.Insert(model);
         }
 
         [Description("修改学生信息")]
