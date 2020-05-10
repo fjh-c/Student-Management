@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Student.Core.API.Code.Core;
 using Student.DTO;
 using Student.IServices;
 using yrjw.ORM.Chimp.Result;
@@ -55,6 +57,7 @@ namespace Student.Core.API.Controllers
         public Task<IResultModel> Insert([FromForm]StudentInfoDTO model, IFormFile file)
         {
             _logger.LogDebug("添加学生信息");
+            model.Photos = SystemConfig.photosPath();
             model.PhotosFile = file;
             return StudentInfoService.Value.Insert(model);
         }

@@ -32,9 +32,5 @@
     <ProjectReference Include="..\yrjw.CommonToolsCore\yrjw.CommonToolsCore.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="wwwroot\upload\" />
-  </ItemGroup>
-
 
 </Project>

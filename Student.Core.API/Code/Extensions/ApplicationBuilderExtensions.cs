@@ -40,6 +40,9 @@ namespace Microsoft.AspNetCore.Builder
             //启动文档页
             app.UseDocs();
 
+            //上传目录访问权限
+            app.UseUpload();
+
             //CORS
             app.UseCors("Default");
 
@@ -112,6 +115,27 @@ namespace Microsoft.AspNetCore.Builder
                 app.UseStaticFiles(options);
             }
 
+            return app;
+        }
+
+        /// <summary>
+        /// 上传目录访问权限
+        /// </summary>
+        /// <param name="app"></param>
+        /// <returns></returns>
+        public static IApplicationBuilder UseUpload(this IApplicationBuilder app)
+        {
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "Upload");
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+            var options = new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(path),
+                RequestPath = new PathString("/Upload")
+            };
+            app.UseStaticFiles(options);
             return app;
         }
 
