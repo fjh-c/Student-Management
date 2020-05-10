@@ -1,10 +1,13 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Rewrite;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Student.Core.API.Code.Middleware;
 using Student.Core.API.Config;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using yrjw.CommonToolsCore.Helper;
@@ -31,8 +34,11 @@ namespace Microsoft.AspNetCore.Builder
             defaultFilesOptions.DefaultFileNames.Add("index.html");
             app.UseDefaultFiles(defaultFilesOptions);
 
-            //app.UseStaticFiles();
-            //app.UseHttpsRedirection();
+            //启用默认页
+            app.UseDefaultPage();
+
+            //启动文档页
+            app.UseDocs();
 
             //CORS
             app.UseCors("Default");
@@ -56,6 +62,54 @@ namespace Microsoft.AspNetCore.Builder
             if (env.IsDevelopment())
             {
                 app.UseCustomSwagger();
+            }
+
+            return app;
+        }
+
+        /// <summary>
+        /// 启用默认页
+        /// </summary>
+        /// <param name="app"></param>
+        /// <returns></returns>
+        public static IApplicationBuilder UseDefaultPage(this IApplicationBuilder app)
+        {
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/app");
+            if (Directory.Exists(path))
+            {
+                var options = new StaticFileOptions
+                {
+                    FileProvider = new PhysicalFileProvider(path),
+                    RequestPath = new PathString("/app")
+                };
+
+                app.UseStaticFiles(options);
+
+                var rewriteOptions = new RewriteOptions().AddRedirect("^$", "app");
+
+                app.UseRewriter(rewriteOptions);
+            }
+
+            return app;
+        }
+
+        /// <summary>
+        /// 启动文档页
+        /// </summary>
+        /// <param name="app"></param>
+        /// <returns></returns>
+        public static IApplicationBuilder UseDocs(this IApplicationBuilder app)
+        {
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/docs");
+            if (Directory.Exists(path))
+            {
+                var options = new StaticFileOptions
+                {
+                    FileProvider = new PhysicalFileProvider(path),
+                    RequestPath = new PathString("/docs")
+                };
+
+                app.UseStaticFiles(options);
             }
 
             return app;
