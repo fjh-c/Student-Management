@@ -34,7 +34,7 @@ namespace StudentManageSystem.Code.WebApi
         /// </summary>
         /// <returns></returns>
         [HttpPut("api/StudentInfo/Update")]
-        ITask<ResultModel<StudentInfoDTO>> PutStudentInfoUpdateAsync([JsonContent]StudentInfoDTO model);
+        ITask<ResultModel<StudentInfoDTO>> PutStudentInfoUpdateAsync([MulitpartContent]StudentInfoDTO model, MulitpartFile file);
 
         /// <summary>
         /// 根据ID获取指定部门

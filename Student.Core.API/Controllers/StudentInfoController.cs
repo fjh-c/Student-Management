@@ -68,10 +68,16 @@ namespace Student.Core.API.Controllers
 
         [Description("修改学生信息")]
         [HttpPut]
-        public Task<IResultModel> Update(StudentInfoDTO model)
+        public async Task<IResultModel> Update([FromForm]StudentInfoDTO model, IFormFile file)
         {
             _logger.LogDebug("修改学生信息");
-            return StudentInfoService.Value.Update(model);
+            //保存上传图片
+            if (file != null)
+            {
+                var photopath = await SystemConfig.UploadSave(file, SystemConfig.photosPath(), true, SystemConfig.FileExt.jpg);
+                model.Photos = photopath;
+            }
+            return await StudentInfoService.Value.Update(model);
         }
 
         [Description("删除学生信息")]

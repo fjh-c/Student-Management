@@ -66,18 +66,18 @@ namespace StudentManageSystem.Controllers
             if (ModelState.IsValid)
             {
                 IResultModel result;
+                MulitpartFile file = null;
+                if (model.PhotosFile != null && model.PhotosFile.Length > 0)
+                {
+                    file = new MulitpartFile(model.PhotosFile.OpenReadStream(), model.PhotosFile.FileName);
+                }
                 if (model.Id == 0)
                 {
-                    MulitpartFile file = null;
-                    if (model.PhotosFile != null && model.PhotosFile.Length > 0)
-                    {
-                        file = new MulitpartFile(model.PhotosFile.OpenReadStream(), model.PhotosFile.FileName);
-                    }
                     result = await _webApi.PostStudentInfoInsertAsync(model, file);
                 }
                 else
                 {
-                    result = await _webApi.PutStudentInfoUpdateAsync(model);
+                    result = await _webApi.PutStudentInfoUpdateAsync(model, file);
                 }
                 if (result.Success)
                 {
@@ -116,7 +116,16 @@ namespace StudentManageSystem.Controllers
         public async Task<IActionResult> DetailsAsync(long? id)
         {
             var result = await _webApi.GetStudentInfoAsync(id.Value);
-            if(result.Success == false)
+            if (result.Data.Photos.IsNull())
+            {
+                result.Data.Photos = "/images/upload-img.jpg";
+            }
+            else
+            {
+                result.Data.Photos = Code.ViewsHelper.GetStudentPhotosPath(result.Data.Photos);
+            }
+            
+            if (result.Success == false)
             {
                 return View();  //建议跳转到指定错误页面
             }

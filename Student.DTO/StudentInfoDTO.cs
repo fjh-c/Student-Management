@@ -59,9 +59,9 @@ namespace Student.DTO
         [EmailAddress(ErrorMessage = "{0}的格式不正确")]
         public string Email { get; set; }
         /// <summary>
-        /// 身份证号码
+        /// 身份证号
         /// </summary>
-        [Display(Name = "身份证号码")]
+        [Display(Name = "身份证号")]
         [Required(ErrorMessage = "{0},不能为空")]
         [RegularExpression(@"\d{17}[\d|x]|\d{15}", ErrorMessage = "{0}的格式不正确")]
         public string IdentityCard { get; set; }
