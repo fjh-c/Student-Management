@@ -4,6 +4,16 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
+<style type="text/css"> 
+    .layui-table-cell{
+	    height:auto!important;
+	    white-space:normal;
+    }
+    .layui-table img {
+        max-width: 60px;
+    }
+</style> 
+
 <div class="layui-card">
     <div class="layui-card-header">
         <div class="layui-form">
@@ -81,7 +91,8 @@
             }, {
                 field: 'photos',
                 title: '学生照片',
-                minWidth: 100,
+                width: 100,
+                align: 'center',
                 templet: function (d) {
                     return '<img src="' + d.photos  + '" />';
                 }
@@ -181,5 +192,6 @@
         ];
         //基本数据表格
         var table = hg.table.datatable('test', '学生信息管理', '/StudentInfo/GetQueryPagedList', {}, tableCols, toolbar, true, 'full-100', ['filter', 'print', 'exports']);
+
     </script>
 }

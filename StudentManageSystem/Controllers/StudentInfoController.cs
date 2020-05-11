@@ -130,6 +130,11 @@ namespace StudentManageSystem.Controllers
             var result = await _webApi.GetStudentInfoPagedListAsync(page, limit, search);
             foreach (var item in result.Data.Item)
             {
+                if (item.Photos.IsNull())
+                {
+                    item.Photos = "/images/upload-img.jpg";
+                    continue;
+                }
                 item.Photos = Code.ViewsHelper.GetStudentPhotosPath(item.Photos);
             }
             if (result.Success)
