@@ -32,7 +32,7 @@ namespace StudentManageSystem
                 return new HttpApiFactory<IWebApiHelper>().ConfigureHttpApiConfig(c =>
                 {
                     // Api µØÖ·
-                    c.HttpHost = new Uri(Configuration.GetSection("Setting:ApiUrl").Value);
+                    c.HttpHost = new Uri(StudentManageSystemSetting.Setting.ApiUrl);
                 });
             });
             services.AddTransient(p =>
