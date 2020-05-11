@@ -81,7 +81,10 @@
             }, {
                 field: 'photos',
                 title: '学生照片',
-                minWidth: 100
+                minWidth: 100,
+                templet: function (d) {
+                    return '<img src="' + d.photos  + '" />';
+                }
             }, {
                 field: 'statusName',
                 title: '激活状态',

@@ -41,7 +41,7 @@ namespace Student.Services
 
         public async Task<IResultModel> QueryList()
         {
-            var list = await repStudentInfo.Value.TableNoTracking.Where(p => p.Deleted == 0).ProjectTo<StudentInfoDTO>(_mapper.Value.ConfigurationProvider).ToListAsync();
+            var list = await repStudentInfo.Value.TableNoTracking.Where(p => p.Deleted == 0).OrderByDescending(k => k.Id).ProjectTo<StudentInfoDTO>(_mapper.Value.ConfigurationProvider).ToListAsync();
             return ResultModel.Success(list);
         }
 
@@ -71,7 +71,7 @@ namespace Student.Services
                     data = data.Where(p => p.Name.Contains(search));
                 }
             }
-            var list = await data.ProjectTo<StudentInfoDTO>(_mapper.Value.ConfigurationProvider).ToPagedListAsync(pageIndex, pageSize);
+            var list = await data.OrderByDescending(k => k.Id).ProjectTo<StudentInfoDTO>(_mapper.Value.ConfigurationProvider).ToPagedListAsync(pageIndex, pageSize);
             return ResultModel.Success(list);
         }
 

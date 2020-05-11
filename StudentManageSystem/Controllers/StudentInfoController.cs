@@ -128,6 +128,10 @@ namespace StudentManageSystem.Controllers
         public async Task<IActionResult> GetQueryPagedListAsync(int page, int limit, string search)
         {
             var result = await _webApi.GetStudentInfoPagedListAsync(page, limit, search);
+            foreach (var item in result.Data.Item)
+            {
+                item.Photos = Code.ViewsHelper.GetStudentPhotosPath(item.Photos);
+            }
             if (result.Success)
             {
                 return Json(new Table() { data = result.Data.Item, count = result.Data.Total });
