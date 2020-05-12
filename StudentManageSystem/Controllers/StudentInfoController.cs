@@ -123,6 +123,13 @@ namespace StudentManageSystem.Controllers
             return Json(new Result() { success = result.Success, msg = result.Msg });
         }
 
+        //批量删除操作 ajax请求返回json
+        public async Task<IActionResult> DeleteAllAsync(long[] arr)
+        {
+            var result = await _webApi.DeleteAllStudentInfoAsync(arr);
+            return Json(new Result() { success = result.Success, msg = result.Msg });
+        }
+
         //详情页面查看
         public async Task<IActionResult> DetailsAsync(long? id)
         {

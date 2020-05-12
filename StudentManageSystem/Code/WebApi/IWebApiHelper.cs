@@ -48,7 +48,7 @@ namespace StudentManageSystem.Code.WebApi
         /// </summary>
         /// <returns></returns>
         [HttpDelete("api/StudentInfo/DeleteAll")]
-        ITask<ResultModel<string>> DeleteAllStudentInfoAsync(IList<long> ids);
+        ITask<ResultModel<string>> DeleteAllStudentInfoAsync([JsonContent]IList<long> ids);
 
         /// <summary>
         /// 根据ID获取指定部门

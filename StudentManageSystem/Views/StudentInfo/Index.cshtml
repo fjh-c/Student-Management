@@ -154,13 +154,12 @@
             handler: function (obj, row) {
                 if (obj.checkstatus && obj.checkstatus.data.length > 0) {
                     hg.confirm("批量删除所有选中的数据，确定要删除吗？", function () {
-                        //console.log(obj.checkstatus.data.map(function (x) { return x.nid }).join(','))
+                        //console.log(obj.checkstatus.data.map(function (x) { return x.id }).join(','))
                         $.ajax({
-                            url: '/BasicInfo/DelMuchTabNation',
-                            data: { arr: obj.checkstatus.data.map(function (x) { return x.nid }) },
+                            url: '/StudentInfo/DeleteAll',
+                            data: { arr: obj.checkstatus.data.map(function (x) { return x.id }) },
                             type: 'POST',
-                            success: function (result) {
-                                var data = $.parseJSON(result);
+                            success: function (data) {
                                 if (data.success) {
                                     hg.msg('批量删除成功！');
                                     //重载表格数据
