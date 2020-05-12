@@ -27,12 +27,14 @@ namespace StudentManageSystem.Controllers
             _webApi = webApi;
         }
 
+        //学生信息列表展示页面
         [HttpGet]
         public IActionResult Index()
         {
             return View();
         }
 
+        //添加页面
         [HttpGet]
         public async Task<IActionResult> CreateAsync()
         {
@@ -40,6 +42,7 @@ namespace StudentManageSystem.Controllers
             return View();
         }
 
+        //修改页面
         [HttpGet]
         public async Task<IActionResult> EditAsync(long? id)
         {
@@ -52,6 +55,7 @@ namespace StudentManageSystem.Controllers
             return View(result.Data);
         }
 
+        //获取部门下拉选择列表数据
         private async Task GetDepartList()
         {
             var result = await _webApi.GetDepartListAsync();
@@ -59,6 +63,7 @@ namespace StudentManageSystem.Controllers
             ViewBag.DepartClassesList = list;
         }
 
+        //表单提交，保存学生信息，id=0 添加，id>0 修改
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> SaveAsync(StudentInfoDTO model)
@@ -111,8 +116,14 @@ namespace StudentManageSystem.Controllers
             return View("Edit", model);
         }
 
-        
+        //删除操作 ajax请求返回json
+        public async Task<IActionResult> DeleteAsync(long id)
+        {
+            var result = await _webApi.DeleteStudentInfoAsync(id);
+            return Json(new Result() { success = result.Success, msg = result.Msg });
+        }
 
+        //详情页面查看
         public async Task<IActionResult> DetailsAsync(long? id)
         {
             var result = await _webApi.GetStudentInfoAsync(id.Value);
@@ -132,6 +143,7 @@ namespace StudentManageSystem.Controllers
             return View(result.Data);
         }
 
+        //Layui数据表格异步获取展示列表数据
         [ResponseCache(Duration = 0)]
         [HttpGet]
         public async Task<IActionResult> GetQueryPagedListAsync(int page, int limit, string search)

@@ -37,6 +37,20 @@ namespace StudentManageSystem.Code.WebApi
         ITask<ResultModel<StudentInfoDTO>> PutStudentInfoUpdateAsync([MulitpartContent]StudentInfoDTO model, MulitpartFile file);
 
         /// <summary>
+        /// 删除学生信息
+        /// </summary>
+        /// <returns></returns>
+        [HttpDelete("api/StudentInfo/Delete")]
+        ITask<ResultModel<string>> DeleteStudentInfoAsync(long id);
+
+        /// <summary>
+        /// 批量删除学生信息
+        /// </summary>
+        /// <returns></returns>
+        [HttpDelete("api/StudentInfo/DeleteAll")]
+        ITask<ResultModel<string>> DeleteAllStudentInfoAsync(IList<long> ids);
+
+        /// <summary>
         /// 根据ID获取指定部门
         /// </summary>
         /// <returns></returns>

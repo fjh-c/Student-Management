@@ -125,14 +125,13 @@
         }
         //通过行tool删除，lay-event="del"
         function del(obj) {
-            if (obj.data.nid) {
-                hg.confirm("民族：" + obj.data.name + "，确定要删除吗？", function () {
+            if (obj.data.id) {
+                hg.confirm("学生：" + obj.data.name + "，确定要删除吗？", function () {
                     $.ajax({
-                        url: '/BasicInfo/DelTabNation',
-                        data: {id: obj.data.nid},
+                        url: '/StudentInfo/Delete',
+                        data: {id: obj.data.id},
                         type: 'POST',
-                        success: function (result) {
-                            var data = $.parseJSON(result);
+                        success: function (data) {
                             if (data.success) {
                                 obj.del(); //只删本地数据
                                 hg.msghide("删除成功！");

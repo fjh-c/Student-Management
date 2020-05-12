@@ -13,12 +13,19 @@ namespace StudentManageSystem.ViewModels
         public dynamic data { get; set; }
     }
 
-    public class tree
+    public class Tree
     {
         public int id { get; set; }
         public string label { get; set; }
         public bool isLeaf { get; set; }
-        public List<tree> children { get; set; }
+        public List<Tree> children { get; set; }
 
+    }
+
+    public class Result
+    {
+        public bool success { get; set; } = true;
+        public string msg { get; set; } = "成功！";
+        public dynamic data { get; set; }
     }
 }
