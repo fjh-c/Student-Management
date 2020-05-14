@@ -166,10 +166,19 @@ namespace Microsoft.AspNetCore.Builder
             {
                 if(context.HttpContext.Response.StatusCode != 200)
                 {
-                    context.HttpContext.Response.ContentType = "application/json"; ;
-                    await context.HttpContext.Response.WriteAsync(
-                        JsonHelper.SerializeJSON(ResultModel.Failed($"Status code page, status code: {context.HttpContext.Response.StatusCode}"))
-                        );
+                    
+                    if (context.HttpContext.Request.Path.Value.ToLower().StartsWith("/upload/"))
+                    {
+                        context.HttpContext.Response.Redirect("/Upload/upload-404.png");
+                    }
+                    else
+                    {
+                        context.HttpContext.Response.ContentType = "application/json";
+                        await context.HttpContext.Response.WriteAsync(
+                            JsonHelper.SerializeJSON(ResultModel.Failed($"Status code page, status code: {context.HttpContext.Response.StatusCode}"))
+                            );
+                    }
+                    
                 }
             });
             return app;
