@@ -80,14 +80,48 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1.0", new OpenApiInfo
+               
+                //遍历出全部的版本，做文档信息展示
+                typeof(ApiVersions).GetEnumNames().ToList().ForEach(version =>
                 {
-                    Title = "学生信息管理系统",
-                    Description = BasicSetting.Setting.AssemblyName + " Http WebApi v1.0",
-                    Version = "v1.0",
+                    version = version.Replace('_', '.');
+                    c.SwaggerDoc(version, new OpenApiInfo
+                    {
+                        Version = version,
+                        Title = $"{BasicSetting.Setting.AssemblyName} 接口文档 - NetCore 3.1",
+                        Description = $"{BasicSetting.Setting.AssemblyName} HTTP API " + version,
+                        Contact = new OpenApiContact { Name = "一如既往", Email = "h_gxi@foxmail.com", Url = new Uri("https://www.cnblogs.com/han1982") },
+                        License = new OpenApiLicense { Name = BasicSetting.Setting.AssemblyName + " 官方文档", Url = new Uri("https://www.cnblogs.com/han1982") }
+                    });
+                    c.OrderActionsBy(o => o.RelativePath);
                 });
+
+                //c.SwaggerDoc("v1.0", new OpenApiInfo
+                //{
+                //    Title = "学生信息管理系统",
+                //    Description = BasicSetting.Setting.AssemblyName + " Http WebApi v1.0",
+                //    Version = "v1.0",
+                //});
                 var filePath = Path.Combine(System.AppContext.BaseDirectory, BasicSetting.Setting.AssemblyName + ".xml");
                 c.IncludeXmlComments(filePath);
+
+
+                //// 开启加权小锁
+                //c.OperationFilter<AddResponseHeadersFilter>();
+                //c.OperationFilter<AppendAuthorizeToSummaryOperationFilter>();
+
+                //// 在header中添加token，传递到后台
+                //c.OperationFilter<SecurityRequirementsOperationFilter>();
+
+
+                //// 必须是 oauth2
+                //c.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+                //{
+                //    Description = "JWT授权(数据将在请求头中进行传输) 直接在下框中输入Bearer {token}（注意两者之间是一个空格）\"",
+                //    Name = "Authorization",//jwt默认的参数名称
+                //    In = ParameterLocation.Header,//jwt默认存放Authorization信息的位置(请求头中)
+                //    Type = SecuritySchemeType.ApiKey
+                //});
 
                 //var securityScheme = new OpenApiSecurityScheme
                 //{
