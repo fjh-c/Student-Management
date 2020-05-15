@@ -5,6 +5,12 @@
     Layout = "~/Views/Shared/_FormLayout.cshtml";
 }
 
+<style>
+    .file-caption.icon-visible .file-caption-name {
+        padding-left: 0 !important;
+    }
+</style>
+
 <div class="row">
     <div class="col-md-12">
         <form enctype="multipart/form-data" method="post" asp-action="Save">
@@ -64,7 +70,7 @@
             </div>*@
             <div class="form-group">
                 <label asp-for="PhotosFile" class="control-label"></label>
-                <input type="file" asp-for="PhotosFile"  class="file-loading"  data-show-preview="false" data-show-upload="false" />
+                <input type="file" asp-for="PhotosFile"  class=""  data-show-preview="false" data-show-upload="false" />
                 <span asp-validation-for="PhotosFile" class="text-danger"></span>
             </div>
             <div class="form-group">
