@@ -8,7 +8,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Student.Core.API.Code.Attributes;
 using Student.Core.API.Code.Core;
+using Student.Core.API.Config;
 using Student.DTO;
 using Student.IServices;
 using yrjw.ORM.Chimp.Result;
@@ -26,6 +28,7 @@ namespace Student.Core.API.Controllers
 
 
         [Description("根据ID获取指定学生信息")]
+        [CustomRoute(ApiVersions.v1_0, "Query")]
         [ResponseCache(Duration = 0)]
         [HttpGet]
         public Task<IResultModel> Query([Required]long id)
