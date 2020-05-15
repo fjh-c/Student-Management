@@ -151,8 +151,7 @@ namespace Microsoft.AspNetCore.Builder
             app.UseSwaggerUI(c =>
             {
                 c.RoutePrefix = "api-docs";
-                c.InjectJavascript("/api-docs/zh_CN.js"); // 加载中文包
-                c.SwaggerEndpoint("/swagger/v1.0/swagger.json", BasicSetting.Setting.AssemblyName);
+                c.SwaggerEndpoint("/swagger/v1.0/swagger.json", BasicSetting.Setting.AssemblyName + " v1.0");
                 c.DisplayOperationId();
                 c.DefaultModelExpandDepth(1); //模型示例部分中模型的默认扩展深度。
                 c.DefaultModelsExpandDepth(-1);//模型的默认扩展深度（设置为-1将完全隐藏模型）

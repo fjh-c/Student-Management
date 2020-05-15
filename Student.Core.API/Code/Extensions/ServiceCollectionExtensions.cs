@@ -82,9 +82,9 @@ namespace Microsoft.Extensions.DependencyInjection
             {
                 c.SwaggerDoc("v1.0", new OpenApiInfo
                 {
-                    Title = BasicSetting.Setting.AssemblyName,
-                    Description = "WebApi接口文档说明",
-                    Version = "1.0",
+                    Title = "学生信息管理系统",
+                    Description = BasicSetting.Setting.AssemblyName + " Http WebApi v1.0",
+                    Version = "v1.0",
                 });
                 var filePath = Path.Combine(System.AppContext.BaseDirectory, BasicSetting.Setting.AssemblyName + ".xml");
                 c.IncludeXmlComments(filePath);
