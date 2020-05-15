@@ -12,7 +12,7 @@
     "Student.Core.API": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "swagger",
+      "launchUrl": "api-docs",
       "applicationUrl": "http://localhost:5000",
       "environmentVariables": {
         // 开发环境
@@ -28,7 +28,7 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "swagger",
+      "launchUrl": "api-docs",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

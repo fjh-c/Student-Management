@@ -67,7 +67,8 @@ namespace Student.Core.API.Code.Filters
                     {
                         var operation = path.Value.Operations.FirstOrDefault();
                         operation.Value.Description = description;
-                        operation.Value.Summary = description;
+                        //operation.Value.Summary = description;
+                        operation.Value.OperationId = description;
                     }
                 }
             }
