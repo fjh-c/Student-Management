@@ -1,4 +1,5 @@
-﻿using Student.Model;
+﻿using Student.DTO.Attributes;
+using Student.Model;
 using Student.Model.Enums;
 using System;
 using System.Collections.Generic;
@@ -34,6 +35,7 @@ namespace Student.DTO
         /// <summary>
         /// 部门类别展示
         /// </summary>
+        [IgnoreProperty]
         public string DeptTypeName { get; set; }
     }
 }

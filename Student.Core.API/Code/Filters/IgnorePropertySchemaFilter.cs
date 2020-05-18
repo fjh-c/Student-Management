@@ -2,6 +2,7 @@
 using System.Reflection;
 using Microsoft.OpenApi.Models;
 using Student.Core.API.Code.Attributes;
+using Student.DTO.Attributes;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Student.Core.API.Code.Filters

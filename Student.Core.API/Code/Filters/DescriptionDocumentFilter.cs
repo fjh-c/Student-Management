@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
 using Microsoft.OpenApi.Models;
@@ -99,7 +100,7 @@ namespace Student.Core.API.Code.Filters
             foreach (var schema in context.SchemaRepository.Schemas)
             {
                 var type = schemaTypes.FirstOrDefault(m => m.Value.EqualsIgnoreCase(schema.Key)).Key;
-                if (type == null || !type.IsClass)
+                if (type == null /*|| !type.IsClass*/)
                     continue;
 
                 var properties = type.GetProperties();
@@ -109,9 +110,15 @@ namespace Student.Core.API.Code.Filters
                     if (propertySchema != null)
                     {
                         var descAttr = (DescriptionAttribute)Attribute.GetCustomAttribute(propertyInfo, typeof(DescriptionAttribute));
+                        var displayAttr = (DisplayAttribute)Attribute.GetCustomAttribute(propertyInfo, typeof(DisplayAttribute));
                         if (descAttr != null && descAttr.Description.NotNull())
                         {
                             propertySchema.Title = descAttr.Description;
+                            continue;
+                        }
+                        if(displayAttr != null && displayAttr.Name.NotNull())
+                        {
+                            propertySchema.Title = displayAttr.Name;
                         }
                     }
                 }

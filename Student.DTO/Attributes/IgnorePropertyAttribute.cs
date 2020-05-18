@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace Student.Core.API.Code.Attributes
+namespace Student.DTO.Attributes
 {
     /// <summary>
     /// Swagger：隐藏属性
