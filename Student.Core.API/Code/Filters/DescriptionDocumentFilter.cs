@@ -61,14 +61,23 @@ namespace Student.Core.API.Code.Filters
         {
             foreach (var path in swaggerDoc.Paths)
             {
-                if (TryGetActionDescription(path.Key, context, out string description))
+                if (path.Value != null && path.Value.Operations != null && path.Value.Operations.Any())
                 {
-                    if (path.Value != null && path.Value.Operations != null && path.Value.Operations.Any())
+                    foreach (var operation in path.Value.Operations)
                     {
-                        var operation = path.Value.Operations.FirstOrDefault();
-                        operation.Value.Description = description;
-                        //operation.Value.Summary = description;
-                        operation.Value.OperationId = description;
+                        if (TryGetActionDescription(path.Key, operation.Key, context, out OpenApiOperation oper))
+                        {
+                            operation.Value.Description = oper.Description;
+                            operation.Value.OperationId = oper.OperationId ?? oper.Description;
+                            foreach (var param in oper.Parameters)
+                            {
+                                var obj = operation.Value.Parameters.FirstOrDefault(p => p.Name.ToLower() == param.Name.ToLower());
+                                if(obj != null)
+                                {
+                                    obj.Description = param.Description;
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -112,23 +121,37 @@ namespace Student.Core.API.Code.Filters
         /// <summary>
         /// 获取说明
         /// </summary>
-        private bool TryGetActionDescription(string path, DocumentFilterContext context, out string description)
+        private bool TryGetActionDescription(string path, OperationType type, DocumentFilterContext context, out OpenApiOperation oper)
         {
+            oper = new OpenApiOperation();
             foreach (var apiDescription in context.ApiDescriptions)
             {
                 var apiPath = "/" + apiDescription.RelativePath.ToLower();
-                if (apiPath.Equals(path) && apiDescription.TryGetMethodInfo(out MethodInfo methodInfo))
+                var method = apiDescription.HttpMethod.ToLower();
+                if (apiPath.Equals(path.ToLower()) && method.Equals(type.ToString().ToLower()) && apiDescription.TryGetMethodInfo(out MethodInfo methodInfo))
                 {
                     var descAttr = (DescriptionAttribute)Attribute.GetCustomAttribute(methodInfo, typeof(DescriptionAttribute));
+                    var operAttr = (OperationIdAttribute)Attribute.GetCustomAttribute(methodInfo, typeof(OperationIdAttribute));
+                    var paramAttrs = Attribute.GetCustomAttributes(methodInfo, typeof(ParametersAttribute));
                     if (descAttr != null && descAttr.Description.NotNull())
                     {
-                        description = descAttr.Description;
-                        return true;
+                        oper.Description = descAttr.Description;
                     }
+                    if (operAttr !=null && operAttr.OperationId.NotNull())
+                    {
+                        oper.OperationId = operAttr.OperationId;
+                    }
+
+                    foreach (ParametersAttribute paramAttr in paramAttrs)
+                    {
+                        if (paramAttr != null && paramAttr.name.NotNull())
+                        {
+                            oper.Parameters.Add(new OpenApiParameter() { Name = paramAttr.name, Description = paramAttr.param });
+                        }
+                    }
+                    return true;
                 }
             }
-
-            description = "";
             return false;
         }
     }

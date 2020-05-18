@@ -17,6 +17,7 @@ using yrjw.ORM.Chimp.Result;
 
 namespace Student.Core.API.Controllers
 {
+    [CustomRoute(ApiVersions.v1_0)]
     [Description("学生信息")]
     public class StudentInfoController : ControllerAbstract
     {
@@ -26,11 +27,12 @@ namespace Student.Core.API.Controllers
 
         public Lazy<IStudentInfoService> StudentInfoService { get; set; }
 
-
+        
         [Description("根据ID获取指定学生信息")]
-        [CustomRoute(ApiVersions.v1_0, "Query")]
+        [OperationId("获取学生信息")]
+        [Parameters(name = "id", param = "学生ID")]
         [ResponseCache(Duration = 0)]
-        [HttpGet]
+        [HttpGet("{id}")]
         public Task<IResultModel> Query([Required]long id)
         {
             _logger.LogDebug($"根据ID获取指定学生信息{id}");
@@ -47,15 +49,19 @@ namespace Student.Core.API.Controllers
         }
 
         [Description("获取学生分页列表")]
+        [Parameters(name = "pageIndex", param = "索引页")]
+        [Parameters(name = "pageSize", param = "单页条数")]
+        [Parameters(name = "search", param = "检索条件")]
         [ResponseCache(Duration = 0)]
-        [HttpGet]
+        [HttpGet("{pageIndex}/{pageSize}/{search?}")]
         public Task<IResultModel> QueryPagedList([Required]int pageIndex, int pageSize, string search)
         {
             _logger.LogDebug($"获取学生分页列表");
             return StudentInfoService.Value.QueryPagedList(pageIndex, pageSize, search);
         }
 
-        [Description("添加学生信息")]
+        [Description("添加学生信息，成功后返回当前学生信息")]
+        [OperationId("添加学生信息")]
         [HttpPost]
         public async Task<IResultModel> Insert([FromForm]StudentInfoDTO model, IFormFile file)
         {
@@ -69,7 +75,8 @@ namespace Student.Core.API.Controllers
             return await StudentInfoService.Value.Insert(model);
         }
 
-        [Description("修改学生信息")]
+        [Description("修改学生信息，成功后返回当前学生信息")]
+        [OperationId("修改学生信息")]
         [HttpPut]
         public async Task<IResultModel> Update([FromForm]StudentInfoDTO model, IFormFile file)
         {
@@ -83,15 +90,18 @@ namespace Student.Core.API.Controllers
             return await StudentInfoService.Value.Update(model);
         }
 
-        [Description("删除学生信息")]
-        [HttpDelete]
+        [Description("通过指定学生ID删除当前学生信息")]
+        [OperationId("删除学生信息")]
+        [Parameters(name = "id", param = "学生ID")]
+        [HttpDelete("{id}")]
         public Task<IResultModel> Delete([Required]long id)
         {
             _logger.LogDebug("删除学生信息");
             return StudentInfoService.Value.Delete(id);
         }
 
-        [Description("批量删除学生信息")]
+        [Description("传入1个或多个学生ID数组[]，批量删除学生信息")]
+        [OperationId("批量删除学生信息")]
         [HttpDelete]
         public async Task<IResultModel> DeleteAll([FromBody]IList<long> ids)
         {

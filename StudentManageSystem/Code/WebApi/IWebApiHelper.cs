@@ -15,13 +15,13 @@ namespace StudentManageSystem.Code.WebApi
         /// 根据ID获取指定学生信息
         /// </summary>
         /// <returns></returns>
-        [HttpGet("api/StudentInfo/Query")]
+        [HttpGet("api/StudentInfo/Query/{id}")]
         ITask<ResultModel<StudentInfoDTO>> GetStudentInfoAsync(long id);
         /// <summary>
         /// 获取学生分页列表
         /// </summary>
         /// <returns></returns>
-        [HttpGet("api/StudentInfo/QueryPagedList")]
+        [HttpGet("api/StudentInfo/QueryPagedList/{pageIndex}/{pageSize}/{search}")]
         ITask<ResultModel<PagedList<StudentInfoDTO>>> GetStudentInfoPagedListAsync(int pageIndex, int pageSize, string search);
         /// <summary>
         /// 添加学生信息
@@ -40,7 +40,7 @@ namespace StudentManageSystem.Code.WebApi
         /// 删除学生信息
         /// </summary>
         /// <returns></returns>
-        [HttpDelete("api/StudentInfo/Delete")]
+        [HttpDelete("api/StudentInfo/Delete/{id}")]
         ITask<ResultModel<string>> DeleteStudentInfoAsync(long id);
 
         /// <summary>
@@ -54,7 +54,7 @@ namespace StudentManageSystem.Code.WebApi
         /// 根据ID获取指定部门
         /// </summary>
         /// <returns></returns>
-        [HttpGet("api/Depart/Query")]
+        [HttpGet("api/Depart/Query/{id}")]
         ITask<ResultModel<DepartDTO>> GetDepartAsync(int id);
         /// <summary>
         /// 获取全部部门列表

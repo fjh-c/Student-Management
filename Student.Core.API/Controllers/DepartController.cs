@@ -22,9 +22,11 @@ namespace Student.Core.API.Controllers
         public Lazy<IDepartService> DepartService { get; set; }
 
 
-        [Description("根据ID获取指定部门")]
+        [Description("通过指定部门ID，返回该部门信息")]
+        [OperationId("获取部门信息")]
+        [Parameters(name="id", param = "部门ID")]
         [ResponseCache(Duration = 0)]
-        [HttpGet]
+        [HttpGet("{id}")]
         public Task<IResultModel> Query([Required]int id)
         {
             _logger.LogDebug($"根据ID获取指定部门{id}");
@@ -41,15 +43,19 @@ namespace Student.Core.API.Controllers
         }
 
         [Description("获取部门分页列表")]
+        [Parameters(name = "pageIndex", param = "索引页")]
+        [Parameters(name = "pageSize", param = "单页条数")]
+        [Parameters(name = "search", param = "检索条件")]
         [ResponseCache(Duration = 0)]
-        [HttpGet]
+        [HttpGet("{pageIndex}/{pageSize}/{search?}")]
         public Task<IResultModel> QueryPagedList([Required]int pageIndex, int pageSize, string search)
         {
             _logger.LogDebug($"获取部门分页列表");
             return DepartService.Value.QueryPagedList(pageIndex, pageSize, search);
         }
 
-        [Description("添加部门")]
+        [Description("添加部门，成功后返回当前部门信息")]
+        [OperationId("添加部门")]
         [HttpPost]
         public Task<IResultModel> Insert(DepartDTO model)
         {
@@ -57,7 +63,8 @@ namespace Student.Core.API.Controllers
             return DepartService.Value.Insert(model);
         }
 
-        [Description("修改部门")]
+        [Description("修改部门，成功后返回当前部门信息")]
+        [OperationId("修改部门")]
         [HttpPut]
         public Task<IResultModel> Update(DepartDTO model)
         {
@@ -65,15 +72,18 @@ namespace Student.Core.API.Controllers
             return DepartService.Value.Update(model);
         }
 
-        [Description("删除部门")]
-        [HttpDelete]
+        [Description("通过指定部门ID删除当前部门信息")]
+        [OperationId("删除部门")]
+        [Parameters(name = "id", param = "部门ID")]
+        [HttpDelete("{id}")]
         public Task<IResultModel> Delete([Required]int id)
         {
             _logger.LogDebug("删除部门");
             return DepartService.Value.Delete(id);
         }
 
-        [Description("批量删除部门")]
+        [Description("传入1个或多个部门ID数组[]，批量删除部门信息")]
+        [OperationId("批量删除部门")]
         [HttpDelete]
         public async Task<IResultModel> DeleteAll([FromBody]IList<int> ids)
         {
