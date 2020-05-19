@@ -1,4 +1,6 @@
-﻿using AutoMapper;
+﻿using Auth.Jwt;
+using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
@@ -52,6 +54,9 @@ namespace Microsoft.Extensions.DependencyInjection
             {
                 services.AddSwagger();
             }
+
+            //Jwt身份认证
+            services.AddJwtAuth();
 
             //添加HttpClient相关
             services.AddSingleton<IHttpApiFactory<IWebApiHelper>, HttpApiFactory<IWebApiHelper>>(p =>

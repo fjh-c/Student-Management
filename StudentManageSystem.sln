@@ -23,7 +23,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Student.DTO", "Student.DTO\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StudentManageSystem", "StudentManageSystem\StudentManageSystem.csproj", "{BCDA220C-AA73-46A1-A5A2-FE824D54B811}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logging.Serilog", "Logging.Serilog\Logging.Serilog.csproj", "{CD31A802-9BD0-47D6-9BC8-A366586840AB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Logging.Serilog", "Logging.Serilog\Logging.Serilog.csproj", "{CD31A802-9BD0-47D6-9BC8-A366586840AB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auth.Jwt", "Auth.Jwt\Auth.Jwt.csproj", "{4F8B31F3-F142-4E52-9BF2-BDB4EAC4C0BE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +65,10 @@ Global
 		{CD31A802-9BD0-47D6-9BC8-A366586840AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CD31A802-9BD0-47D6-9BC8-A366586840AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CD31A802-9BD0-47D6-9BC8-A366586840AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F8B31F3-F142-4E52-9BF2-BDB4EAC4C0BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F8B31F3-F142-4E52-9BF2-BDB4EAC4C0BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F8B31F3-F142-4E52-9BF2-BDB4EAC4C0BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F8B31F3-F142-4E52-9BF2-BDB4EAC4C0BE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -74,6 +80,7 @@ Global
 		{E1D13576-1367-4EF9-947B-23EAA4BDF73F} = {002D7C88-88F9-48A3-9F1A-2813A3BB9D86}
 		{FFA0BD7E-B9DC-45BA-8E76-09840A3ED118} = {667BC32E-9DEF-483E-861E-DA065859720E}
 		{CD31A802-9BD0-47D6-9BC8-A366586840AB} = {002D7C88-88F9-48A3-9F1A-2813A3BB9D86}
+		{4F8B31F3-F142-4E52-9BF2-BDB4EAC4C0BE} = {002D7C88-88F9-48A3-9F1A-2813A3BB9D86}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1F54F49D-338D-488D-BD26-20DCC4102601}
