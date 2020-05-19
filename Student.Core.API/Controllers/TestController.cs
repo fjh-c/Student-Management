@@ -24,7 +24,7 @@ namespace Student.Core.API.Controllers
 
         [Description("获取学生列表,模拟调用三方接口获取数据")]
         [ResponseCache(Duration = 0)]
-        [HttpGet]
+        [HttpGet("QueryList")]
         public async Task<IResultModel> QueryList()
         {
             var result = await _webApi.GetStudentInfoListAsync();

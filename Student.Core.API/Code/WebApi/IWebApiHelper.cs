@@ -12,7 +12,7 @@ namespace Student.Core.API.Code.WebApi
     [JsonReturn]
     public interface IWebApiHelper: IHttpApi
     {
-        [HttpGet("api/v1.0/StudentInfo")]
+        [HttpGet("api/StudentInfo")]
         ITask<StudentInfoListResultModel> GetStudentInfoListAsync();
     }
 
