@@ -13,6 +13,7 @@ using yrjw.ORM.Chimp.Result;
 namespace Student.Core.API.Controllers
 {
     [Description("测试")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class TestController : ControllerAbstract
     {
         private readonly IWebApiHelper _webApi;
