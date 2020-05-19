@@ -17,7 +17,6 @@ using yrjw.ORM.Chimp.Result;
 
 namespace Student.Core.API.Controllers
 {
-    [CustomRoute(ApiVersions.v1_0)]
     [Description("学生信息")]
     public class StudentInfoController : ControllerAbstract
     {

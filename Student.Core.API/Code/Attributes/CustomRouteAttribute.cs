@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace Student.Core.API.Code.Attributes
 {
     /// <summary>
-    /// 自定义路由 /api/{version}/[controler]/[action]
+    /// 自定义路由 /api/{version}/[controler]
     /// </summary>
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true, Inherited = true)]
     public class CustomRouteAttribute : RouteAttribute, IApiDescriptionGroupNameProvider
@@ -23,8 +23,8 @@ namespace Student.Core.API.Code.Attributes
         /// <summary>
         /// 自定义路由构造函数，继承基类路由
         /// </summary>
-        /// <param name="actionName"></param>
-        public CustomRouteAttribute(string actionName = "[action]") : base("/api/{version}/[controller]/" + actionName)
+        /// <param name="actionName">[action]</param>
+        public CustomRouteAttribute(string actionName = "") : base("/api/{version}/[controller]/" + actionName)
         {
         }
         /// <summary>

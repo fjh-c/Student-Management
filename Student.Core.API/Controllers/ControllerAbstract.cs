@@ -12,7 +12,7 @@ namespace Student.Core.API.Controllers
     /// <summary>
     /// 控制器抽象类
     /// </summary>
-    [Route("api/[controller]/[action]")]
+    [Route("api/[controller]")]
     [ApiController]
     public abstract class ControllerAbstract : ControllerBase
     {

@@ -9,19 +9,19 @@ using yrjw.ORM.Chimp.Result;
 namespace StudentManageSystem.Code.WebApi
 {
     [JsonReturn]
-    public interface IWebApiHelper : IHttpApi
+    public partial interface IWebApiHelper : IHttpApi
     {
         /// <summary>
         /// 根据ID获取指定学生信息
         /// </summary>
         /// <returns></returns>
-        [HttpGet("api/StudentInfo/Query/{id}")]
+        [HttpGet("api/StudentInfo/{id}")]
         ITask<ResultModel<StudentInfoDTO>> GetStudentInfoAsync(long id);
         /// <summary>
         /// 获取学生分页列表
         /// </summary>
         /// <returns></returns>
-        [HttpGet("api/StudentInfo/QueryPagedList/{pageIndex}/{pageSize}/{search}")]
+        [HttpGet("api/StudentInfo/{pageIndex}/{pageSize}/{search}")]
         ITask<ResultModel<PagedList<StudentInfoDTO>>> GetStudentInfoPagedListAsync(int pageIndex, int pageSize, string search);
         /// <summary>
         /// 添加学生信息
@@ -50,19 +50,22 @@ namespace StudentManageSystem.Code.WebApi
         [HttpDelete("api/StudentInfo/DeleteAll")]
         ITask<ResultModel<string>> DeleteAllStudentInfoAsync([JsonContent]IList<long> ids);
 
+
+    }
+
+    public partial interface IWebApiHelper : IHttpApi
+    {
         /// <summary>
         /// 根据ID获取指定部门
         /// </summary>
         /// <returns></returns>
-        [HttpGet("api/Depart/Query/{id}")]
+        [HttpGet("api/Depart/{id}")]
         ITask<ResultModel<DepartDTO>> GetDepartAsync(int id);
         /// <summary>
         /// 获取全部部门列表
         /// </summary>
         /// <returns></returns>
-        [HttpGet("api/Depart/QueryList")]
+        [HttpGet("api/Depart")]
         ITask<ResultModel<List<DepartDTO>>> GetDepartListAsync();
-
-
     }
 }
