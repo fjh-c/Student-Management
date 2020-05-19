@@ -96,64 +96,40 @@ namespace Microsoft.Extensions.DependencyInjection
                     c.OrderActionsBy(o => o.RelativePath);
                 });
 
-                //c.SwaggerDoc("v1.0", new OpenApiInfo
-                //{
-                //    Title = "学生信息管理系统",
-                //    Description = BasicSetting.Setting.AssemblyName + " Http WebApi v1.0",
-                //    Version = "v1.0",
-                //});
                 var filePath = Path.Combine(System.AppContext.BaseDirectory, BasicSetting.Setting.AssemblyName + ".xml");
                 c.IncludeXmlComments(filePath);
 
+                var securityScheme = new OpenApiSecurityScheme
+                {
+                    Description = "JWT认证请求头格式: \"Authorization: Bearer {token}\"",
+                    Name = "Authorization",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer"
+                };
 
-                //// 开启加权小锁
-                //c.OperationFilter<AddResponseHeadersFilter>();
-                //c.OperationFilter<AppendAuthorizeToSummaryOperationFilter>();
+                //添加设置Token的按钮
+                c.AddSecurityDefinition("Bearer", securityScheme);
 
-                //// 在header中添加token，传递到后台
-                //c.OperationFilter<SecurityRequirementsOperationFilter>();
+                //添加Jwt验证设置
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement()
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            },
+                            Scheme = "oauth2",
+                            Name = "Bearer",
+                            In = ParameterLocation.Header,
 
-
-                //// 必须是 oauth2
-                //c.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
-                //{
-                //    Description = "JWT授权(数据将在请求头中进行传输) 直接在下框中输入Bearer {token}（注意两者之间是一个空格）\"",
-                //    Name = "Authorization",//jwt默认的参数名称
-                //    In = ParameterLocation.Header,//jwt默认存放Authorization信息的位置(请求头中)
-                //    Type = SecuritySchemeType.ApiKey
-                //});
-
-                //var securityScheme = new OpenApiSecurityScheme
-                //{
-                //    Description = "JWT认证请求头格式: \"Authorization: Bearer {token}\"",
-                //    Name = "Authorization",
-                //    In = ParameterLocation.Header,
-                //    Type = SecuritySchemeType.ApiKey,
-                //    Scheme = "Bearer"
-                //};
-
-                ////添加设置Token的按钮
-                //c.AddSecurityDefinition("Bearer", securityScheme);
-
-                ////添加Jwt验证设置
-                //c.AddSecurityRequirement(new OpenApiSecurityRequirement()
-                //{
-                //    {
-                //        new OpenApiSecurityScheme
-                //        {
-                //            Reference = new OpenApiReference
-                //            {
-                //                Type = ReferenceType.SecurityScheme,
-                //                Id = "Bearer"
-                //            },
-                //            Scheme = "oauth2",
-                //            Name = "Bearer",
-                //            In = ParameterLocation.Header,
-
-                //        },
-                //        new List<string>()
-                //    }
-                //});
+                        },
+                        new List<string>()
+                    }
+                });
 
                 //链接转小写过滤器
                 c.DocumentFilter<LowercaseDocumentFilter>();
@@ -164,6 +140,8 @@ namespace Microsoft.Extensions.DependencyInjection
                 //隐藏属性
                 c.SchemaFilter<IgnorePropertySchemaFilter>();
             });
+            //支持newstonsoftjson
+            services.AddSwaggerGenNewtonsoftSupport();
 
             return services;
         }
