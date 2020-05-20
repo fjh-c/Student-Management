@@ -2,6 +2,7 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
@@ -71,6 +72,13 @@ namespace Microsoft.Extensions.DependencyInjection
             {
                 var factory = p.GetRequiredService<IHttpApiFactory<IWebApiHelper>>();
                 return factory.CreateHttpApi();
+            });
+
+            //解决Multipart body length limit 134217728 exceeded
+            services.Configure<FormOptions>(x =>
+            {
+                x.ValueLengthLimit = int.MaxValue;
+                x.MultipartBodyLengthLimit = int.MaxValue;
             });
 
             return services;
