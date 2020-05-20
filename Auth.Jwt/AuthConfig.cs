@@ -10,6 +10,10 @@ namespace Auth.Jwt
     public class AuthConfig
     {
         /// <summary>
+        /// 启用验证码功能
+        /// </summary>
+        public bool VerifyCode { get; set; }
+        /// <summary>
         /// 开启权限验证
         /// </summary>
         public bool Validate { get; set; }
@@ -27,7 +31,9 @@ namespace Auth.Jwt
         /// <summary>
         /// Jwt配置
         /// </summary>
-        public static JwtConfig Jwt { get; set; } = new JwtConfig();
+        public JwtConfig Jwt { get; set; } = new JwtConfig();
+
+        public static AuthConfig Config { get; set; } = new AuthConfig();
     }
 
     /// <summary>
@@ -43,12 +49,12 @@ namespace Auth.Jwt
         /// <summary>
         /// 发行人
         /// </summary>
-        public string Issuer { get; set; } = "http://127.0.0.1:6220";
+        public string Issuer { get; set; } = "http://127.0.0.1:5000";
 
         /// <summary>
         /// 消费者
         /// </summary>
-        public string Audience { get; set; } = "http://127.0.0.1:6220";
+        public string Audience { get; set; } = "http://127.0.0.1:5000";
 
         /// <summary>
         /// 有效期(分钟，默认120)

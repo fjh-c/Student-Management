@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Auth.Jwt;
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -22,6 +23,7 @@ namespace Student.Core.API
             //∞Û∂®≈‰÷√–≈œ¢
             configuration.Binding<BasicSetting>("Setting")
                 .Binding<InitializationData>("Initialization")
+                .Binding<AuthConfig>("Config")
                 .OnChange(BasicSetting.Setting, InitializationData.Initialization);
         }
     }

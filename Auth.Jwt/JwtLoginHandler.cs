@@ -8,7 +8,6 @@ using System.Text;
 
 namespace Auth.Jwt
 {
-    //[Singleton] 单例模式
     public class JwtLoginHandler : ILoginHandler
     {
         private readonly ILogger _logger;
@@ -20,7 +19,7 @@ namespace Auth.Jwt
 
         public JwtTokenModel Hand(Claim[] claims, string extendData)
         {
-            var options = AuthConfig.Jwt;
+            var options = AuthConfig.Config.Jwt;
             var token = Build(claims, options);
 
             _logger.LogDebug("生成JwtToken：{token}", token);

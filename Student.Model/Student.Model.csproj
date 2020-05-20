@@ -5,19 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Config\initializationdata.json" />
+    <PackageReference Include="yrjw.ORM.Chimp" Version="1.0.4" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Config\initializationdata.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <None Update="Config\initializationdata.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="yrjw.ORM.Chimp" Version="1.0.4" />
+    </None>
   </ItemGroup>
 
 </Project>

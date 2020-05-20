@@ -14,6 +14,7 @@ namespace Auth.Jwt
         public static IServiceCollection AddJwtAuth(this IServiceCollection services)
         {
             services.AddSingleton<MyJwtSecurityTokenHandler>();
+            services.AddSingleton<ILoginHandler, JwtLoginHandler>();
 
             //从服务容器中获取自定义令牌验证处理器
             var securityTokenHandler = services.BuildServiceProvider().GetService<MyJwtSecurityTokenHandler>();

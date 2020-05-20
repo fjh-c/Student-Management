@@ -14,9 +14,11 @@ namespace Auth.Jwt
         public override ClaimsPrincipal ValidateToken(string token, TokenValidationParameters validationParameters,
             out SecurityToken validatedToken)
         {
-            validationParameters.ValidIssuer = "http://127.0.0.1:5000";
-            validationParameters.ValidAudience = "http://127.0.0.1:5000";
-            validationParameters.IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("twAJ$j5##pVc5*y&"));
+            var jwtConfig = AuthConfig.Config.Jwt;
+
+            validationParameters.ValidIssuer = jwtConfig.Issuer;
+            validationParameters.ValidAudience = jwtConfig.Audience;
+            validationParameters.IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtConfig.Key));
 
             return base.ValidateToken(token, validationParameters, out validatedToken);
         }
