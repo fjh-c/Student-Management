@@ -9,7 +9,7 @@ using yrjw.ORM.Chimp;
 namespace Student.Model
 {
     /// <summary>
-    /// 数据模型标准int
+    /// 包含通用模型实体基类，主键int类型自增
     /// </summary>
     public class EntityBase: EntityBase<int> 
     {
@@ -17,7 +17,7 @@ namespace Student.Model
     }
 
     /// <summary>
-    /// 数据模型标准, 无软删除
+    /// 不包含软删除功能的实体基类，主键int类型自增
     /// </summary>
     public class EntityBaseNoDeleted : EntityBase<int>
     {
@@ -26,9 +26,9 @@ namespace Student.Model
     }
 
     /// <summary>
-    /// 数据模型标准, 无软删除
+    /// 不包含软删除功能的实体基类
     /// </summary>
-    /// <typeparam name="TKey">类型</typeparam>
+    /// <typeparam name="TKey">主键类型</typeparam>
     public class EntityBaseNoDeleted<TKey> : EntityBase<TKey> where TKey : struct
     {
         [NotMapped]
@@ -36,7 +36,7 @@ namespace Student.Model
     }
 
     /// <summary>
-    /// 数据模型
+    /// 包含通用模型实体基类
     /// </summary>
     /// <typeparam name="TKey">主键类型</typeparam>
     public class EntityBase<TKey> : IEntity where TKey : struct
