@@ -30,6 +30,11 @@ namespace Student.DTO
         /// </summary>
         [Description("该身份证号已被其他账号绑定使用")]
         [Display(Name = "禁用")]
-        IdentityCard = -10003
+        IdentityCard = -10003,
+        /// <summary>
+        /// 用户名已存在
+        /// </summary>
+        [Description("用户名已存在")]
+        UserName = -10004
     }
 }

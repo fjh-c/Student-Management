@@ -7,7 +7,7 @@ namespace Student.Model
     public partial class Account
     {
         /// <summary>
-        /// 类别展示
+        /// 类型展示
         /// </summary>
         public string TypeName => Type.ToDescription();
     }

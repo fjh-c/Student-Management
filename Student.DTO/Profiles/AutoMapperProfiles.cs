@@ -17,6 +17,9 @@ namespace Student.DTO.Profiles
 
             CreateMap<Depart, DepartDTO>();
             CreateMap<DepartDTO, Depart>();
+
+            CreateMap<Account, AccountDTO>();
+            CreateMap<AccountDTO, Account>();
         }
     }
 }
