@@ -1,11 +1,14 @@
 {
   //初始化数据
   "Initialization": {
-    "Admin": [
+    "Account": [
       {
-        "Id": 1,
+        "Id": "39F08CFD-8E0D-771B-A2F3-2639A62CA2FA",
         "UserName": "admin",
-        "PassWord": "admin"
+        "PassWord": "admin",
+        "Type": 0,
+        "Name": "管理员",
+        "Status": 1
       }
     ],
     "Depart": [
@@ -35,7 +38,7 @@
     ],
     "StudentInfo": [
       {
-        "Id": 1,
+        "Id": 10001,
         "Name": "小安",
         "Gender": 1,
         "Nation": 1,
@@ -48,7 +51,7 @@
         "DepartId": 4
       },
       {
-        "Id": 2,
+        "Id": 10002,
         "Name": "老李",
         "Gender": 0,
         "Nation": 0,

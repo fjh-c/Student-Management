@@ -8,24 +8,41 @@ using System.Text;
 namespace Student.Model
 {
     /// <summary>
-    /// 管理员表
+    /// 账户表
     /// </summary>
-    [Table("Admin")]
-    public partial class Admin : EntityBaseNoDeleted
+    [Table("Account")]
+    public partial class Account : EntityBaseNoDeleted<Guid>
     {
         /// <summary>
-        /// 管理员账号
+        /// 账号
         /// </summary>
         [Required]
         [Column(TypeName = "varchar(50)")]
         public string UserName { get; set; }
 
         /// <summary>
-        /// 管理员密码
+        /// 密码
         /// </summary>
         [Required]
         [Column(TypeName = "varchar(50)")]
         public string PassWord { get; set; }
+
+        /// <summary>
+        /// 类型
+        /// </summary>
+        public EnumAccountType Type { get; set; }
+
+        /// <summary>
+        /// 姓名
+        /// </summary>
+        [Required]
+        [Column(TypeName = "varchar(50)")]
+        public string Name { get; set; }
+
+        /// <summary>
+        /// 激活状态
+        /// </summary>
+        public EnumStatus Status { get; set; }
 
         [NotMapped]
         public override DateTime CreatedTime { get => base.CreatedTime; set => base.CreatedTime = value; }

@@ -8,18 +8,20 @@ namespace Student.Core.API.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Admin",
+                name: "Account",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<Guid>(nullable: false),
                     ModifiedTime = table.Column<DateTime>(nullable: false),
                     UserName = table.Column<string>(type: "varchar(50)", nullable: false),
-                    PassWord = table.Column<string>(type: "varchar(50)", nullable: false)
+                    PassWord = table.Column<string>(type: "varchar(50)", nullable: false),
+                    Type = table.Column<int>(nullable: false),
+                    Name = table.Column<string>(type: "varchar(50)", nullable: false),
+                    Status = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Admin", x => x.Id);
+                    table.PrimaryKey("PK_Account", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -74,30 +76,30 @@ namespace Student.Core.API.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Admin",
-                columns: new[] { "Id", "ModifiedTime", "PassWord", "UserName" },
-                values: new object[] { 1, new DateTime(2020, 5, 3, 12, 54, 2, 379, DateTimeKind.Local).AddTicks(7174), "admin", "admin" });
+                table: "Account",
+                columns: new[] { "Id", "ModifiedTime", "Name", "PassWord", "Status", "Type", "UserName" },
+                values: new object[] { new Guid("39f08cfd-8e0d-771b-a2f3-2639a62ca2fa"), new DateTime(2020, 5, 21, 10, 2, 21, 318, DateTimeKind.Local).AddTicks(8310), "管理员", "admin", 1, 0, "admin" });
 
             migrationBuilder.InsertData(
                 table: "Depart",
                 columns: new[] { "Id", "CreatedTime", "DepartName", "DeptType", "GradeId", "ModifiedTime", "OperatorName" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2020, 5, 3, 12, 54, 2, 383, DateTimeKind.Local).AddTicks(5670), "2020级", 0, null, new DateTime(2020, 5, 3, 12, 54, 2, 383, DateTimeKind.Local).AddTicks(5689), null },
-                    { 2, new DateTime(2020, 5, 3, 12, 54, 2, 385, DateTimeKind.Local).AddTicks(8092), ".net core 基础班", 1, 1, new DateTime(2020, 5, 3, 12, 54, 2, 385, DateTimeKind.Local).AddTicks(8112), null },
-                    { 3, new DateTime(2020, 5, 3, 12, 54, 2, 386, DateTimeKind.Local).AddTicks(3070), ".net core 精英班", 1, 1, new DateTime(2020, 5, 3, 12, 54, 2, 386, DateTimeKind.Local).AddTicks(3086), null },
-                    { 4, new DateTime(2020, 5, 3, 12, 54, 2, 386, DateTimeKind.Local).AddTicks(5968), "java EE 基础班", 1, 1, new DateTime(2020, 5, 3, 12, 54, 2, 386, DateTimeKind.Local).AddTicks(5976), null }
+                    { 1, new DateTime(2020, 5, 21, 10, 2, 21, 321, DateTimeKind.Local).AddTicks(7984), "2020级", 0, null, new DateTime(2020, 5, 21, 10, 2, 21, 321, DateTimeKind.Local).AddTicks(7994), null },
+                    { 2, new DateTime(2020, 5, 21, 10, 2, 21, 323, DateTimeKind.Local).AddTicks(961), ".net core 基础班", 1, 1, new DateTime(2020, 5, 21, 10, 2, 21, 323, DateTimeKind.Local).AddTicks(967), null },
+                    { 3, new DateTime(2020, 5, 21, 10, 2, 21, 323, DateTimeKind.Local).AddTicks(4504), ".net core 精英班", 1, 1, new DateTime(2020, 5, 21, 10, 2, 21, 323, DateTimeKind.Local).AddTicks(4509), null },
+                    { 4, new DateTime(2020, 5, 21, 10, 2, 21, 323, DateTimeKind.Local).AddTicks(7172), "java EE 基础班", 1, 1, new DateTime(2020, 5, 21, 10, 2, 21, 323, DateTimeKind.Local).AddTicks(7177), null }
                 });
 
             migrationBuilder.InsertData(
                 table: "StudentInfo",
                 columns: new[] { "Id", "Address", "CreatedTime", "Deleted", "DepartId", "Email", "EnrollmentDT", "Gender", "IdentityCard", "ModifiedTime", "Name", "Nation", "OperatorName", "Phone", "Photos", "Status" },
-                values: new object[] { 2L, "北京市朝阳区东三环中路甲10号", new DateTime(2020, 5, 3, 12, 54, 2, 395, DateTimeKind.Local).AddTicks(723), 0, 3, "laoli@stu.com", new DateTime(2020, 4, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, "230210199802127323", new DateTime(2020, 5, 3, 12, 54, 2, 395, DateTimeKind.Local).AddTicks(747), "老李", 0, null, "13902451189", "stu_2.jpg", 0 });
+                values: new object[] { 10002L, "北京市朝阳区东三环中路甲10号", new DateTime(2020, 5, 21, 10, 2, 21, 327, DateTimeKind.Local).AddTicks(8268), 0, 3, "laoli@stu.com", new DateTime(2020, 4, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, "230210199802127323", new DateTime(2020, 5, 21, 10, 2, 21, 327, DateTimeKind.Local).AddTicks(8278), "老李", 0, null, "13902451189", "stu_2.jpg", 0 });
 
             migrationBuilder.InsertData(
                 table: "StudentInfo",
                 columns: new[] { "Id", "Address", "CreatedTime", "Deleted", "DepartId", "Email", "EnrollmentDT", "Gender", "IdentityCard", "ModifiedTime", "Name", "Nation", "OperatorName", "Phone", "Photos", "Status" },
-                values: new object[] { 1L, "朝阳区朝阳公园西路9号院九号", new DateTime(2020, 5, 3, 12, 54, 2, 387, DateTimeKind.Local).AddTicks(8996), 0, 4, "xiaoan@stu.com", new DateTime(2020, 4, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "230210199708162251", new DateTime(2020, 5, 3, 12, 54, 2, 387, DateTimeKind.Local).AddTicks(9017), "小安", 1, null, "13902451188", "stu_1.jpg", 0 });
+                values: new object[] { 10001L, "朝阳区朝阳公园西路9号院九号", new DateTime(2020, 5, 21, 10, 2, 21, 324, DateTimeKind.Local).AddTicks(4813), 0, 4, "xiaoan@stu.com", new DateTime(2020, 4, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "230210199708162251", new DateTime(2020, 5, 21, 10, 2, 21, 324, DateTimeKind.Local).AddTicks(4820), "小安", 1, null, "13902451188", "stu_1.jpg", 0 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_StudentInfo_DepartId",
@@ -108,7 +110,7 @@ namespace Student.Core.API.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Admin");
+                name: "Account");
 
             migrationBuilder.DropTable(
                 name: "StudentInfo");
