@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Student.DTO.Attributes;
 using Student.Model;
 using Student.Model.Enums;
 using System;
@@ -90,33 +91,40 @@ namespace Student.DTO
         /// 创建时间
         /// </summary>
         [Display(Name = "创建时间")]
+        [IgnoreProperty]
         public string CreatedTime { get; set; }
         /// <summary>
         /// 修改时间
         /// </summary>
         [Display(Name = "修改时间")]
+        [IgnoreProperty]
         public string ModifiedTime { get; set; }
         /// <summary>
         /// "操作人名称
         /// </summary>
         [Display(Name = "操作人名称")]
+        [IgnoreProperty]
         public string OperatorName { get; set; }
 
         /// <summary>
         /// 性别展示
         /// </summary>
+        [IgnoreProperty]
         public string GenderName { get; set; }
         /// <summary>
         /// 民族展示
         /// </summary>
+        [IgnoreProperty]
         public string NationName { get; set; }
         /// <summary>
         /// 激活状态展示
         /// </summary>
+        [IgnoreProperty]
         public string StatusName { get; set; }
         /// <summary>
         /// 部门展示
         /// </summary>
+        [IgnoreProperty]
         public string DepartName { get; set; }
     }
 }

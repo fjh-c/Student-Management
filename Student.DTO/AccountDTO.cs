@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Student.DTO.Attributes;
 using Student.Model;
 using Student.Model.Enums;
 using System;
@@ -56,11 +57,13 @@ namespace Student.DTO
         /// 修改时间
         /// </summary>
         [Display(Name = "修改时间")]
+        [IgnoreProperty]
         public string ModifiedTime { get; set; }
 
         /// <summary>
         /// 类型展示
         /// </summary>
+        [IgnoreProperty]
         public string TypeName { get; set; }
 
     }

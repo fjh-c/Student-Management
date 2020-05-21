@@ -27,27 +27,27 @@ namespace StudentManageSystem.Code.WebApi
         /// 添加学生信息
         /// </summary>
         /// <returns></returns>
-        [HttpPost("api/StudentInfo/Insert")]
+        [HttpPost("api/StudentInfo")]
         ITask<ResultModel<StudentInfoDTO>> PostStudentInfoInsertAsync([MulitpartContent]StudentInfoDTO model, MulitpartFile file);
         /// <summary>
         /// 修改学生信息
         /// </summary>
         /// <returns></returns>
-        [HttpPut("api/StudentInfo/Update")]
+        [HttpPut("api/StudentInfo")]
         ITask<ResultModel<StudentInfoDTO>> PutStudentInfoUpdateAsync([MulitpartContent]StudentInfoDTO model, MulitpartFile file);
 
         /// <summary>
         /// 删除学生信息
         /// </summary>
         /// <returns></returns>
-        [HttpDelete("api/StudentInfo/Delete/{id}")]
+        [HttpDelete("api/StudentInfo/{id}")]
         ITask<ResultModel<string>> DeleteStudentInfoAsync(long id);
 
         /// <summary>
         /// 批量删除学生信息
         /// </summary>
         /// <returns></returns>
-        [HttpDelete("api/StudentInfo/DeleteAll")]
+        [HttpDelete("api/StudentInfo")]
         ITask<ResultModel<string>> DeleteAllStudentInfoAsync([JsonContent]IList<long> ids);
 
 
