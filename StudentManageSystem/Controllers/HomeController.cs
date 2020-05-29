@@ -5,7 +5,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using StudentManageSystem.Code.WebApi;
 using StudentManageSystem.ViewModels;
 
 namespace StudentManageSystem.Controllers
@@ -13,12 +12,10 @@ namespace StudentManageSystem.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly IWebApiHelper _webApi;
 
-        public HomeController(ILogger<HomeController> logger, IWebApiHelper webApi)
+        public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
-            _webApi = webApi;
         }
 
         public IActionResult Index()

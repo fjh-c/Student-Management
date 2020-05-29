@@ -62,12 +62,18 @@ namespace Student.Core.API.Controllers
         [Description("添加学生信息，成功后返回当前学生信息")]
         [OperationId("添加学生信息")]
         [HttpPost]
-        public async Task<IResultModel> Insert([FromForm]StudentInfoDTO model, IFormFile file)
+        public async Task<IResultModel> Insert([FromForm]StudentInfoDTO model)
         {
             _logger.LogDebug("添加学生信息");
             //保存上传图片
-            if (file != null)
+            if (model.PhotosFile != null)
             {
+                var photopath = await SystemConfig.UploadSave(model.PhotosFile, SystemConfig.photosPath(), true, SystemConfig.FileExt.jpg);
+                model.Photos = photopath;
+            }
+            else if (Request.Form.Files.Count > 0) //WebApiClient上传文件模型中接收不到，只能单独IFormFile参数或Request.Form中获取
+            {
+                var file = Request.Form.Files.FirstOrDefault();
                 var photopath = await SystemConfig.UploadSave(file, SystemConfig.photosPath(), true, SystemConfig.FileExt.jpg);
                 model.Photos = photopath;
             }
@@ -77,12 +83,13 @@ namespace Student.Core.API.Controllers
         [Description("修改学生信息，成功后返回当前学生信息")]
         [OperationId("修改学生信息")]
         [HttpPut]
-        public async Task<IResultModel> Update([FromForm]StudentInfoDTO model, IFormFile file)
+        public async Task<IResultModel> Update([FromForm]StudentInfoDTO model)
         {
             _logger.LogDebug("修改学生信息");
             //保存上传图片
-            if (file != null)
+            if (Request.Form.Files.Count > 0)
             {
+                var file = Request.Form.Files.FirstOrDefault();
                 var photopath = await SystemConfig.UploadSave(file, SystemConfig.photosPath(), true, SystemConfig.FileExt.jpg);
                 model.Photos = photopath;
             }

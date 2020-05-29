@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using StudentManageSystem.Code.WebApi;
 using WebApiClient;
 
 namespace StudentManageSystem
@@ -27,19 +26,17 @@ namespace StudentManageSystem
             //RazorRuntimeCompilation 运行时编译 
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             //添加HttpClient相关
-            services.AddSingleton<IHttpApiFactory<IWebApiHelper>, HttpApiFactory<IWebApiHelper>>(p =>
+            var types = typeof(Startup).Assembly.GetTypes()
+                        .Where(type => type.IsInterface
+                        && ((System.Reflection.TypeInfo)type).ImplementedInterfaces != null
+                        && type.GetInterfaces().Any(a => a.FullName == typeof(IHttpApi).FullName));
+            foreach (var type in types)
             {
-                return new HttpApiFactory<IWebApiHelper>().ConfigureHttpApiConfig(c =>
-                {
-                    // Api 地址
-                    c.HttpHost = new Uri(StudentManageSystemSetting.Setting.ApiUrl);
+                services.AddHttpApi(type);
+                services.ConfigureHttpApi(type, o => {
+                    o.HttpHost = new Uri(StudentManageSystemSetting.Setting.ApiUrl);
                 });
-            });
-            services.AddTransient(p =>
-            {
-                var factory = p.GetRequiredService<IHttpApiFactory<IWebApiHelper>>();
-                return factory.CreateHttpApi();
-            });
+            }
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

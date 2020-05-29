@@ -1,15 +1,19 @@
 ﻿using Student.DTO;
+using StudentManageSystem.ViewModels;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using WebApiClient;
 using WebApiClient.Attributes;
 using WebApiClient.Parameterables;
 using yrjw.ORM.Chimp;
 using yrjw.ORM.Chimp.Result;
 
-namespace StudentManageSystem.Code.WebApi
+namespace StudentManageSystem.HttpApis
 {
     [JsonReturn]
-    public partial interface IWebApiHelper : IHttpApi
+    public interface IStudentInfoApi : IHttpApi
     {
         /// <summary>
         /// 根据ID获取指定学生信息
@@ -49,23 +53,5 @@ namespace StudentManageSystem.Code.WebApi
         /// <returns></returns>
         [HttpDelete("api/StudentInfo")]
         ITask<ResultModel<string>> DeleteAllStudentInfoAsync([JsonContent]IList<long> ids);
-
-
-    }
-
-    public partial interface IWebApiHelper : IHttpApi
-    {
-        /// <summary>
-        /// 根据ID获取指定部门
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet("api/Depart/{id}")]
-        ITask<ResultModel<DepartDTO>> GetDepartAsync(int id);
-        /// <summary>
-        /// 获取全部部门列表
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet("api/Depart")]
-        ITask<ResultModel<List<DepartDTO>>> GetDepartListAsync();
     }
 }

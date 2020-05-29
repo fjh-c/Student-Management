@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using Microsoft.VisualBasic;
 using Student.DTO;
-using StudentManageSystem.Code.WebApi;
+using StudentManageSystem.HttpApis;
 using StudentManageSystem.ViewModels;
 using WebApiClient.Parameterables;
 using yrjw.ORM.Chimp.Result;
@@ -19,12 +19,14 @@ namespace StudentManageSystem.Controllers
     public class StudentInfoController : Controller
     {
         private readonly ILogger<StudentInfoController> _logger;
-        public readonly IWebApiHelper _webApi;
+        public readonly IStudentInfoApi _studentInfoApi;
+        public readonly IDepartApi _separtApi;
 
-        public StudentInfoController(ILogger<StudentInfoController> logger, IWebApiHelper webApi)
+        public StudentInfoController(ILogger<StudentInfoController> logger, IStudentInfoApi studentInfoApi, IDepartApi departApi)
         {
             _logger = logger;
-            _webApi = webApi;
+            _studentInfoApi = studentInfoApi;
+            _separtApi = departApi;
         }
 
         //学生信息列表展示页面
@@ -46,7 +48,7 @@ namespace StudentManageSystem.Controllers
         [HttpGet]
         public async Task<IActionResult> EditAsync(long? id)
         {
-            var result = await _webApi.GetStudentInfoAsync(id.Value);
+            var result = await _studentInfoApi.GetStudentInfoAsync(id.Value);
             if (result.Success == false)
             {
                 return View();  //建议跳转到指定错误页面
@@ -58,7 +60,7 @@ namespace StudentManageSystem.Controllers
         //获取部门下拉选择列表数据
         private async Task GetDepartList()
         {
-            var result = await _webApi.GetDepartListAsync();
+            var result = await _separtApi.GetDepartListAsync();
             var list = result.Data.Select(p => new SelectListItem(p.DepartName, p.Id.ToString(), false, p.GradeId == null));
             ViewBag.DepartClassesList = list;
         }
@@ -78,11 +80,11 @@ namespace StudentManageSystem.Controllers
                 }
                 if (model.Id == 0)
                 {
-                    result = await _webApi.PostStudentInfoInsertAsync(model, file);
+                    result = await _studentInfoApi.PostStudentInfoInsertAsync(model, file);
                 }
                 else
                 {
-                    result = await _webApi.PutStudentInfoUpdateAsync(model, file);
+                    result = await _studentInfoApi.PutStudentInfoUpdateAsync(model, file);
                 }
                 if (result.Success)
                 {
@@ -119,21 +121,21 @@ namespace StudentManageSystem.Controllers
         //删除操作 ajax请求返回json
         public async Task<IActionResult> DeleteAsync(long id)
         {
-            var result = await _webApi.DeleteStudentInfoAsync(id);
+            var result = await _studentInfoApi.DeleteStudentInfoAsync(id);
             return Json(new Result() { success = result.Success, msg = result.Msg });
         }
 
         //批量删除操作 ajax请求返回json
         public async Task<IActionResult> DeleteAllAsync(long[] arr)
         {
-            var result = await _webApi.DeleteAllStudentInfoAsync(arr);
+            var result = await _studentInfoApi.DeleteAllStudentInfoAsync(arr);
             return Json(new Result() { success = result.Success, msg = result.Msg });
         }
 
         //详情页面查看
         public async Task<IActionResult> DetailsAsync(long? id)
         {
-            var result = await _webApi.GetStudentInfoAsync(id.Value);
+            var result = await _studentInfoApi.GetStudentInfoAsync(id.Value);
             if (result.Data.Photos.IsNull())
             {
                 result.Data.Photos = "/images/upload-img.jpg";
@@ -155,7 +157,7 @@ namespace StudentManageSystem.Controllers
         [HttpGet]
         public async Task<IActionResult> GetQueryPagedListAsync(int page, int limit, string search)
         {
-            var result = await _webApi.GetStudentInfoPagedListAsync(page, limit, search);
+            var result = await _studentInfoApi.GetStudentInfoPagedListAsync(page, limit, search);
             foreach (var item in result.Data.Item)
             {
                 if (item.Photos.IsNull())
