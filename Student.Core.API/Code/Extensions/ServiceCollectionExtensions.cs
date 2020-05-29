@@ -152,6 +152,7 @@ namespace Microsoft.Extensions.DependencyInjection
 
                 //隐藏属性
                 c.SchemaFilter<IgnorePropertySchemaFilter>();
+                c.RequestBodyFilter<IgnorePropertyRequestBodyFilter>();
             });
             //支持newstonsoftjson
             services.AddSwaggerGenNewtonsoftSupport();
