@@ -78,7 +78,10 @@
                 field: 'enrollmentDT',
                 title: '入学时间',
                 width: 100,
-                sort: true
+                sort: true,
+                templet: function (d) {
+                    return layui.util.toDateString(d.enrollmentDT, "yyyy-MM-dd");
+                }
             }, {
                 field: 'departName',
                 title: '学生部门',

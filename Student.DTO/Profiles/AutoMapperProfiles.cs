@@ -11,8 +11,7 @@ namespace Student.DTO.Profiles
         public AutoMapperProfiles()
         {
             CreateMap<StudentInfo, StudentInfoDTO>()
-                .ForMember(d => d.DepartName, opt => opt.MapFrom(i => i.Depart.DepartName))
-                .ForMember(d => d.EnrollmentDT, opt => opt.MapFrom(i => i.EnrollmentDT.ToDate()));
+                .ForMember(d => d.DepartName, opt => opt.MapFrom(i => i.Depart.DepartName));
             CreateMap<StudentInfoDTO, StudentInfo>();
 
             CreateMap<Depart, DepartDTO>();

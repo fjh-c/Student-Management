@@ -15,6 +15,8 @@ namespace Student.DTO
         /// 学生编号
         /// </summary>
         [Display(Name = "学生编号")]
+        [Required(ErrorMessage = "{0},不能为空")]
+        [DefaultValue("0")]
         public long Id { get; set; }
         /// <summary>
         /// 学生姓名
@@ -27,20 +29,25 @@ namespace Student.DTO
         /// 学生性别
         /// </summary>
         [Display(Name = "学生性别")]
+        [Required(ErrorMessage = "{0},不能为空")]
+        [DefaultValue((int)EnumGender.Man)]
         public EnumGender Gender { get; set; }
         /// <summary>
         /// 学生民族
         /// </summary>
         [Display(Name = "学生民族")]
+        [Required(ErrorMessage = "{0},不能为空")]
+        [DefaultValue((int)EnumNation.hanzu)]
         public EnumNation Nation { get; set; }
         /// <summary>
         /// 入学时间
         /// </summary>
         [Display(Name = "入学时间")]
+        [DefaultValue("2020-09-01")]
         [Required(ErrorMessage = "{0},不能为空")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public string EnrollmentDT { get; set; }
+        public DateTime EnrollmentDT { get; set; }
         /// <summary>
         /// 学生部门
         /// </summary>
@@ -63,6 +70,7 @@ namespace Student.DTO
         /// 身份证号
         /// </summary>
         [Display(Name = "身份证号")]
+        [DefaultValue("230000199201010000")]
         [Required(ErrorMessage = "{0},不能为空")]
         [RegularExpression(@"\d{17}[\d|x]|\d{15}", ErrorMessage = "{0}的格式不正确")]
         public string IdentityCard { get; set; }
@@ -86,6 +94,7 @@ namespace Student.DTO
         /// 激活状态
         /// </summary>
         [Display(Name = "激活状态")]
+        [DefaultValue((int)EnumStatus.Enabled)]
         public EnumStatus Status { get; set; }
         /// <summary>
         /// 创建时间

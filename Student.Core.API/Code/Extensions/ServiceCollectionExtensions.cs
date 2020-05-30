@@ -152,6 +152,8 @@ namespace Microsoft.Extensions.DependencyInjection
 
                 //隐藏属性
                 c.SchemaFilter<IgnorePropertySchemaFilter>();
+
+                //表单模型处理
                 c.RequestBodyFilter<IgnorePropertyRequestBodyFilter>();
             });
             //支持newstonsoftjson

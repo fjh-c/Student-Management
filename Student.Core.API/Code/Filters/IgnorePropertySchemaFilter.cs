@@ -7,6 +7,9 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Student.Core.API.Code.Filters
 {
+    /// <summary>
+    /// 隐藏属性
+    /// </summary>
     public class IgnorePropertySchemaFilter : ISchemaFilter
     {
         public void Apply(OpenApiSchema schema, SchemaFilterContext context)
