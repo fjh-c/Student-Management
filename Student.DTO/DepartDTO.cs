@@ -8,6 +8,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Student.DTO
 {
+    [Description("部门")]
     public class DepartDTO
     {
         /// <summary>

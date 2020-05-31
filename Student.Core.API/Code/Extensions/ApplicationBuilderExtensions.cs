@@ -166,10 +166,10 @@ namespace Microsoft.AspNetCore.Builder
                 //c.SwaggerEndpoint("/swagger/v1.0/swagger.json", BasicSetting.Setting.AssemblyName + " v1.0");
                 c.DisplayOperationId();
                 c.DefaultModelExpandDepth(1); //模型示例部分中模型的默认扩展深度。
-                c.DefaultModelsExpandDepth(-1);//模型的默认扩展深度（设置为-1将完全隐藏模型）
+                c.DefaultModelsExpandDepth(1);//模型的默认扩展深度（设置为-1将完全隐藏模型）
                 //c.DefaultModelRendering(ModelRendering.Model); //控制首次呈现API时如何显示模型。
                 c.DisplayRequestDuration(); //控制Try-It-Out请求的请求持续时间（以毫秒为单位）的显示。
-                //c.DocExpansion(DocExpansion.None); //控制操作和标签的默认扩展设置。
+                c.DocExpansion(DocExpansion.None); //控制操作和标签的默认扩展设置。
                 c.EnableFilter(); //顶部栏将显示一个编辑框，过滤显示
                 //c.ShowExtensions();
             });

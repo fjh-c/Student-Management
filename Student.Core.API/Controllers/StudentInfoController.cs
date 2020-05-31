@@ -59,8 +59,15 @@ namespace Student.Core.API.Controllers
             return StudentInfoService.Value.QueryPagedList(pageIndex, pageSize, search);
         }
 
+        [Description("添加学生信息，通过模型添加")]
+        [HttpPost("InsertModel")]
+        public async Task<IResultModel> InsertModel([FromBody] StudentInfoDTO model)
+        {
+            return await StudentInfoService.Value.Insert(model);
+        }
+
         [Description("添加学生信息，成功后返回当前学生信息")]
-        [OperationId("添加学生信息")]
+        [OperationId("添加学生信息，原表单数据提交")]
         [HttpPost]
         public async Task<IResultModel> Insert([FromForm]StudentInfoDTO model)
         {

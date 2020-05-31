@@ -9,6 +9,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Student.DTO
 {
+    [Description("学生信息")]
     public class StudentInfoDTO
     {
         /// <summary>

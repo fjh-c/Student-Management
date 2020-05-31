@@ -19,6 +19,7 @@ namespace Student.Core.API.Code.Filters
             SetControllerDescription(swaggerDoc, context);
             SetActionDescription(swaggerDoc, context);
             SetModelDescription(swaggerDoc, context);
+            SetEnumDescription(swaggerDoc, context);
         }
 
         /// <summary>
@@ -100,9 +101,15 @@ namespace Student.Core.API.Code.Filters
             foreach (var schema in context.SchemaRepository.Schemas)
             {
                 var type = schemaTypes.FirstOrDefault(m => m.Value.EqualsIgnoreCase(schema.Key)).Key;
-                if (type == null /*|| !type.IsClass*/)
+                if (type == null || type.IsEnum)
                     continue;
 
+                var attr =  (DescriptionAttribute)Attribute.GetCustomAttribute(type, typeof(DescriptionAttribute));
+                if (attr != null && attr.Description.NotNull())
+                {
+                    schema.Value.Description = attr.Description;
+                }
+    
                 var properties = type.GetProperties();
                 foreach (var propertyInfo in properties)
                 {
@@ -160,6 +167,69 @@ namespace Student.Core.API.Code.Filters
                 }
             }
             return false;
+        }
+
+        /// <summary>
+        /// 设置所有枚举描述信息
+        /// </summary>
+        /// <param name="swaggerDoc"></param>
+        /// <param name="context"></param>
+        private void SetEnumDescription(OpenApiDocument swaggerDoc, DocumentFilterContext context)
+        {
+            var pro = typeof(SchemaRepository).GetField("_reservedIds", BindingFlags.NonPublic | BindingFlags.Instance);
+            if (pro == null)
+                return;
+
+            var schemaTypes = (Dictionary<Type, string>)pro.GetValue(context.SchemaRepository);
+            foreach (var schema in schemaTypes)
+            {
+                if (schema.Key.IsEnum)
+                {
+                    var sa = swaggerDoc.Components.Schemas.FirstOrDefault(p => p.Key == schema.Value);
+
+                    List<Microsoft.OpenApi.Any.OpenApiInteger> list = new List<Microsoft.OpenApi.Any.OpenApiInteger>();
+                    foreach (var val in sa.Value.Enum)
+                    {
+                        list.Add((Microsoft.OpenApi.Any.OpenApiInteger)val);
+                    }
+                    sa.Value.Description += DescribeEnum(schema.Key, list);
+                }
+            }
+        }
+
+        private static string DescribeEnum(Type type, List<Microsoft.OpenApi.Any.OpenApiInteger> enums)
+        {
+            var enumDescriptions = new List<string>();
+            foreach (var item in enums)
+            {
+                if (type == null) continue;
+                var value = Enum.Parse(type, item.Value.ToString());
+                var desc = GetDescription(type, value);
+
+                if (string.IsNullOrEmpty(desc))
+                    enumDescriptions.Add($"{item.Value.ToString()}:{Enum.GetName(type, value)}; ");
+                else
+                    enumDescriptions.Add($"{item.Value.ToString()}:{Enum.GetName(type, value)},{desc}; ");
+
+            }
+            return $"<br/>{Environment.NewLine}{string.Join("<br/>" + Environment.NewLine, enumDescriptions)}";
+        }
+        private static string GetDescription(Type t, object value)
+        {
+            foreach (MemberInfo mInfo in t.GetMembers())
+            {
+                if (mInfo.Name == t.GetEnumName(value))
+                {
+                    foreach (Attribute attr in Attribute.GetCustomAttributes(mInfo))
+                    {
+                        if (attr.GetType() == typeof(DescriptionAttribute))
+                        {
+                            return ((DescriptionAttribute)attr).Description;
+                        }
+                    }
+                }
+            }
+            return string.Empty;
         }
     }
 }
