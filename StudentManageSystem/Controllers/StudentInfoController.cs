@@ -80,7 +80,17 @@ namespace StudentManageSystem.Controllers
                 }
                 if (model.Id == 0)
                 {
-                    result = await _studentInfoApi.PostStudentInfoInsertAsync(model, file);
+                    //result = await _studentInfoApi.PostStudentInfoInsertAsync(model, file);
+
+                    //通过json提交模型，上传图片必须转Base64传输
+                    if (model.PhotosFile != null && model.PhotosFile.Length > 0)
+                    {
+                        byte[] bytes = new byte[model.PhotosFile.OpenReadStream().Length];
+                        model.PhotosFile.OpenReadStream().Read(bytes, 0, bytes.Length);
+                        model.Photos = Convert.ToBase64String(bytes);
+                        model.PhotosFile = null; //这里清空数据，否则传输序列化时出错
+                    } 
+                    result = await _studentInfoApi.PostStudentInfoInsertAsync(model);
                 }
                 else
                 {

@@ -28,6 +28,12 @@ namespace StudentManageSystem.HttpApis
         [HttpGet("api/StudentInfo/{pageIndex}/{pageSize}/{search}")]
         ITask<ResultModel<PagedList<StudentInfoDTO>>> GetStudentInfoPagedListAsync(int pageIndex, int pageSize, string search);
         /// <summary>
+        /// 添加学生信息，通过json提交
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost("api/StudentInfo/InsertModel")]
+        ITask<ResultModel<StudentInfoDTO>> PostStudentInfoInsertAsync([JsonContent]StudentInfoDTO model);
+        /// <summary>
         /// 添加学生信息
         /// </summary>
         /// <returns></returns>

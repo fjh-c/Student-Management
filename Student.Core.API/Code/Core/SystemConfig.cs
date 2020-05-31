@@ -50,6 +50,18 @@ namespace Student.Core.API.Code.Core
             {
                 name = $"{Guid.NewGuid().ToString().Replace("-", "")}.{fileExt.ToString()}";
             }
+            else
+            {
+                int index = name.LastIndexOf(".");
+                if (index == -1)
+                {
+                    name = $"{name}.{fileExt.ToString()}";
+                }
+                else
+                {
+                    name = $"{name.Substring(0, index)}.{fileExt.ToString()}";
+                }
+            }
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);

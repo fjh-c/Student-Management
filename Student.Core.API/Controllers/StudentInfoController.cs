@@ -59,10 +59,20 @@ namespace Student.Core.API.Controllers
             return StudentInfoService.Value.QueryPagedList(pageIndex, pageSize, search);
         }
 
-        [Description("添加学生信息，通过模型添加")]
+        [Description("添加学生信息，成功后返回当前学生信息，上传图片转Base64存Photos属性中")]
+        [OperationId("添加学生信息，通过模型添加")]
         [HttpPost("InsertModel")]
         public async Task<IResultModel> InsertModel([FromBody] StudentInfoDTO model)
         {
+            //保存上传图片
+            if (model.Photos.NotNull())
+            {
+                var bytes = Convert.FromBase64String(model.Photos);
+                var file = new MemoryStream(bytes);
+                IFormFile formFile = new FormFile(file, 0, file.Length, "", model.IdentityCard);
+                var photopath = await SystemConfig.UploadSave(formFile, SystemConfig.photosPath(), true, SystemConfig.FileExt.jpg);
+                model.Photos = photopath;
+            }
             return await StudentInfoService.Value.Insert(model);
         }
 
