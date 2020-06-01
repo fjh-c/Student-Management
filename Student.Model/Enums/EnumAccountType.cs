@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace Student.Model.Enums
@@ -14,11 +15,13 @@ namespace Student.Model.Enums
         /// 系统操作员
         /// </summary>
         [Description("系统操作员")]
+        [Display(Name = "系统操作员")]
         Admin,
         /// <summary>
-        /// 用户
+        /// 普通管理员
         /// </summary>
-        [Description("用户")]
+        [Description("普通管理员")]
+        [Display(Name = "普通管理员")]
         User
     }
 }

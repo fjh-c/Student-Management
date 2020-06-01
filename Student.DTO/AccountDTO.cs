@@ -66,6 +66,11 @@ namespace Student.DTO
         /// </summary>
         [IgnoreProperty]
         public string TypeName { get; set; }
+        /// <summary>
+        /// 激活状态展示
+        /// </summary>
+        [IgnoreProperty]
+        public string StatusName { get; set; }
 
     }
 }

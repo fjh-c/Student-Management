@@ -14,6 +14,6 @@ namespace Student.IServices
         Task<IResultModel> QueryList();
         Task<IResultModel> Insert(AccountDTO model);
         Task<IResultModel> Update(AccountDTO model);
-        Task<IResultModel> Delete(Guid id, bool isSave = true);
+        Task<IResultModel> Delete(Guid id);
     }
 }
