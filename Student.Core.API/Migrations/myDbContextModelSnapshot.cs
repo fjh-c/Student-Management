@@ -54,9 +54,9 @@ namespace Student.Core.API.Migrations
                         new
                         {
                             Id = new Guid("39f08cfd-8e0d-771b-a2f3-2639a62ca2fa"),
-                            ModifiedTime = new DateTime(2020, 5, 21, 10, 2, 21, 318, DateTimeKind.Local).AddTicks(8310),
+                            ModifiedTime = new DateTime(2020, 6, 2, 13, 44, 31, 719, DateTimeKind.Local).AddTicks(286),
                             Name = "管理员",
-                            PassWord = "admin",
+                            PassWord = "c30807e6587ade285ba7ade9f881b3d7",
                             Status = 1,
                             Type = 0,
                             UserName = "admin"
@@ -97,37 +97,37 @@ namespace Student.Core.API.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedTime = new DateTime(2020, 5, 21, 10, 2, 21, 321, DateTimeKind.Local).AddTicks(7984),
+                            CreatedTime = new DateTime(2020, 6, 2, 13, 44, 31, 722, DateTimeKind.Local).AddTicks(3194),
                             DepartName = "2020级",
                             DeptType = 0,
-                            ModifiedTime = new DateTime(2020, 5, 21, 10, 2, 21, 321, DateTimeKind.Local).AddTicks(7994)
+                            ModifiedTime = new DateTime(2020, 6, 2, 13, 44, 31, 722, DateTimeKind.Local).AddTicks(3202)
                         },
                         new
                         {
                             Id = 2,
-                            CreatedTime = new DateTime(2020, 5, 21, 10, 2, 21, 323, DateTimeKind.Local).AddTicks(961),
+                            CreatedTime = new DateTime(2020, 6, 2, 13, 44, 31, 723, DateTimeKind.Local).AddTicks(6131),
                             DepartName = ".net core 基础班",
                             DeptType = 1,
                             GradeId = 1,
-                            ModifiedTime = new DateTime(2020, 5, 21, 10, 2, 21, 323, DateTimeKind.Local).AddTicks(967)
+                            ModifiedTime = new DateTime(2020, 6, 2, 13, 44, 31, 723, DateTimeKind.Local).AddTicks(6137)
                         },
                         new
                         {
                             Id = 3,
-                            CreatedTime = new DateTime(2020, 5, 21, 10, 2, 21, 323, DateTimeKind.Local).AddTicks(4504),
+                            CreatedTime = new DateTime(2020, 6, 2, 13, 44, 31, 723, DateTimeKind.Local).AddTicks(9580),
                             DepartName = ".net core 精英班",
                             DeptType = 1,
                             GradeId = 1,
-                            ModifiedTime = new DateTime(2020, 5, 21, 10, 2, 21, 323, DateTimeKind.Local).AddTicks(4509)
+                            ModifiedTime = new DateTime(2020, 6, 2, 13, 44, 31, 723, DateTimeKind.Local).AddTicks(9586)
                         },
                         new
                         {
                             Id = 4,
-                            CreatedTime = new DateTime(2020, 5, 21, 10, 2, 21, 323, DateTimeKind.Local).AddTicks(7172),
+                            CreatedTime = new DateTime(2020, 6, 2, 13, 44, 31, 724, DateTimeKind.Local).AddTicks(2080),
                             DepartName = "java EE 基础班",
                             DeptType = 1,
                             GradeId = 1,
-                            ModifiedTime = new DateTime(2020, 5, 21, 10, 2, 21, 323, DateTimeKind.Local).AddTicks(7177)
+                            ModifiedTime = new DateTime(2020, 6, 2, 13, 44, 31, 724, DateTimeKind.Local).AddTicks(2084)
                         });
                 });
 
@@ -196,14 +196,14 @@ namespace Student.Core.API.Migrations
                         {
                             Id = 10001L,
                             Address = "朝阳区朝阳公园西路9号院九号",
-                            CreatedTime = new DateTime(2020, 5, 21, 10, 2, 21, 324, DateTimeKind.Local).AddTicks(4813),
+                            CreatedTime = new DateTime(2020, 6, 2, 13, 44, 31, 724, DateTimeKind.Local).AddTicks(9625),
                             Deleted = 0,
                             DepartId = 4,
                             Email = "xiaoan@stu.com",
                             EnrollmentDT = new DateTime(2020, 4, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Gender = 1,
                             IdentityCard = "230210199708162251",
-                            ModifiedTime = new DateTime(2020, 5, 21, 10, 2, 21, 324, DateTimeKind.Local).AddTicks(4820),
+                            ModifiedTime = new DateTime(2020, 6, 2, 13, 44, 31, 724, DateTimeKind.Local).AddTicks(9630),
                             Name = "小安",
                             Nation = 1,
                             Phone = "13902451188",
@@ -214,14 +214,14 @@ namespace Student.Core.API.Migrations
                         {
                             Id = 10002L,
                             Address = "北京市朝阳区东三环中路甲10号",
-                            CreatedTime = new DateTime(2020, 5, 21, 10, 2, 21, 327, DateTimeKind.Local).AddTicks(8268),
+                            CreatedTime = new DateTime(2020, 6, 2, 13, 44, 31, 727, DateTimeKind.Local).AddTicks(7724),
                             Deleted = 0,
                             DepartId = 3,
                             Email = "laoli@stu.com",
                             EnrollmentDT = new DateTime(2020, 4, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Gender = 0,
                             IdentityCard = "230210199802127323",
-                            ModifiedTime = new DateTime(2020, 5, 21, 10, 2, 21, 327, DateTimeKind.Local).AddTicks(8278),
+                            ModifiedTime = new DateTime(2020, 6, 2, 13, 44, 31, 727, DateTimeKind.Local).AddTicks(7730),
                             Name = "老李",
                             Nation = 0,
                             Phone = "13902451189",

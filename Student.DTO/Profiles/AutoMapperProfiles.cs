@@ -17,8 +17,10 @@ namespace Student.DTO.Profiles
             CreateMap<Depart, DepartDTO>();
             CreateMap<DepartDTO, Depart>();
 
-            CreateMap<Account, AccountDTO>();
-            CreateMap<AccountDTO, Account>();
+            CreateMap<Account, AccountDTO>()
+                .ForMember(d => d.PassWord, opt => opt.MapFrom(i => "密码保密"));
+            CreateMap<AccountDTO, Account>()
+                .ForMember(d => d.PassWord, opt => opt.MapFrom(i => $"{i.UserName}_{i.PassWord}".ToMd5Hash()));
         }
     }
 }

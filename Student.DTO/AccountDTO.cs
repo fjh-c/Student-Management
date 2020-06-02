@@ -16,7 +16,7 @@ namespace Student.DTO
         /// 编号
         /// </summary>
         [Display(Name = "编号")]
-        public Guid Id { get; set; } = Guid.NewGuid();
+        public Guid Id { get; set; }
 
         /// <summary>
         /// 账号
@@ -29,10 +29,18 @@ namespace Student.DTO
         /// <summary>
         /// 密码
         /// </summary>
+        [DataType(DataType.Password)]
         [Display(Name = "密码")]
-        [Required(ErrorMessage = "{0},不能为空")]
-        [StringLength(11, ErrorMessage = "{0},不能大于{1}")]
+        [StringLength(11, ErrorMessage = "{0},不能小于{2}，最长{1}", MinimumLength = 6)]
         public string PassWord { get; set; }
+
+        /// <summary>
+        /// 确认密码
+        /// </summary>
+        [DataType(DataType.Password)]
+        [Display(Name = "确认密码")]
+        [Compare("PassWord", ErrorMessage = "密码和确认密码不匹配")]
+        public string ConfirmPassword { get; set; }
 
         /// <summary>
         /// 类型

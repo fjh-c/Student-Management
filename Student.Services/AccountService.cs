@@ -47,6 +47,12 @@ namespace Student.Services
         public async Task<IResultModel> Insert(AccountDTO model)
         {
             //仅系统操作员拥有权限
+
+            //默认密码
+            if (model.PassWord.IsNull())
+            {
+                model.PassWord = "123456";
+            }
             var entity = _mapper.Value.Map<Account>(model);
 
             //检查用户名是否唯一
@@ -83,14 +89,20 @@ namespace Student.Services
             //检查用户名是否唯一
             if (model.UserName.NotNull())
             {
-                var isusername = await repAccount.Value.TableNoTracking.AnyAsync(p => p.UserName == model.UserName.Trim());
+                var isusername = await repAccount.Value.TableNoTracking.AnyAsync(p => p.UserName == model.UserName.Trim() && p.Id != model.Id);
                 if (isusername)
                 {
                     _logger.LogError($"ErrorCode：{EnumErrorCode.UserName.ToInt()}，UserName：{model.UserName}，{EnumErrorCode.UserName.ToDescription()}");
                     return ResultModel.Failed(EnumErrorCode.UserName.ToDescription(), EnumErrorCode.UserName.ToInt());
                 }
             }
+            string _pwd = entity.PassWord;
             _mapper.Value.Map(model, entity);
+            //密码空则保留原密码
+            if (model.PassWord.IsNull())
+            {
+                entity.PassWord = _pwd;
+            }
             repAccount.Value.Update(entity);
 
             if (await UnitOfWork.SaveChangesAsync() > 0)

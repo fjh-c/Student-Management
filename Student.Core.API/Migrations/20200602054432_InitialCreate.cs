@@ -78,28 +78,28 @@ namespace Student.Core.API.Migrations
             migrationBuilder.InsertData(
                 table: "Account",
                 columns: new[] { "Id", "ModifiedTime", "Name", "PassWord", "Status", "Type", "UserName" },
-                values: new object[] { new Guid("39f08cfd-8e0d-771b-a2f3-2639a62ca2fa"), new DateTime(2020, 5, 21, 10, 2, 21, 318, DateTimeKind.Local).AddTicks(8310), "管理员", "admin", 1, 0, "admin" });
+                values: new object[] { new Guid("39f08cfd-8e0d-771b-a2f3-2639a62ca2fa"), new DateTime(2020, 6, 2, 13, 44, 31, 719, DateTimeKind.Local).AddTicks(286), "管理员", "c30807e6587ade285ba7ade9f881b3d7", 1, 0, "admin" });
 
             migrationBuilder.InsertData(
                 table: "Depart",
                 columns: new[] { "Id", "CreatedTime", "DepartName", "DeptType", "GradeId", "ModifiedTime", "OperatorName" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2020, 5, 21, 10, 2, 21, 321, DateTimeKind.Local).AddTicks(7984), "2020级", 0, null, new DateTime(2020, 5, 21, 10, 2, 21, 321, DateTimeKind.Local).AddTicks(7994), null },
-                    { 2, new DateTime(2020, 5, 21, 10, 2, 21, 323, DateTimeKind.Local).AddTicks(961), ".net core 基础班", 1, 1, new DateTime(2020, 5, 21, 10, 2, 21, 323, DateTimeKind.Local).AddTicks(967), null },
-                    { 3, new DateTime(2020, 5, 21, 10, 2, 21, 323, DateTimeKind.Local).AddTicks(4504), ".net core 精英班", 1, 1, new DateTime(2020, 5, 21, 10, 2, 21, 323, DateTimeKind.Local).AddTicks(4509), null },
-                    { 4, new DateTime(2020, 5, 21, 10, 2, 21, 323, DateTimeKind.Local).AddTicks(7172), "java EE 基础班", 1, 1, new DateTime(2020, 5, 21, 10, 2, 21, 323, DateTimeKind.Local).AddTicks(7177), null }
+                    { 1, new DateTime(2020, 6, 2, 13, 44, 31, 722, DateTimeKind.Local).AddTicks(3194), "2020级", 0, null, new DateTime(2020, 6, 2, 13, 44, 31, 722, DateTimeKind.Local).AddTicks(3202), null },
+                    { 2, new DateTime(2020, 6, 2, 13, 44, 31, 723, DateTimeKind.Local).AddTicks(6131), ".net core 基础班", 1, 1, new DateTime(2020, 6, 2, 13, 44, 31, 723, DateTimeKind.Local).AddTicks(6137), null },
+                    { 3, new DateTime(2020, 6, 2, 13, 44, 31, 723, DateTimeKind.Local).AddTicks(9580), ".net core 精英班", 1, 1, new DateTime(2020, 6, 2, 13, 44, 31, 723, DateTimeKind.Local).AddTicks(9586), null },
+                    { 4, new DateTime(2020, 6, 2, 13, 44, 31, 724, DateTimeKind.Local).AddTicks(2080), "java EE 基础班", 1, 1, new DateTime(2020, 6, 2, 13, 44, 31, 724, DateTimeKind.Local).AddTicks(2084), null }
                 });
 
             migrationBuilder.InsertData(
                 table: "StudentInfo",
                 columns: new[] { "Id", "Address", "CreatedTime", "Deleted", "DepartId", "Email", "EnrollmentDT", "Gender", "IdentityCard", "ModifiedTime", "Name", "Nation", "OperatorName", "Phone", "Photos", "Status" },
-                values: new object[] { 10002L, "北京市朝阳区东三环中路甲10号", new DateTime(2020, 5, 21, 10, 2, 21, 327, DateTimeKind.Local).AddTicks(8268), 0, 3, "laoli@stu.com", new DateTime(2020, 4, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, "230210199802127323", new DateTime(2020, 5, 21, 10, 2, 21, 327, DateTimeKind.Local).AddTicks(8278), "老李", 0, null, "13902451189", "stu_2.jpg", 0 });
+                values: new object[] { 10002L, "北京市朝阳区东三环中路甲10号", new DateTime(2020, 6, 2, 13, 44, 31, 727, DateTimeKind.Local).AddTicks(7724), 0, 3, "laoli@stu.com", new DateTime(2020, 4, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, "230210199802127323", new DateTime(2020, 6, 2, 13, 44, 31, 727, DateTimeKind.Local).AddTicks(7730), "老李", 0, null, "13902451189", "stu_2.jpg", 0 });
 
             migrationBuilder.InsertData(
                 table: "StudentInfo",
                 columns: new[] { "Id", "Address", "CreatedTime", "Deleted", "DepartId", "Email", "EnrollmentDT", "Gender", "IdentityCard", "ModifiedTime", "Name", "Nation", "OperatorName", "Phone", "Photos", "Status" },
-                values: new object[] { 10001L, "朝阳区朝阳公园西路9号院九号", new DateTime(2020, 5, 21, 10, 2, 21, 324, DateTimeKind.Local).AddTicks(4813), 0, 4, "xiaoan@stu.com", new DateTime(2020, 4, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "230210199708162251", new DateTime(2020, 5, 21, 10, 2, 21, 324, DateTimeKind.Local).AddTicks(4820), "小安", 1, null, "13902451188", "stu_1.jpg", 0 });
+                values: new object[] { 10001L, "朝阳区朝阳公园西路9号院九号", new DateTime(2020, 6, 2, 13, 44, 31, 724, DateTimeKind.Local).AddTicks(9625), 0, 4, "xiaoan@stu.com", new DateTime(2020, 4, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "230210199708162251", new DateTime(2020, 6, 2, 13, 44, 31, 724, DateTimeKind.Local).AddTicks(9630), "小安", 1, null, "13902451188", "stu_1.jpg", 0 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_StudentInfo_DepartId",
