@@ -15,13 +15,13 @@
     <div class="col-sm-12">
         <form enctype="multipart/form-data" method="post" asp-action="Save">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group form-inline">
+            <div class="form-group form-inline my-sm-1">
                 <label asp-for="Name" class="control-label col-sm-3"></label>
-                <input asp-for="Name" class="form-control col-sm-9" placeholder="请输入学生姓名" />
-                <span asp-validation-for="Name" class="text-danger offset-sm-3"></span>
+                <input asp-for="Name" class="form-control col-sm-9" placeholder="请输入学生姓名"  aria-describedby="Name-error"/>
+                <span asp-validation-for="Name" class="text-danger offset-sm-3 my-sm-1"></span>
             </div>
 
-            <div class="form-group form-inline">
+            <div class="form-group form-inline my-sm-1">
                 <label asp-for="Gender" class="control-label col-sm-3"></label>
                 <div class="col-sm-9">
                     <div class="radio icheck-primary form-check-inline">
@@ -33,52 +33,52 @@
                         <label for="Woman">女</label>
                     </div>
                 </div>
-                <span asp-validation-for="Gender" class="text-danger offset-sm-3"></span>
+                <span asp-validation-for="Gender" class="text-danger offset-sm-3 my-sm-1"></span>
             </div>
-            <div class="form-group form-inline">
+            <div class="form-group form-inline my-sm-1">
                 <label asp-for="Nation" class="control-label col-sm-3"></label>
                 <select asp-for="Nation" asp-items="Html.GetEnumSelectList<EnumNation>()" class="custom-select col-sm-9"></select>
-                <span asp-validation-for="Nation" class="text-danger"></span>
+                <span asp-validation-for="Nation" class="text-danger offset-sm-3 my-sm-1"></span>
             </div>
-            <div class="form-group form-inline">
+            <div class="form-group form-inline my-sm-1">
                 <label asp-for="EnrollmentDT" class="control-label col-sm-3"></label>
                 <input asp-for="EnrollmentDT" class="form-control col-sm-9" />
-                <span asp-validation-for="EnrollmentDT" class="text-danger offset-sm-3"></span>
+                <span asp-validation-for="EnrollmentDT" class="text-danger offset-sm-3 my-sm-1"></span>
             </div>
-            <div class="form-group form-inline">
+            <div class="form-group form-inline my-sm-1">
                 <label asp-for="DepartId" class="control-label col-sm-3"></label>
                 <select asp-for="DepartId" asp-items="@ViewBag.DepartClassesList" class="custom-select col-sm-9"></select>
-                <span asp-validation-for="DepartId" class="text-danger"></span>
+                <span asp-validation-for="DepartId" class="text-danger offset-sm-3 my-sm-1"></span>
             </div>
-            <div class="form-group form-inline">
+            <div class="form-group form-inline my-sm-1">
                 <label asp-for="Phone" class="control-label col-sm-3"></label>
                 <input asp-for="Phone" class="form-control col-sm-9" placeholder="Student Phone" />
-                <span asp-validation-for="Phone" class="text-danger offset-sm-3"></span>
+                <span asp-validation-for="Phone" class="text-danger offset-sm-3 my-sm-1"></span>
             </div>
-            <div class="form-group form-inline">
+            <div class="form-group form-inline my-sm-1">
                 <label asp-for="Email" class="control-label col-sm-3"></label>
                 <input asp-for="Email" class="form-control col-sm-9" placeholder="name@example.com" />
-                <span asp-validation-for="Email" class="text-danger offset-sm-3"></span>
+                <span asp-validation-for="Email" class="text-danger offset-sm-3 my-sm-1"></span>
             </div>
-            <div class="form-group form-inline">
+            <div class="form-group form-inline my-sm-1">
                 <label asp-for="IdentityCard" class="control-label col-sm-3"></label>
                 <input asp-for="IdentityCard" class="form-control col-sm-9" placeholder="Student Identity Card" />
-                <span asp-validation-for="IdentityCard" class="text-danger offset-sm-3"></span>
+                <span asp-validation-for="IdentityCard" class="text-danger offset-sm-3 my-sm-1"></span>
             </div>
-            <div class="form-group form-inline">
+            <div class="form-group form-inline my-sm-1">
                 <label asp-for="Address" class="control-label col-sm-3"></label>
                 <input asp-for="Address" class="form-control col-sm-9" placeholder="Student Address" />
-                <span asp-validation-for="Address" class="text-danger offset-sm-3"></span>
+                <span asp-validation-for="Address" class="text-danger offset-sm-3 my-sm-1"></span>
             </div>
-            <div class="form-group form-inline">
+            <div class="form-group form-inline my-sm-1">
                 <label asp-for="PhotosFile" class="control-label col-sm-3"></label>
                 <input type="file" asp-for="PhotosFile" class="" data-show-preview="false" data-show-upload="false" />
-                <span asp-validation-for="PhotosFile" class="text-danger offset-sm-3"></span>
+                <span asp-validation-for="PhotosFile" class="text-danger offset-sm-3 my-sm-1"></span>
             </div>
-            <div class="form-group form-inline">
+            <div class="form-group form-inline my-sm-1">
                 <label asp-for="Status" class="control-label col-sm-3"></label>
                 <select asp-for="Status" asp-items="Html.GetEnumSelectList<EnumStatus>()" class="custom-select col-sm-9"></select>
-                <span asp-validation-for="Status" class="text-danger offset-sm-3"></span>
+                <span asp-validation-for="Status" class="text-danger offset-sm-3 my-sm-1"></span>
             </div>
             <span style="color:firebrick;word-break: break-all;">@Html.ValidationMessage("error")</span>
             <div class="form-group">
