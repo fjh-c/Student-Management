@@ -12,18 +12,18 @@
 </style>
 
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-sm-12">
         <form enctype="multipart/form-data" method="post" asp-action="Save">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" placeholder="请输入学生姓名" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+            <div class="form-group form-inline">
+                <label asp-for="Name" class="control-label col-sm-3"></label>
+                <input asp-for="Name" class="form-control col-sm-9" placeholder="请输入学生姓名" />
+                <span asp-validation-for="Name" class="text-danger offset-sm-3"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Gender" class="control-label"></label>
-                @*<select asp-for="Gender" asp-items="Html.GetEnumSelectList<EnumGender>()" class="custom-select"></select>*@
-                <div >
+
+            <div class="form-group form-inline">
+                <label asp-for="Gender" class="control-label col-sm-3"></label>
+                <div class="col-sm-9">
                     <div class="radio icheck-primary form-check-inline">
                         <input type="radio" id="Man" name="Gender" value="0" checked />
                         <label for="Man">男</label>
@@ -33,64 +33,56 @@
                         <label for="Woman">女</label>
                     </div>
                 </div>
-                <span asp-validation-for="Gender" class="text-danger"></span>
+                <span asp-validation-for="Gender" class="text-danger offset-sm-3"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Nation" class="control-label"></label>
-                <select asp-for="Nation" asp-items="Html.GetEnumSelectList<EnumNation>()" class="custom-select"></select>
+            <div class="form-group form-inline">
+                <label asp-for="Nation" class="control-label col-sm-3"></label>
+                <select asp-for="Nation" asp-items="Html.GetEnumSelectList<EnumNation>()" class="custom-select col-sm-9"></select>
                 <span asp-validation-for="Nation" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="EnrollmentDT" class="control-label"></label>
-                <input asp-for="EnrollmentDT" class="form-control" />
-                <span asp-validation-for="EnrollmentDT" class="text-danger"></span>
+            <div class="form-group form-inline">
+                <label asp-for="EnrollmentDT" class="control-label col-sm-3"></label>
+                <input asp-for="EnrollmentDT" class="form-control col-sm-9" />
+                <span asp-validation-for="EnrollmentDT" class="text-danger offset-sm-3"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="DepartId" class="control-label"></label>
-                <select asp-for="DepartId" asp-items="@ViewBag.DepartClassesList" class="custom-select"></select>
+            <div class="form-group form-inline">
+                <label asp-for="DepartId" class="control-label col-sm-3"></label>
+                <select asp-for="DepartId" asp-items="@ViewBag.DepartClassesList" class="custom-select col-sm-9"></select>
                 <span asp-validation-for="DepartId" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Phone" class="control-label"></label>
-                <input asp-for="Phone" class="form-control" placeholder="Student Phone" />
-                <span asp-validation-for="Phone" class="text-danger"></span>
+            <div class="form-group form-inline">
+                <label asp-for="Phone" class="control-label col-sm-3"></label>
+                <input asp-for="Phone" class="form-control col-sm-9" placeholder="Student Phone" />
+                <span asp-validation-for="Phone" class="text-danger offset-sm-3"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" placeholder="name@example.com" />
-                <span asp-validation-for="Email" class="text-danger"></span>
+            <div class="form-group form-inline">
+                <label asp-for="Email" class="control-label col-sm-3"></label>
+                <input asp-for="Email" class="form-control col-sm-9" placeholder="name@example.com" />
+                <span asp-validation-for="Email" class="text-danger offset-sm-3"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="IdentityCard" class="control-label"></label>
-                <input asp-for="IdentityCard" class="form-control" placeholder="Student Identity Card" />
-                <span asp-validation-for="IdentityCard" class="text-danger"></span>
+            <div class="form-group form-inline">
+                <label asp-for="IdentityCard" class="control-label col-sm-3"></label>
+                <input asp-for="IdentityCard" class="form-control col-sm-9" placeholder="Student Identity Card" />
+                <span asp-validation-for="IdentityCard" class="text-danger offset-sm-3"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Address" class="control-label"></label>
-                <input asp-for="Address" class="form-control" placeholder="Student Address" />
-                <span asp-validation-for="Address" class="text-danger"></span>
+            <div class="form-group form-inline">
+                <label asp-for="Address" class="control-label col-sm-3"></label>
+                <input asp-for="Address" class="form-control col-sm-9" placeholder="Student Address" />
+                <span asp-validation-for="Address" class="text-danger offset-sm-3"></span>
             </div>
-            @*<div class="form-group">
-                <label asp-for="PhotosFile" class="control-label"></label>
-                <div class="custom-file">
-                    <input asp-for="PhotosFile" class="form-control custom-file-input" />
-                    <label class="custom-file-label">Upload Student Photo</label>
-                </div>
-                <span asp-validation-for="PhotosFile" class="text-danger"></span>
-            </div>*@
-            <div class="form-group">
-                <label asp-for="PhotosFile" class="control-label"></label>
-                <input type="file" asp-for="PhotosFile"  class=""  data-show-preview="false" data-show-upload="false" />
-                <span asp-validation-for="PhotosFile" class="text-danger"></span>
+            <div class="form-group form-inline">
+                <label asp-for="PhotosFile" class="control-label col-sm-3"></label>
+                <input type="file" asp-for="PhotosFile" class="" data-show-preview="false" data-show-upload="false" />
+                <span asp-validation-for="PhotosFile" class="text-danger offset-sm-3"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Status" class="control-label"></label>
-                <select asp-for="Status" asp-items="Html.GetEnumSelectList<EnumStatus>()" class="custom-select"></select>
-                <span asp-validation-for="Status" class="text-danger"></span>
+            <div class="form-group form-inline">
+                <label asp-for="Status" class="control-label col-sm-3"></label>
+                <select asp-for="Status" asp-items="Html.GetEnumSelectList<EnumStatus>()" class="custom-select col-sm-9"></select>
+                <span asp-validation-for="Status" class="text-danger offset-sm-3"></span>
             </div>
             <span style="color:firebrick;word-break: break-all;">@Html.ValidationMessage("error")</span>
             <div class="form-group">
-                <input type="submit" value="保存" class="btn btn-primary" />
+                <input type="submit" value="保存" class="btn btn-primary offset-sm-3" />
             </div>
 
         </form>
@@ -105,11 +97,6 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            $('.custom-file-input').on('change', function () {
-                var filename = $(this).val().split('\\').pop();
-                $(this).next('.custom-file-label').html(filename);
-            });
-
             $("#PhotosFile").fileinput({
                 language: 'zh', //设置语言
                 allowedFileExtensions: ['jpg', 'jpeg', 'gif', 'png', 'bmp'],//接收的文件后缀
