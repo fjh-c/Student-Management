@@ -58,12 +58,15 @@ namespace Student.Services
         {
             var entity = _mapper.Value.Map<Depart>(model);
             //外键判断
-            //var dept = repDepart.Value.GetById(entity.);
-            //if (dept == null || dept.DeptType != Model.Enums.EnumDeptType.classes)
-            //{
-            //    _logger.LogError($"error：Departid {entity.DepartId} does not exist or the EnumDeptType is not classes");
-            //    return ResultModel.Failed("error：Departid does not exist or the EnumDeptType is not classes");
-            //}
+            if (entity.GradeId.HasValue)
+            {
+                var dept = repDepart.Value.GetById(entity.GradeId);
+                if (dept == null || dept.DeptType != Model.Enums.EnumDeptType.grade)
+                {
+                    _logger.LogError($"error：Departid {entity.GradeId} does not exist or the EnumDeptType is not grade");
+                    return ResultModel.Failed("error：Departid does not exist or the EnumDeptType is not grade");
+                }
+            }
             await repDepart.Value.InsertAsync(entity);
 
             if (await UnitOfWork.SaveChangesAsync() > 0)
@@ -71,7 +74,7 @@ namespace Student.Services
                 return ResultModel.Success(entity);
             }
             _logger.LogError($"error：Insert Save failed");
-            return ResultModel.Failed("添加失败");
+            return ResultModel.Failed("error：Insert Save failed");
         }
 
         public async Task<IResultModel> Update(DepartDTO model)
@@ -84,12 +87,15 @@ namespace Student.Services
                 return ResultModel.NotExists;
             }
             //外键判断
-            //var dept = repDepart.Value.GetById(model.DepartId);
-            //if (dept == null || dept.DeptType != Model.Enums.EnumDeptType.classes)
-            //{
-            //    _logger.LogError($"error：Departid {model.DepartId} does not exist or the EnumDeptType is not classes");
-            //    return ResultModel.Failed("外键不存在，或部门必须指定班级");
-            //}
+            if (entity.GradeId.HasValue)
+            {
+                var dept = repDepart.Value.GetById(entity.GradeId);
+                if (dept == null || dept.DeptType != Model.Enums.EnumDeptType.grade)
+                {
+                    _logger.LogError($"ErrorCode：{EnumErrorCode.GradeId.ToInt()}，GradeId：{model.GradeId}，{EnumErrorCode.GradeId.ToDescription()}");
+                    return ResultModel.Failed(EnumErrorCode.GradeId.ToDescription(), EnumErrorCode.GradeId.ToInt());
+                }
+            }
             _mapper.Value.Map(model, entity);
             repDepart.Value.Update(entity);
 
@@ -98,7 +104,7 @@ namespace Student.Services
                 return ResultModel.Success(entity);
             }
             _logger.LogError($"error：Update Save failed");
-            return ResultModel.Failed("修改失败");
+            return ResultModel.Failed("error：Update Save failed");
         }
 
         public async Task<IResultModel> Delete(int id, bool isSave = true)
@@ -121,7 +127,7 @@ namespace Student.Services
                 return ResultModel.Success();
             }
             _logger.LogError($"error：Delete failed");
-            return ResultModel.Failed("删除失败");
+            return ResultModel.Failed("error：Delete failed");
         }
     }
 }

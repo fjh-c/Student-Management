@@ -21,25 +21,30 @@ namespace Student.DTO
         [Description("外键不存在，或部门必须指定班级")]
         Departid = -10001,
         /// <summary>
+        /// 外键不存在，或上级部门必须指定年组
+        /// </summary>
+        [Description("外键不存在，或上级部门必须指定年组")]
+        GradeId = -10002,
+        /// <summary>
         /// 该手机号已被其他账号绑定使用
         /// </summary>
         [Description("该手机号已被其他账号绑定使用")]
-        Phone = -10002,
+        Phone = -10003,
         /// <summary>
         /// 该身份证号已被其他账号绑定使用
         /// </summary>
         [Description("该身份证号已被其他账号绑定使用")]
         [Display(Name = "禁用")]
-        IdentityCard = -10003,
+        IdentityCard = -10004,
         /// <summary>
         /// 用户名已存在
         /// </summary>
         [Description("用户名已存在")]
-        UserName = -10004,
+        UserName = -10005,
         /// <summary>
         /// 初始化数据不能删除
         /// </summary>
         [Description("初始化数据不能删除")]
-        DeleteProhibited = -10005
+        DeleteProhibited = -10006
     }
 }
