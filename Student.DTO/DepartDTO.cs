@@ -30,7 +30,7 @@ namespace Student.DTO
         /// <summary>
         /// 年组编号
         /// </summary>
-        [Display(Name = "年组编号")]
+        [IgnoreProperty]
         public int? GradeId { get; set; }
 
         /// <summary>
@@ -38,5 +38,11 @@ namespace Student.DTO
         /// </summary>
         [IgnoreProperty]
         public string DeptTypeName { get; set; }
+
+        /// <summary>
+        /// 年组名称展示
+        /// </summary>
+        [IgnoreProperty]
+        public string GradeName { get; set; }
     }
 }

@@ -29,5 +29,11 @@ namespace Student.Model
         /// 年组编号
         /// </summary>
         public int? GradeId { get; set; } = null;
+
+        /// <summary>
+        /// 年组信息
+        /// </summary>
+        [ForeignKey("GradeId")]
+        public virtual Depart GradeDepart { get; set; }
     }
 }
