@@ -113,7 +113,7 @@ namespace Student.Services
                 return ResultModel.Success(_mapper.Value.Map<StudentInfoDTO>(entity)); //返回模型一定要DTO一下，否则导航属性数据拿不到
             }
             _logger.LogError($"error：Insert Save failed");
-            return ResultModel.Failed("添加失败");
+            return ResultModel.Failed("error：Insert Save failed");
         }
 
         public async Task<IResultModel> Update(StudentInfoDTO model)
@@ -140,7 +140,7 @@ namespace Student.Services
                 return ResultModel.Success(entity);
             }
             _logger.LogError($"error：Update Save failed");
-            return ResultModel.Failed("修改失败");
+            return ResultModel.Failed("error：Update Save failed");
         }
 
         public async Task<IResultModel> Delete(long id, bool isSave = true)
@@ -172,7 +172,7 @@ namespace Student.Services
                 return ResultModel.Success();
             }
             _logger.LogError($"error：Delete failed");
-            return ResultModel.Failed("删除失败");
+            return ResultModel.Failed("error：Delete failed");
         }
     }
 }

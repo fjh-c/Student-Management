@@ -9,6 +9,12 @@
     .file-caption.icon-visible .file-caption-name {
         padding-left: 0 !important;
     }
+    .control-label {
+        justify-content: flex-start !important;
+    }
+    .file-input {
+        width: 75% !important;
+    }
 </style>
 
 <div class="row">
@@ -17,7 +23,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group form-inline my-sm-1">
                 <label asp-for="Name" class="control-label col-sm-3"></label>
-                <input asp-for="Name" class="form-control col-sm-9" placeholder="请输入学生姓名"  aria-describedby="Name-error"/>
+                <input asp-for="Name" class="form-control col-sm-9" placeholder="请输入学生姓名" aria-describedby="Name-error" />
                 <span asp-validation-for="Name" class="text-danger offset-sm-3 my-sm-1"></span>
             </div>
 
@@ -72,15 +78,17 @@
             </div>
             <div class="form-group form-inline my-sm-1">
                 <label asp-for="PhotosFile" class="control-label col-sm-3"></label>
-                <input type="file" asp-for="PhotosFile" class="" data-show-preview="false" data-show-upload="false" />
+                <input type="file" asp-for="PhotosFile" class="col-sm-9" data-show-preview="false" data-show-upload="false" />
                 <span asp-validation-for="PhotosFile" class="text-danger offset-sm-3 my-sm-1"></span>
             </div>
-            <div class="form-group form-inline my-sm-1">
+            <div class="form-group form-inline my-sm-2">
                 <label asp-for="Status" class="control-label col-sm-3"></label>
                 <select asp-for="Status" asp-items="Html.GetEnumSelectList<EnumStatus>()" class="custom-select col-sm-9"></select>
-                <span asp-validation-for="Status" class="text-danger offset-sm-3 my-sm-1"></span>
+                <span asp-validation-for="Status" class="text-danger offset-sm-3"></span>
             </div>
-            <span style="color:firebrick;word-break: break-all;">@Html.ValidationMessage("error")</span>
+            @*<span style="color: firebrick;word-break: break-all;" class="text-danger offset-sm-3">
+            @Html.ValidationMessage("error")
+        </span>*@
             <div class="form-group">
                 <input type="submit" value="保存" class="btn btn-primary offset-sm-3" />
             </div>
@@ -95,7 +103,7 @@
         await Html.RenderPartialAsync("_FileinputScriptsPartial");
     }
 
-    <script type="text/javascript">
+<script type="text/javascript">
         $(document).ready(function () {
             $("#PhotosFile").fileinput({
                 language: 'zh', //设置语言
@@ -103,6 +111,10 @@
                 showUpload: false, //是否显示上传按钮
                 showPreview: false //是否显示预览
             });
+            var error = '@Html.ValidationMessage("error")';
+            if ($(error).text() != '') {
+                parent.hg.msg(error);
+            }
         });
-    </script>
+</script>
 }
