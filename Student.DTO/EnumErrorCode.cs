@@ -35,6 +35,11 @@ namespace Student.DTO
         /// 用户名已存在
         /// </summary>
         [Description("用户名已存在")]
-        UserName = -10004
+        UserName = -10004,
+        /// <summary>
+        /// 初始化数据不能删除
+        /// </summary>
+        [Description("初始化数据不能删除")]
+        DeleteProhibited = -10005
     }
 }

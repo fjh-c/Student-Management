@@ -46,8 +46,6 @@ namespace Student.Services
 
         public async Task<IResultModel> Insert(AccountDTO model)
         {
-            //仅系统操作员拥有权限
-
             //默认密码
             if (model.PassWord.IsNull())
             {
@@ -73,12 +71,11 @@ namespace Student.Services
                 return ResultModel.Success(entity);
             }
             _logger.LogError($"error：Insert Save failed");
-            return ResultModel.Failed("添加失败");
+            return ResultModel.Failed("error：Insert Save failed");
         }
 
         public async Task<IResultModel> Update(AccountDTO model)
         {
-            //除系统操作员，只能修改自己信息
             //主键判断
             var entity = await repAccount.Value.GetByIdAsync(model.Id);
             if (entity == null)
@@ -110,14 +107,16 @@ namespace Student.Services
                 return ResultModel.Success(entity);
             }
             _logger.LogError($"error：Update Save failed");
-            return ResultModel.Failed("修改失败");
+            return ResultModel.Failed("error：Update Save failed");
         }
 
         public async Task<IResultModel> Delete(Guid id)
         {
-            //仅系统操作员拥有权限
-            //自己不能删除自己
-
+            //初始化操作员禁止删除
+            if (id == Guid.Parse("39F08CFD-8E0D-771B-A2F3-2639A62CA2FA"))
+            {
+                ResultModel.Failed(EnumErrorCode.DeleteProhibited.ToDescription(), EnumErrorCode.DeleteProhibited.ToInt());
+            }
             //主键判断
             var entity = await repAccount.Value.GetByIdAsync(id);
             if (entity == null)
@@ -132,7 +131,7 @@ namespace Student.Services
                 return ResultModel.Success();
             }
             _logger.LogError($"error：Delete failed");
-            return ResultModel.Failed("删除失败");
+            return ResultModel.Failed("error：Delete failed");
         }
     }
 }
