@@ -86,9 +86,7 @@
                 <select asp-for="Status" asp-items="Html.GetEnumSelectList<EnumStatus>()" class="custom-select col-sm-9"></select>
                 <span asp-validation-for="Status" class="text-danger offset-sm-3"></span>
             </div>
-            @*<span style="color: firebrick;word-break: break-all;" class="text-danger offset-sm-3">
-            @Html.ValidationMessage("error")
-        </span>*@
+            @*<span style="color: firebrick;word-break: break-all;" class="text-danger offset-sm-3">@Html.ValidationMessage("error")</span>*@
             <div class="form-group">
                 <input type="submit" value="保存" class="btn btn-primary offset-sm-3" />
             </div>

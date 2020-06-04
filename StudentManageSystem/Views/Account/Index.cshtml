@@ -73,7 +73,7 @@
         //通过行tool编辑，lay-event="edit"
         function edit(obj) {
             if (obj.data.id) {
-                hg.open('修改账户信息', '/Account/Edit/' + obj.data.id, 600, 420);
+                hg.open('修改账户信息', '/Account/Edit/' + obj.data.id, 600, 500);
             }
         }
         //通过行tool删除，lay-event="del"
@@ -105,7 +105,7 @@
             layuiicon: '&#xe608;',
             class: 'layui-btn-normal',
             handler: function () {
-                hg.open('添加账户', '/Account/Create', 600, 420);
+                hg.open('添加账户', '/Account/Create', 600, 480);
             }
         }
         ];
