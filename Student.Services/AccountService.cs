@@ -115,7 +115,7 @@ namespace Student.Services
             //初始化操作员禁止删除
             if (id == Guid.Parse("39F08CFD-8E0D-771B-A2F3-2639A62CA2FA"))
             {
-                ResultModel.Failed(EnumErrorCode.DeleteProhibited.ToDescription(), EnumErrorCode.DeleteProhibited.ToInt());
+                return ResultModel.Failed(EnumErrorCode.DeleteProhibited.ToDescription(), EnumErrorCode.DeleteProhibited.ToInt());
             }
             //主键判断
             var entity = await repAccount.Value.GetByIdAsync(id);
