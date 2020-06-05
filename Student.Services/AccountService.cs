@@ -133,5 +133,30 @@ namespace Student.Services
             _logger.LogError($"error：Delete failed");
             return ResultModel.Failed("error：Delete failed");
         }
+
+        public async Task<IResultModel> UpdatePassword(UpdatePasswordDTO model)
+        {
+            //主键判断
+            var entity = await repAccount.Value.GetByIdAsync(model.AccountId);
+            if (entity == null)
+            {
+                _logger.LogError($"error：entity AccountId {model.AccountId} does not exist");
+                return ResultModel.NotExists;
+            }
+            //原密码验证
+            if (!entity.PassWord.Equals($"{entity.UserName}_{model.OldPassword}".ToMd5Hash()))
+            {
+                return ResultModel.Failed("原密码错误", "OldPassword");
+            }
+            entity.PassWord = $"{entity.UserName}_{model.NewPassword}".ToMd5Hash();
+            repAccount.Value.Update(entity);
+
+            if (await UnitOfWork.SaveChangesAsync() > 0)
+            {
+                return ResultModel.Success();
+            }
+            _logger.LogError($"error：UpdatePassword failed");
+            return ResultModel.Failed("error：UpdatePassword failed");
+        }
     }
 }
