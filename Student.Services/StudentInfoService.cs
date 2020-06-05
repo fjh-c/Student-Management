@@ -13,41 +13,42 @@ using yrjw.ORM.Chimp.Result;
 
 namespace Student.Services
 {
-    public class StudentInfoService: IStudentInfoService, IDependency
+    public class StudentInfoService: BaseService<StudentInfo, StudentInfoDTO, long>, IStudentInfoService, IDependency
     {
-        private readonly ILogger<StudentInfoService> _logger;
-        private readonly Lazy<IMapper> _mapper;
-        private readonly Lazy<IRepository<StudentInfo>> repStudentInfo;
+        //private readonly ILogger<StudentInfoService> _logger;
+        //private readonly Lazy<IMapper> _mapper;
+        //private readonly Lazy<IRepository<StudentInfo>> repStudentInfo;
         private readonly Lazy<IRepository<Depart>> repDepart;
 
-        public IUnitOfWork UnitOfWork { get; }
+        //public IUnitOfWork UnitOfWork { get; }
+
 
         public StudentInfoService(Lazy<IMapper> mapper, IUnitOfWork unitOfWork, ILogger<StudentInfoService> logger,
-            Lazy<IRepository<StudentInfo>> repStudentInfo, 
-            Lazy<IRepository<Depart>> repDepart)
+            Lazy<IRepository<StudentInfo>> repStudentInfo,
+            Lazy<IRepository<Depart>> repDepart): base(mapper, unitOfWork, logger, repStudentInfo)
         {
-            _logger = logger;
-            _mapper = mapper;
-            UnitOfWork = unitOfWork;
-            this.repStudentInfo = repStudentInfo;
+            //_logger = logger;
+            //_mapper = mapper;
+            //UnitOfWork = unitOfWork;
+            //this.repStudentInfo = repStudentInfo;
             this.repDepart = repDepart;
         }
 
-        public async Task<IResultModel> Query(long id)
-        {
-            var info = await repStudentInfo.Value.GetByIdAsync(id);
-            return ResultModel.Success(_mapper.Value.Map<StudentInfoDTO>(info));
-        }
+        //public async Task<IResultModel> Query(long id)
+        //{
+        //    var info = await repStudentInfo.Value.GetByIdAsync(id);
+        //    return ResultModel.Success(_mapper.Value.Map<StudentInfoDTO>(info));
+        //}
 
         public async Task<IResultModel> QueryList()
         {
-            var list = await repStudentInfo.Value.TableNoTracking.Where(p => p.Deleted == 0).OrderByDescending(k => k.Id).ProjectTo<StudentInfoDTO>(_mapper.Value.ConfigurationProvider).ToListAsync();
+            var list = await _repository.Value.TableNoTracking.Where(p => p.Deleted == 0).OrderByDescending(k => k.Id).ProjectTo<StudentInfoDTO>(_mapper.Value.ConfigurationProvider).ToListAsync();
             return ResultModel.Success(list);
         }
 
         public async Task<IResultModel> QueryPagedList(int pageIndex, int pageSize, string search)
         {
-            var data = repStudentInfo.Value.TableNoTracking.Where(p => p.Deleted == 0);
+            var data = _repository.Value.TableNoTracking.Where(p => p.Deleted == 0);
             if (!search.IsNull())
             {
                 if (search.IsMobileNumber())
@@ -88,7 +89,7 @@ namespace Student.Services
             //检查手机号是否唯一
             if (model.Phone.NotNull())
             {
-                var isphone = await repStudentInfo.Value.TableNoTracking.AnyAsync(p => p.Phone == model.Phone);
+                var isphone = await _repository.Value.TableNoTracking.AnyAsync(p => p.Phone == model.Phone);
                 if (isphone)
                 {
 
@@ -99,7 +100,7 @@ namespace Student.Services
             //检查身份证号是否唯一
             if (model.IdentityCard.NotNull())
             {
-                var isIdentityCard = await repStudentInfo.Value.TableNoTracking.AnyAsync(p => p.IdentityCard == model.IdentityCard);
+                var isIdentityCard = await _repository.Value.TableNoTracking.AnyAsync(p => p.IdentityCard == model.IdentityCard);
                 if (isIdentityCard)
                 {
                     _logger.LogError($"error：IdentityCard {model.IdentityCard} It's not the only one");
@@ -107,7 +108,7 @@ namespace Student.Services
                 }
             }
 
-            await repStudentInfo.Value.InsertAsync(entity);
+            await _repository.Value.InsertAsync(entity);
 
             if (await UnitOfWork.SaveChangesAsync() > 0)
             {
@@ -120,7 +121,7 @@ namespace Student.Services
         public async Task<IResultModel> Update(StudentInfoDTO model)
         {
             //主键判断
-            var entity = await repStudentInfo.Value.GetByIdAsync(model.Id);
+            var entity = await _repository.Value.GetByIdAsync(model.Id);
             if(entity == null)
             {
                 _logger.LogError($"error：entity Id {model.Id} does not exist");
@@ -134,7 +135,7 @@ namespace Student.Services
                 return ResultModel.Failed("外键不存在，或部门必须指定班级", "DepartId");
             }
             _mapper.Value.Map(model, entity);
-            repStudentInfo.Value.Update(entity);
+            _repository.Value.Update(entity);
 
             if (await UnitOfWork.SaveChangesAsync() > 0)
             {
@@ -147,7 +148,7 @@ namespace Student.Services
         public async Task<IResultModel> Delete(long id, bool isSave = true)
         {
             //主键判断
-            var entity = await repStudentInfo.Value.GetByIdAsync(id);
+            var entity = await _repository.Value.GetByIdAsync(id);
             if (entity == null)
             {
                 _logger.LogError($"error：entity Id：{id} does not exist");
@@ -157,12 +158,12 @@ namespace Student.Services
             if(entity.Deleted == 0)
             {
                 entity.Deleted = 1;
-                repStudentInfo.Value.Update(entity);
+                _repository.Value.Update(entity);
             }
             else
             {
                 //数据库中删除
-                repStudentInfo.Value.Delete(entity);
+                _repository.Value.Delete(entity);
             }
             if (!isSave)
             {

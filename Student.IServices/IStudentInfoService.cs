@@ -2,14 +2,15 @@
 using System.Threading.Tasks;
 using yrjw.ORM.Chimp.Result;
 using Student.DTO;
+using Student.Model;
 
 namespace Student.IServices
 {
-    public interface IStudentInfoService
+    public interface IStudentInfoService: IBaseService<StudentInfoDTO, long>
     {
-        IUnitOfWork UnitOfWork { get; }
+        //IUnitOfWork UnitOfWork { get; }
 
-        Task<IResultModel> Query(long id);
+        //Task<IResultModel> Query(long id);
         Task<IResultModel> QueryList();
         Task<IResultModel> QueryPagedList(int pageIndex, int pageSize, string search);
         Task<IResultModel> Insert(StudentInfoDTO model);
