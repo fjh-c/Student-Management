@@ -63,8 +63,8 @@ namespace Student.Services
                 var dept = repDepart.Value.GetById(entity.GradeId);
                 if (dept == null || dept.DeptType != Model.Enums.EnumDeptType.grade)
                 {
-                    _logger.LogError($"error：Departid {entity.GradeId} does not exist or the EnumDeptType is not grade");
-                    return ResultModel.Failed("error：Departid does not exist or the EnumDeptType is not grade");
+                    _logger.LogError($"error：GradeId {entity.GradeId} does not exist or the EnumDeptType is not grade");
+                    return ResultModel.Failed("外键不存在，或上级部门必须指定年组", "GradeId");
                 }
             }
             await repDepart.Value.InsertAsync(entity);
@@ -92,8 +92,8 @@ namespace Student.Services
                 var dept = repDepart.Value.GetById(entity.GradeId);
                 if (dept == null || dept.DeptType != Model.Enums.EnumDeptType.grade)
                 {
-                    _logger.LogError($"ErrorCode：{EnumErrorCode.GradeId.ToInt()}，GradeId：{model.GradeId}，{EnumErrorCode.GradeId.ToDescription()}");
-                    return ResultModel.Failed(EnumErrorCode.GradeId.ToDescription(), EnumErrorCode.GradeId.ToInt());
+                    _logger.LogError($"error：GradeId {entity.GradeId} does not exist or the EnumDeptType is not grade");
+                    return ResultModel.Failed("外键不存在，或上级部门必须指定年组", "GradeId");
                 }
             }
             _mapper.Value.Map(model, entity);

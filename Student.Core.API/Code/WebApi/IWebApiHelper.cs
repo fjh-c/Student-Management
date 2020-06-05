@@ -26,6 +26,7 @@ namespace Student.Core.API.Code.WebApi
         public string Msg { get; set; }
 
         public int Code { get; set; }
+        public string FailedId { get; set; }
 
         public List<StudentInfoDTO> Data { get; set; }
     }

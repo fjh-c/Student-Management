@@ -75,14 +75,13 @@ namespace StudentManageSystem.Controllers
                 }
                 else
                 {
-                    switch (result.Code)
+                    if (result.FailedId.NotNull())
                     {
-                        case (int)EnumErrorCode.UserName:
-                            ModelState.AddModelError("UserName", result.Msg);
-                            break;
-                        default:
-                            ModelState.AddModelError("error", result.Msg);
-                            break;
+                        ModelState.AddModelError(result.FailedId, result.Msg);
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("error", result.Msg);
                     }
                 }
             }

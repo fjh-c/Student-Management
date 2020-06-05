@@ -59,8 +59,8 @@ namespace Student.Services
                 var isusername = await repAccount.Value.TableNoTracking.AnyAsync(p => p.UserName == model.UserName.Trim());
                 if (isusername)
                 {
-                    _logger.LogError($"ErrorCode：{EnumErrorCode.UserName.ToInt()}，UserName：{model.UserName}，{EnumErrorCode.UserName.ToDescription()}");
-                    return ResultModel.Failed(EnumErrorCode.UserName.ToDescription(), EnumErrorCode.UserName.ToInt());
+                    _logger.LogError($"error：UserName {model.UserName} already exists");
+                    return ResultModel.Failed("用户名已存在", "UserName");
                 }
             }
 
@@ -89,8 +89,8 @@ namespace Student.Services
                 var isusername = await repAccount.Value.TableNoTracking.AnyAsync(p => p.UserName == model.UserName.Trim() && p.Id != model.Id);
                 if (isusername)
                 {
-                    _logger.LogError($"ErrorCode：{EnumErrorCode.UserName.ToInt()}，UserName：{model.UserName}，{EnumErrorCode.UserName.ToDescription()}");
-                    return ResultModel.Failed(EnumErrorCode.UserName.ToDescription(), EnumErrorCode.UserName.ToInt());
+                    _logger.LogError($"error：UserName {model.UserName} already exists");
+                    return ResultModel.Failed("用户名已存在", "UserName");
                 }
             }
             string _pwd = entity.PassWord;
@@ -115,7 +115,7 @@ namespace Student.Services
             //初始化操作员禁止删除
             if (id == Guid.Parse("39F08CFD-8E0D-771B-A2F3-2639A62CA2FA"))
             {
-                return ResultModel.Failed(EnumErrorCode.DeleteProhibited.ToDescription(), EnumErrorCode.DeleteProhibited.ToInt());
+                return ResultModel.Failed("初始化数据不能删除");
             }
             //主键判断
             var entity = await repAccount.Value.GetByIdAsync(id);

@@ -103,20 +103,13 @@ namespace StudentManageSystem.Controllers
                 }
                 else
                 {
-                    switch (result.Code)
+                    if (result.FailedId.NotNull())
                     {
-                        case (int)EnumErrorCode.Departid:
-                            ModelState.AddModelError("DepartId", result.Msg);
-                            break;
-                        case (int)EnumErrorCode.Phone:
-                            ModelState.AddModelError("Phone", result.Msg);
-                            break;
-                        case (int)EnumErrorCode.IdentityCard:
-                            ModelState.AddModelError("IdentityCard", result.Msg);
-                            break;
-                        default:
-                            ModelState.AddModelError("error", result.Msg);
-                            break;
+                        ModelState.AddModelError(result.FailedId, result.Msg);
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("error", result.Msg);
                     }
                 }
             }
