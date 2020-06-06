@@ -15,37 +15,22 @@ namespace Student.Services
 {
     public class StudentInfoService: BaseService<StudentInfo, StudentInfoDTO, long>, IStudentInfoService, IDependency
     {
-        //private readonly ILogger<StudentInfoService> _logger;
-        //private readonly Lazy<IMapper> _mapper;
-        //private readonly Lazy<IRepository<StudentInfo>> repStudentInfo;
         private readonly Lazy<IRepository<Depart>> repDepart;
-
-        //public IUnitOfWork UnitOfWork { get; }
-
 
         public StudentInfoService(Lazy<IMapper> mapper, IUnitOfWork unitOfWork, ILogger<StudentInfoService> logger,
             Lazy<IRepository<StudentInfo>> repStudentInfo,
             Lazy<IRepository<Depart>> repDepart): base(mapper, unitOfWork, logger, repStudentInfo)
         {
-            //_logger = logger;
-            //_mapper = mapper;
-            //UnitOfWork = unitOfWork;
-            //this.repStudentInfo = repStudentInfo;
             this.repDepart = repDepart;
         }
 
-        //public async Task<IResultModel> Query(long id)
-        //{
-        //    var info = await repStudentInfo.Value.GetByIdAsync(id);
-        //    return ResultModel.Success(_mapper.Value.Map<StudentInfoDTO>(info));
-        //}
-
-        public async Task<IResultModel> QueryList()
-        {
-            var list = await _repository.Value.TableNoTracking.Where(p => p.Deleted == 0).OrderByDescending(k => k.Id).ProjectTo<StudentInfoDTO>(_mapper.Value.ConfigurationProvider).ToListAsync();
-            return ResultModel.Success(list);
-        }
-
+        /// <summary>
+        /// 分页数据
+        /// </summary>
+        /// <param name="pageIndex"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="search"></param>
+        /// <returns></returns>
         public async Task<IResultModel> QueryPagedList(int pageIndex, int pageSize, string search)
         {
             var data = _repository.Value.TableNoTracking.Where(p => p.Deleted == 0);
@@ -76,14 +61,18 @@ namespace Student.Services
             return ResultModel.Success(list);
         }
 
-        public async Task<IResultModel> Insert(StudentInfoDTO model)
+        /// <summary>
+        /// 重写父类Insert方法，处理业务逻辑
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public override async Task<IResultModel> Insert(StudentInfoDTO model)
         {
-            var entity = _mapper.Value.Map<StudentInfo>(model);
             //外键判断
             var dept = repDepart.Value.GetById(model.DepartId);
             if (dept == null || dept.DeptType != Model.Enums.EnumDeptType.classes)
             {
-                _logger.LogError($"error：DepartId {entity.DepartId} does not exist or the EnumDeptType is not classes");
+                _logger.LogError($"error：DepartId {model.DepartId} does not exist or the EnumDeptType is not classes");
                 return ResultModel.Failed("外键不存在，或部门必须指定班级", "DepartId");
             }
             //检查手机号是否唯一
@@ -107,26 +96,17 @@ namespace Student.Services
                     return ResultModel.Failed("该身份证号已被其他账号绑定使用", "IdentityCard");
                 }
             }
-
-            await _repository.Value.InsertAsync(entity);
-
-            if (await UnitOfWork.SaveChangesAsync() > 0)
-            {
-                return ResultModel.Success(_mapper.Value.Map<StudentInfoDTO>(entity)); //返回模型一定要DTO一下，否则导航属性数据拿不到
-            }
-            _logger.LogError($"error：Insert Save failed");
-            return ResultModel.Failed("error：Insert Save failed");
+            //调用父类方法
+            return await base.Insert(model);
         }
 
-        public async Task<IResultModel> Update(StudentInfoDTO model)
+        /// <summary>
+        /// 重写父类Update方法，处理业务逻辑
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public override async Task<IResultModel> Update(StudentInfoDTO model)
         {
-            //主键判断
-            var entity = await _repository.Value.GetByIdAsync(model.Id);
-            if(entity == null)
-            {
-                _logger.LogError($"error：entity Id {model.Id} does not exist");
-                return ResultModel.NotExists;
-            }
             //外键判断
             var dept = repDepart.Value.GetById(model.DepartId);
             if (dept == null || dept.DeptType != Model.Enums.EnumDeptType.classes)
@@ -134,47 +114,9 @@ namespace Student.Services
                 _logger.LogError($"error：DepartId {model.DepartId} does not exist or the EnumDeptType is not classes");
                 return ResultModel.Failed("外键不存在，或部门必须指定班级", "DepartId");
             }
-            _mapper.Value.Map(model, entity);
-            _repository.Value.Update(entity);
-
-            if (await UnitOfWork.SaveChangesAsync() > 0)
-            {
-                return ResultModel.Success(entity);
-            }
-            _logger.LogError($"error：Update Save failed");
-            return ResultModel.Failed("error：Update Save failed");
+            //调用父类方法
+            return await base.Update(model);
         }
 
-        public async Task<IResultModel> Delete(long id, bool isSave = true)
-        {
-            //主键判断
-            var entity = await _repository.Value.GetByIdAsync(id);
-            if (entity == null)
-            {
-                _logger.LogError($"error：entity Id：{id} does not exist");
-                return ResultModel.NotExists;
-            }
-            //软删除
-            if(entity.Deleted == 0)
-            {
-                entity.Deleted = 1;
-                _repository.Value.Update(entity);
-            }
-            else
-            {
-                //数据库中删除
-                _repository.Value.Delete(entity);
-            }
-            if (!isSave)
-            {
-                return ResultModel.Success();
-            }
-            if (await UnitOfWork.SaveChangesAsync() > 0)
-            {
-                return ResultModel.Success();
-            }
-            _logger.LogError($"error：Delete failed");
-            return ResultModel.Failed("error：Delete failed");
-        }
     }
 }
