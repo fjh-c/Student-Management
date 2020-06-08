@@ -32,19 +32,19 @@ namespace Student.Core.API.Controllers
         [Parameters(name = "id", param = "学生ID")]
         [ResponseCache(Duration = 0)]
         [HttpGet("{id}")]
-        public Task<IResultModel> Query([Required]long id)
+        public async Task<IResultModel> Query([Required]long id)
         {
             _logger.LogDebug($"根据ID获取指定学生信息{id}");
-            return StudentInfoService.Value.Query(id);
+            return await StudentInfoService.Value.GetByIdAsync(id);
         }
 
         [Description("获取全部学生列表")]
         [ResponseCache(Duration = 0)]
         [HttpGet]
-        public Task<IResultModel> QueryList()
+        public async Task<IResultModel> GetAllList()
         {
             _logger.LogDebug($"获取全部学生列表");
-            return StudentInfoService.Value.QueryList();
+            return await StudentInfoService.Value.GetAllListAsync();
         }
 
         [Description("获取学生分页列表")]
@@ -53,16 +53,16 @@ namespace Student.Core.API.Controllers
         [Parameters(name = "search", param = "检索条件")]
         [ResponseCache(Duration = 0)]
         [HttpGet("{pageIndex}/{pageSize}/{search?}")]
-        public Task<IResultModel> QueryPagedList([Required]int pageIndex, int pageSize, string search)
+        public async Task<IResultModel> GetPagedList([Required]int pageIndex, int pageSize, string search)
         {
             _logger.LogDebug($"获取学生分页列表");
-            return StudentInfoService.Value.QueryPagedList(pageIndex, pageSize, search);
+            return await StudentInfoService.Value.QueryPagedListAsync(pageIndex, pageSize, search);
         }
 
         [Description("添加学生信息，成功后返回当前学生信息，上传图片转Base64存Photos属性中")]
         [OperationId("添加学生信息，通过模型添加")]
         [HttpPost("InsertModel")]
-        public async Task<IResultModel> InsertModel([FromBody] StudentInfoDTO model)
+        public async Task<IResultModel> AddModel([FromBody] StudentInfoDTO model)
         {
             //保存上传图片
             if (model.Photos.NotNull())
@@ -73,13 +73,13 @@ namespace Student.Core.API.Controllers
                 var photopath = await SystemConfig.UploadSave(formFile, SystemConfig.photosPath(), true, SystemConfig.FileExt.jpg);
                 model.Photos = photopath;
             }
-            return await StudentInfoService.Value.Insert(model);
+            return await StudentInfoService.Value.InsertAsync(model);
         }
 
         [Description("添加学生信息，成功后返回当前学生信息")]
         [OperationId("添加学生信息，原表单数据提交")]
         [HttpPost]
-        public async Task<IResultModel> Insert([FromForm]StudentInfoDTO model)
+        public async Task<IResultModel> Add([FromForm]StudentInfoDTO model)
         {
             _logger.LogDebug("添加学生信息");
             //保存上传图片
@@ -94,7 +94,7 @@ namespace Student.Core.API.Controllers
                 var photopath = await SystemConfig.UploadSave(file, SystemConfig.photosPath(), true, SystemConfig.FileExt.jpg);
                 model.Photos = photopath;
             }
-            return await StudentInfoService.Value.Insert(model);
+            return await StudentInfoService.Value.InsertAsync(model);
         }
 
         [Description("修改学生信息，成功后返回当前学生信息")]
@@ -110,17 +110,17 @@ namespace Student.Core.API.Controllers
                 var photopath = await SystemConfig.UploadSave(file, SystemConfig.photosPath(), true, SystemConfig.FileExt.jpg);
                 model.Photos = photopath;
             }
-            return await StudentInfoService.Value.Update(model);
+            return await StudentInfoService.Value.UpdateAsync(model);
         }
 
         [Description("通过指定学生ID删除当前学生信息")]
         [OperationId("删除学生信息")]
         [Parameters(name = "id", param = "学生ID")]
         [HttpDelete("{id}")]
-        public Task<IResultModel> Delete([Required]long id)
+        public async Task<IResultModel> Delete([Required]long id)
         {
             _logger.LogDebug("删除学生信息");
-            return StudentInfoService.Value.Delete(id);
+            return await StudentInfoService.Value.DeleteAsync(id);
         }
 
         [Description("传入1个或多个学生ID数组[]，批量删除学生信息")]
@@ -129,8 +129,7 @@ namespace Student.Core.API.Controllers
         public async Task<IResultModel> DeleteAll([FromBody]IList<long> ids)
         {
             _logger.LogDebug("批量删除学生信息");
-            await StudentInfoService.Value.Delete(ids);
-            return ResultModel.Failed();
+            return await StudentInfoService.Value.DeleteAsync(ids);
         }
     }
 }

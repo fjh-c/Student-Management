@@ -24,61 +24,61 @@ namespace Student.IServices
         /// </summary>
         /// <param name="id">主键</param>
         /// <returns></returns>
-        Task<IResultModel> Query(TKey id);
+        Task<IResultModel> GetByIdAsync(TKey id);
 
         /// <summary>
         /// 所有数据
         /// </summary>
         /// <returns></returns>
-        Task<IResultModel> QueryList();
+        Task<IResultModel> GetAllListAsync();
 
         /// <summary>
         /// 新增数据
         /// </summary>
         /// <param name="model">DTO视图模型</param>
         /// <returns></returns>
-        Task<IResultModel> Insert(TEntityDTO model);
+        Task<IResultModel> InsertAsync(TEntityDTO model);
 
         /// <summary>
         /// 修改数据
         /// </summary>
         /// <param name="model">DTO视图模型</param>
         /// <returns></returns>
-        Task<IResultModel> Update(TEntityDTO model);
+        Task<IResultModel> UpdateAsync(TEntityDTO model);
 
         /// <summary>
         /// 修改数据-批量
         /// </summary>
         /// <param name="entitys">DTO视图模型</param>
         /// <returns></returns>
-        Task<IResultModel> Update(IEnumerable<TEntityDTO> models);
+        Task<IResultModel> UpdateAsync(IEnumerable<TEntityDTO> models);
 
         /// <summary>
         /// 软删除
         /// </summary>
         /// <param name="id">主键</param>
         /// <returns></returns>
-        Task<IResultModel> Delete(TKey id);
+        Task<IResultModel> DeleteAsync(TKey id);
 
         /// <summary>
         /// 软删除
         /// </summary>
         /// <param name="ids">多个主键</param>
         /// <returns></returns>
-        Task<IResultModel> Delete(IList<TKey> ids);
+        Task<IResultModel> DeleteAsync(IList<TKey> ids);
 
         /// <summary>
         /// 数据库中移除
         /// </summary>
         /// <param name="id">主键</param>
         /// <returns></returns>
-        Task<IResultModel> Remove(TKey id);
+        Task<IResultModel> RemoveAsync(TKey id);
 
         /// <summary>
         /// 数据库中移除
         /// </summary>
         /// <param name="ids">多个主键</param>
         /// <returns></returns>
-        Task<IResultModel> Remove(IList<TKey> ids);
+        Task<IResultModel> RemoveAsync(IList<TKey> ids);
     }
 }

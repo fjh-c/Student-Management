@@ -35,19 +35,19 @@ namespace Student.Services
             this._repository = repository;
         }
 
-        public virtual async Task<IResultModel> Query(TKey id)
+        public virtual async Task<IResultModel> GetByIdAsync(TKey id)
         {
             var info = await _repository.Value.GetByIdAsync(id);
             return ResultModel.Success(_mapper.Value.Map<TEntityDTO>(info));
         }
 
-        public virtual async Task<IResultModel> QueryList()
+        public virtual async Task<IResultModel> GetAllListAsync()
         {
             var list = await _repository.Value.TableNoTracking.OrderByDescending(k => k.Id).ProjectTo<TEntityDTO>(_mapper.Value.ConfigurationProvider).ToListAsync();
             return ResultModel.Success(list);
         }
 
-        public virtual async Task<IResultModel> Insert(TEntityDTO model)
+        public virtual async Task<IResultModel> InsertAsync(TEntityDTO model)
         {
             var entity = _mapper.Value.Map<TEntity>(model);
             await _repository.Value.InsertAsync(entity);
@@ -60,7 +60,7 @@ namespace Student.Services
             return ResultModel.Failed("error：Insert Save failed");
         }
 
-        public virtual async Task<IResultModel> Update(TEntityDTO model)
+        public virtual async Task<IResultModel> UpdateAsync(TEntityDTO model)
         {
             //主键判断
             var entity = await _repository.Value.GetByIdAsync(((dynamic)model).Id);
@@ -80,7 +80,7 @@ namespace Student.Services
             return ResultModel.Failed("error：Update Save failed");
         }
 
-        public virtual async Task<IResultModel> Update(IEnumerable<TEntityDTO> models)
+        public virtual async Task<IResultModel> UpdateAsync(IEnumerable<TEntityDTO> models)
         {
             var entitys = new List<TEntity>();
             foreach (var model in models)
@@ -104,7 +104,7 @@ namespace Student.Services
             return ResultModel.Failed("error：Updates Save failed");
         }
 
-        public virtual async Task<IResultModel> Delete(TKey id)
+        public virtual async Task<IResultModel> DeleteAsync(TKey id)
         {
             //主键判断
             var entity = await _repository.Value.GetByIdAsync(id);
@@ -127,7 +127,7 @@ namespace Student.Services
             return ResultModel.Failed("error：Delete failed");
         }
 
-        public virtual async Task<IResultModel> Delete(IList<TKey> ids)
+        public virtual async Task<IResultModel> DeleteAsync(IList<TKey> ids)
         {
             foreach (var id in ids)
             {
@@ -153,7 +153,7 @@ namespace Student.Services
             return ResultModel.Failed("error：Delete failed");
         }
 
-        public virtual async Task<IResultModel> Remove(TKey id)
+        public virtual async Task<IResultModel> RemoveAsync(TKey id)
         {
             //主键判断
             var entity = await _repository.Value.GetByIdAsync(id);
@@ -171,7 +171,7 @@ namespace Student.Services
             return ResultModel.Failed("error：Remove failed");
         }
 
-        public virtual async Task<IResultModel> Remove(IList<TKey> ids)
+        public virtual async Task<IResultModel> RemoveAsync(IList<TKey> ids)
         {
             foreach (var id in ids)
             {

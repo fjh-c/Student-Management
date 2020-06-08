@@ -8,6 +8,6 @@ namespace Student.IServices
 {
     public interface IStudentInfoService: IBaseService<StudentInfo, StudentInfoDTO, long>
     {
-        Task<IResultModel> QueryPagedList(int pageIndex, int pageSize, string search);
+        Task<IResultModel> QueryPagedListAsync(int pageIndex, int pageSize, string search);
     }
 }

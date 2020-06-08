@@ -31,7 +31,7 @@ namespace Student.Services
         /// <param name="pageSize"></param>
         /// <param name="search"></param>
         /// <returns></returns>
-        public async Task<IResultModel> QueryPagedList(int pageIndex, int pageSize, string search)
+        public async Task<IResultModel> QueryPagedListAsync(int pageIndex, int pageSize, string search)
         {
             var data = _repository.Value.TableNoTracking.Where(p => p.Deleted == 0);
             if (!search.IsNull())
@@ -66,7 +66,7 @@ namespace Student.Services
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public override async Task<IResultModel> Insert(StudentInfoDTO model)
+        public override async Task<IResultModel> InsertAsync(StudentInfoDTO model)
         {
             //外键判断
             var dept = repDepart.Value.GetById(model.DepartId);
@@ -97,7 +97,7 @@ namespace Student.Services
                 }
             }
             //调用父类方法
-            return await base.Insert(model);
+            return await base.InsertAsync(model);
         }
 
         /// <summary>
@@ -105,7 +105,7 @@ namespace Student.Services
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public override async Task<IResultModel> Update(StudentInfoDTO model)
+        public override async Task<IResultModel> UpdateAsync(StudentInfoDTO model)
         {
             //外键判断
             var dept = repDepart.Value.GetById(model.DepartId);
@@ -115,7 +115,7 @@ namespace Student.Services
                 return ResultModel.Failed("外键不存在，或部门必须指定班级", "DepartId");
             }
             //调用父类方法
-            return await base.Update(model);
+            return await base.UpdateAsync(model);
         }
 
     }
