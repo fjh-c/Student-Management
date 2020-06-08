@@ -14,38 +14,15 @@ using yrjw.ORM.Chimp.Result;
 
 namespace Student.Services
 {
-    public class DepartService : IDepartService, IDependency
+    public class DepartService : BaseService<Depart, DepartDTO, int>, IDepartService, IDependency
     {
-        private readonly ILogger<DepartService> _logger;
-        private readonly Lazy<IMapper> _mapper;
-        private readonly Lazy<IRepository<Depart>> repDepart;
-
-        public IUnitOfWork UnitOfWork { get; }
-
         public DepartService(Lazy<IMapper> mapper, IUnitOfWork unitOfWork, ILogger<DepartService> logger,
-            Lazy<IRepository<Depart>> repDepart)
-        {
-            _logger = logger;
-            _mapper = mapper;
-            UnitOfWork = unitOfWork;
-            this.repDepart = repDepart;
-        }
+            Lazy<IRepository<Depart>> repDepart) : base(mapper, unitOfWork, logger, repDepart)
+        {}
 
-        public async Task<IResultModel> Query(int id)
+        public async Task<IResultModel> QueryPagedListAsync(int pageIndex, int pageSize, string search)
         {
-            var info = await repDepart.Value.GetByIdAsync(id);
-            return ResultModel.Success(_mapper.Value.Map<DepartDTO>(info));
-        }
-
-        public async Task<IResultModel> QueryList()
-        {
-            var list = await repDepart.Value.TableNoTracking.ProjectTo<DepartDTO>(_mapper.Value.ConfigurationProvider).ToListAsync();
-            return ResultModel.Success(list);
-        }
-
-        public async Task<IResultModel> QueryPagedList(int pageIndex, int pageSize, string search)
-        {
-            var data = repDepart.Value.TableNoTracking;
+            var data = _repository.Value.TableNoTracking;
             if (!search.IsNull())
             {
                 data = data.Where(p => p.DepartName.Contains(search));
@@ -54,80 +31,43 @@ namespace Student.Services
             return ResultModel.Success(list);
         }
 
-        public async Task<IResultModel> Insert(DepartDTO model)
+        public async Task<IResultModel> GetClassesListAsync()
         {
-            var entity = _mapper.Value.Map<Depart>(model);
+            var data = _repository.Value.TableNoTracking.Where(p => p.DeptType == Model.Enums.EnumDeptType.classes);
+            var list = await data.ProjectTo<DepartDTO>(_mapper.Value.ConfigurationProvider).ToListAsync();
+            return ResultModel.Success(list);
+        }
+
+        public override async Task<IResultModel> InsertAsync(DepartDTO model)
+        {
             //外键判断
-            if (entity.GradeId.HasValue)
+            if (model.GradeId.HasValue)
             {
-                var dept = repDepart.Value.GetById(entity.GradeId);
+                var dept = _repository.Value.GetById(model.GradeId);
                 if (dept == null || dept.DeptType != Model.Enums.EnumDeptType.grade)
                 {
-                    _logger.LogError($"error：GradeId {entity.GradeId} does not exist or the EnumDeptType is not grade");
+                    _logger.LogError($"error：GradeId {model.GradeId} does not exist or the EnumDeptType is not grade");
                     return ResultModel.Failed("外键不存在，或上级部门必须指定年组", "GradeId");
                 }
             }
-            await repDepart.Value.InsertAsync(entity);
-
-            if (await UnitOfWork.SaveChangesAsync() > 0)
-            {
-                return ResultModel.Success(entity);
-            }
-            _logger.LogError($"error：Insert Save failed");
-            return ResultModel.Failed("error：Insert Save failed");
+            //调用父类方法
+            return await base.InsertAsync(model);
         }
 
-        public async Task<IResultModel> Update(DepartDTO model)
+        public override async Task<IResultModel> UpdateAsync(DepartDTO model)
         {
-            //主键判断
-            var entity = await repDepart.Value.GetByIdAsync(model.Id);
-            if(entity == null)
-            {
-                _logger.LogError($"error：entity Id {model.Id} does not exist");
-                return ResultModel.NotExists;
-            }
             //外键判断
-            if (entity.GradeId.HasValue)
+            if (model.GradeId.HasValue)
             {
-                var dept = repDepart.Value.GetById(entity.GradeId);
+                var dept = _repository.Value.GetById(model.GradeId);
                 if (dept == null || dept.DeptType != Model.Enums.EnumDeptType.grade)
                 {
-                    _logger.LogError($"error：GradeId {entity.GradeId} does not exist or the EnumDeptType is not grade");
+                    _logger.LogError($"error：GradeId {model.GradeId} does not exist or the EnumDeptType is not grade");
                     return ResultModel.Failed("外键不存在，或上级部门必须指定年组", "GradeId");
                 }
             }
-            _mapper.Value.Map(model, entity);
-            repDepart.Value.Update(entity);
-
-            if (await UnitOfWork.SaveChangesAsync() > 0)
-            {
-                return ResultModel.Success(entity);
-            }
-            _logger.LogError($"error：Update Save failed");
-            return ResultModel.Failed("error：Update Save failed");
-        }
-
-        public async Task<IResultModel> Delete(int id, bool isSave = true)
-        {
-            //主键判断
-            var entity = await repDepart.Value.GetByIdAsync(id);
-            if (entity == null)
-            {
-                _logger.LogError($"error：entity Id {id} does not exist");
-                return ResultModel.NotExists;
-            }
-            //数据库中删除
-            repDepart.Value.Delete(entity);
-            if (!isSave)
-            {
-                return ResultModel.Success();
-            }
-            if (await UnitOfWork.SaveChangesAsync() > 0)
-            {
-                return ResultModel.Success();
-            }
-            _logger.LogError($"error：Delete failed");
-            return ResultModel.Failed("error：Delete failed");
+            //调用父类方法
+            return await base.UpdateAsync(model);
         }
     }
 }

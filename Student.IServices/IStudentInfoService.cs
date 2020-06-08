@@ -8,6 +8,13 @@ namespace Student.IServices
 {
     public interface IStudentInfoService: IBaseService<StudentInfo, StudentInfoDTO, long>
     {
+        /// <summary>
+        /// 分页查询
+        /// </summary>
+        /// <param name="pageIndex"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="search"></param>
+        /// <returns></returns>
         Task<IResultModel> QueryPagedListAsync(int pageIndex, int pageSize, string search);
     }
 }

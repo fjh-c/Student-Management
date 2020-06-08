@@ -60,7 +60,7 @@ namespace StudentManageSystem.Controllers
         //获取部门下拉选择列表数据
         private async Task GetDepartList()
         {
-            var result = await _separtApi.GetDepartListAsync();
+            var result = await _separtApi.GetDepartClassesListAsync();
             var list = result.Data.Select(p => new SelectListItem(p.DepartName, p.Id.ToString(), false, p.GradeId == null));
             ViewBag.DepartClassesList = list;
         }

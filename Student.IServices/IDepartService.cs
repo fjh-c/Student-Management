@@ -2,18 +2,25 @@
 using System.Threading.Tasks;
 using yrjw.ORM.Chimp.Result;
 using Student.DTO;
+using Student.Model;
 
 namespace Student.IServices
 {
-    public interface IDepartService
+    public interface IDepartService : IBaseService<Depart, DepartDTO, int>
     {
-        IUnitOfWork UnitOfWork { get; }
+        /// <summary>
+        /// 分页查询
+        /// </summary>
+        /// <param name="pageIndex"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="search"></param>
+        /// <returns></returns>
+        Task<IResultModel> QueryPagedListAsync(int pageIndex, int pageSize, string search);
 
-        Task<IResultModel> Query(int id);
-        Task<IResultModel> QueryList();
-        Task<IResultModel> QueryPagedList(int pageIndex, int pageSize, string search);
-        Task<IResultModel> Insert(DepartDTO model);
-        Task<IResultModel> Update(DepartDTO model);
-        Task<IResultModel> Delete(int id, bool isSave = true);
+        /// <summary>
+        /// 获取所有班级列表
+        /// </summary>
+        /// <returns></returns>
+        Task<IResultModel> GetClassesListAsync();
     }
 }

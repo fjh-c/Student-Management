@@ -31,7 +31,7 @@ namespace StudentManageSystem.HttpApis
         /// 添加学生信息，通过json提交
         /// </summary>
         /// <returns></returns>
-        [HttpPost("api/StudentInfo/InsertModel")]
+        [HttpPost("api/StudentInfo/AddModel")]
         ITask<ResultModel<StudentInfoDTO>> PostStudentInfoInsertAsync([JsonContent]StudentInfoDTO model);
         /// <summary>
         /// 添加学生信息

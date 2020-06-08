@@ -24,5 +24,11 @@ namespace StudentManageSystem.HttpApis
         /// <returns></returns>
         [HttpGet("api/Depart")]
         ITask<ResultModel<List<DepartDTO>>> GetDepartListAsync();
+        /// <summary>
+        /// 获取所有班级列表
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("api/Depart/GetClassesList")]
+        ITask<ResultModel<List<DepartDTO>>> GetDepartClassesListAsync();
     }
 }
