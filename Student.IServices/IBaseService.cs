@@ -30,8 +30,9 @@ namespace Student.IServices
         /// <summary>
         /// 所有数据
         /// </summary>
+        /// <param name="isDescending">是否倒序排序</param>
         /// <returns></returns>
-        Task<IResultModel> GetListAllAsync();
+        Task<IResultModel> GetListAllAsync(bool isDescending = false);
 
         /// <summary>
         /// 新增数据

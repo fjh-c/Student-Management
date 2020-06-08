@@ -41,9 +41,13 @@ namespace Student.Services
             return ResultModel.Success(_mapper.Value.Map<TEntityDTO>(info));
         }
 
-        public virtual async Task<IResultModel> GetListAllAsync()
+        public virtual async Task<IResultModel> GetListAllAsync(bool isDescending = false)
         {
-            var list = await _repository.Value.TableNoTracking.OrderByDescending(k => k.Id).ProjectTo<TEntityDTO>(_mapper.Value.ConfigurationProvider).ToListAsync();
+            if (isDescending) {
+                var Descendinglist = await _repository.Value.TableNoTracking.OrderByDescending(k => k.Id).ProjectTo<TEntityDTO>(_mapper.Value.ConfigurationProvider).ToListAsync();
+                return ResultModel.Success(Descendinglist);
+            }
+            var list = await _repository.Value.TableNoTracking.OrderBy(k => k.Id).ProjectTo<TEntityDTO>(_mapper.Value.ConfigurationProvider).ToListAsync();
             return ResultModel.Success(list);
         }
 

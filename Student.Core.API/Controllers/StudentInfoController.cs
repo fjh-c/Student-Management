@@ -44,7 +44,7 @@ namespace Student.Core.API.Controllers
         public async Task<IResultModel> GetListAll()
         {
             _logger.LogDebug($"获取全部学生列表");
-            return await StudentInfoService.Value.GetListAllAsync();
+            return await StudentInfoService.Value.GetListAllAsync(true);
         }
 
         [Description("获取学生分页列表")]

@@ -1,0 +1,107 @@
+﻿
+@{
+    ViewData["Title"] = "部门管理";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="layui-card">
+    <div class="layui-card-header">
+        <div class="layui-form">
+            <div class="layui-form-item ">
+                <div class="layui-inline"><i class="fa fa-file-text-o fa-fw"></i> @ViewBag.Title</div>
+            </div>
+            <div class="layui-form-item layui-layout-left">
+                <div class="layui-inline">
+                    <input class="layui-input layui-input-sm" style="width: 300px;" type="text" name="search" placeholder="快速查找" autocomplete="off">
+                </div>
+                <div class="layui-inline layui-show-xs-block">
+                    <button class="layui-btn layui-btn-sm layui-btn-normal" lay-submit lay-filter="querysubmit">
+                        <i class="layui-icon layui-icon-sm">&#xe615;</i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="layui-card-body">
+        <table class="layui-hide" id="test" lay-filter="test"></table>
+    </div>
+</div>
+
+@section Scripts{
+    <script type="text/javascript">
+        //监听表单提交事件
+        hg.form.onsubmit('querysubmit', function (data) {
+            table && table.reload(data);
+        });
+        var tableCols = [[
+            {
+                field: 'id',
+                width: 260,
+                title: '部门编号',
+                sort: true
+            }, {
+                field: 'departName',
+                width: 200,
+                title: '部门名称'
+            }, {
+                field: 'deptTypeName',
+                width: 200,
+                title: '部门类别'
+            }, {
+                field: 'gradeName',
+                title: '年组名称',
+                minWidth: 120
+            }, {
+                field: 'right',
+                minWidth: 160,
+                title: '操作',
+                fixed: 'right',
+                templet: function (d) {
+                    return '<a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit">编辑</a> <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>'
+                }
+            }]
+        ];
+        //通过行tool编辑，lay-event="edit"
+        function edit(obj) {
+            if (obj.data.id) {
+                hg.open('修改账户信息', '/Depart/Edit/' + obj.data.id, 600, 500);
+            }
+        }
+        //通过行tool删除，lay-event="del"
+        function del(obj) {
+            if (obj.data.id) {
+                hg.confirm("账户：" + obj.data.name + "，确定要删除吗？", function () {
+                    $.ajax({
+                        url: '/Depart/Delete',
+                        data: {id: obj.data.id},
+                        type: 'POST',
+                        success: function (data) {
+                            if (data.success) {
+                                obj.del(); //只删本地数据
+                                hg.msghide("删除成功！");
+                            }
+                            else {
+                                hg.msg(data.msg);
+                            }
+                        },
+                        error: function () {
+                            hg.msg("网络请求失败！");
+                        }
+                    });
+                });
+            }
+        }
+        var toolbar = [{
+            text: '添加',
+            layuiicon: '&#xe608;',
+            class: 'layui-btn-normal',
+            handler: function () {
+                hg.open('添加账户', '/Depart/Create', 600, 480);
+            }
+        }
+        ];
+        //基本数据表格
+        var table = hg.table.datatable('test', '部门管理', '/Depart/GetQueryList', {}, tableCols, toolbar, false, 'full-100', ['filter', 'print', 'exports']);
+
+    </script>
+}
