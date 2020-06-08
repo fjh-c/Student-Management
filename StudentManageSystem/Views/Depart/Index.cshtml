@@ -29,6 +29,85 @@
 
 @section Scripts{
     <script type="text/javascript">
+        var treeTable;
+        layui.config({
+            base: '../lib/layui_ext/'
+        }).extend({
+            treeTable: 'treetable/treeTable'
+        }).use(['treeTable'], function () {
+            treeTable = layui.treeTable;
+        });
+
+        $(document).ready(function () {
+            hg.request('/Depart/GetQueryList', function (result) {
+                console.log(result);
+                init(result.data);
+            });
+        });
+
+        function init(data) {
+            var insTb = treeTable.render({
+                elem: '#test',
+                height: 'full-190',
+                text: {
+                    none: '<div style="padding: 18px 0;">暂无数据</div>'
+                },
+                data: data,
+                tree: {
+                    iconIndex: 0,
+                    isPidData: true,
+                    idName: 'id',
+                    pidName: 'gradeId',
+                    arrowType: 'arrow2',
+                    getIcon: function (item) {
+                        if (item.children != null && item.children.length > 0) {
+                            return '<i class="ew-tree-icon ew-tree-icon-folder"></i>';
+                        } else {
+                            return '<i class="ew-tree-icon ew-tree-icon-file"></i>';
+                        }
+                    }
+                },
+                cols: [
+                    { field: 'id', title: '部门编号', width: 400 },
+                    { field: 'departName', title: '部门名称', width: 200 },
+                    { field: 'deptTypeName', title: '部门类别', width: 120 },
+                    {
+                        align: 'center', title: '操作',
+                        templet: function (item) {
+                            var btns = '';
+
+                            //if (item.deptCode.length >= 16) {
+                            //    btns = btns + '<a class="layui-btn layui-btn-xs layui-btn-disabled" lay-event="add">添加</a>';
+                            //}
+                            //else {
+                            //    btns = btns + '<a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="add">添加</a>';
+                            //}
+
+                            //btns = btns + '<a class="layui-btn layui-btn-xs " lay-event="edit">编辑</a>';
+
+                            //if (item.children != null && item.children.length > 0) {
+                            //    btns = btns + '<a class="layui-btn layui-btn-danger layui-btn-xs layui-btn-disabled">删除</button>';
+                            //}
+                            //else {
+
+                            //    btns = btns + '<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>';
+                            //}
+                            btns = btns + '<a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="add">添加</a>';
+                            btns = btns + '<a class="layui-btn layui-btn-xs " lay-event="edit">编辑</a>';
+                            btns = btns + '<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>';
+                            return btns;
+                        }
+                    }
+                ],
+                style: 'margin-top:0;',
+                done: function () {
+
+                    layer.closeAll('loading');
+                }
+            });
+            insTb.expandAll();
+        }
+
         //监听表单提交事件
         hg.form.onsubmit('querysubmit', function (data) {
             table && table.reload(data);
@@ -101,7 +180,7 @@
         }
         ];
         //基本数据表格
-        var table = hg.table.datatable('test', '部门管理', '/Depart/GetQueryList', {}, tableCols, toolbar, false, 'full-100', ['filter', 'print', 'exports']);
+        //var table = hg.table.datatable('test', '部门管理', '/Depart/GetQueryList', {}, tableCols, toolbar, false, 'full-100', ['filter', 'print', 'exports']);
 
     </script>
 }
