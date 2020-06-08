@@ -29,47 +29,56 @@ namespace Student.Core.API.Controllers
         [Parameters(name="id", param = "账户ID")]
         [ResponseCache(Duration = 0)]
         [HttpGet("{id}")]
-        public Task<IResultModel> Query([BindRequired]Guid id)
+        public async Task<IResultModel> Query([BindRequired]Guid id)
         {
             _logger.LogDebug($"操作：根据ID获取指定账户{id}");
-            return AccountService.Value.Query(id);
+            return await AccountService.Value.GetByIdAsync(id);
         }
 
         [Description("获取全部账户列表")]
         [ResponseCache(Duration = 0)]
         [HttpGet]
-        public Task<IResultModel> QueryList()
+        public async Task<IResultModel> GetAllList()
         {
             _logger.LogDebug("操作：获取全部账户列表");
-            return AccountService.Value.QueryList();
+            return await AccountService.Value.GetAllListAsync();
         }
 
         [Description("添加账户，成功后返回当前账户信息")]
         [OperationId("添加账户")]
         [HttpPost]
-        public Task<IResultModel> Insert(AccountDTO model)
+        public async Task<IResultModel> Add([FromBody]AccountDTO model)
         {
             _logger.LogDebug($"操作：添加账户{model.UserName}");
-            return AccountService.Value.Insert(model);
+            return await AccountService.Value.InsertAsync(model);
         }
 
         [Description("修改账户，成功后返回当前账户信息")]
         [OperationId("修改账户")]
         [HttpPut]
-        public Task<IResultModel> Update(AccountDTO model)
+        public async Task<IResultModel> Update([FromBody]AccountDTO model)
         {
             _logger.LogDebug($"操作：修改账户{model.Id.ToString()}");
-            return AccountService.Value.Update(model);
+            return await AccountService.Value.UpdateAsync(model);
         }
 
         [Description("通过指定账户ID删除当前账户信息")]
         [OperationId("删除账户")]
         [Parameters(name = "id", param = "账户ID")]
         [HttpDelete("{id}")]
-        public Task<IResultModel> Delete([BindRequired]Guid id)
+        public async Task<IResultModel> Delete([BindRequired]Guid id)
         {
             _logger.LogDebug($"操作：删除账户{id}");
-            return AccountService.Value.Delete(id);
+            return await AccountService.Value.DeleteAsync(id);
+        }
+
+        [Description("修改账户密码信息")]
+        [OperationId("修改密码")]
+        [HttpPut("UpdatePassword")]
+        public async Task<IResultModel> UpdatePassword([FromBody]UpdatePasswordDTO model)
+        {
+            _logger.LogDebug($"操作：修改密码{model.AccountId}");
+            return await AccountService.Value.UpdatePassword(model);
         }
     }
 }

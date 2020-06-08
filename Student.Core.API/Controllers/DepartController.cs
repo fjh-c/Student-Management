@@ -67,7 +67,7 @@ namespace Student.Core.API.Controllers
         [Description("添加部门，成功后返回当前部门信息")]
         [OperationId("添加部门")]
         [HttpPost]
-        public async Task<IResultModel> Add(DepartDTO model)
+        public async Task<IResultModel> Add([FromBody]DepartDTO model)
         {
             _logger.LogDebug("添加部门");
             return await DepartService.Value.InsertAsync(model);
@@ -76,7 +76,7 @@ namespace Student.Core.API.Controllers
         [Description("修改部门，成功后返回当前部门信息")]
         [OperationId("修改部门")]
         [HttpPut]
-        public async Task<IResultModel> Update(DepartDTO model)
+        public async Task<IResultModel> Update([FromBody]DepartDTO model)
         {
             _logger.LogDebug("修改部门");
             return await DepartService.Value.UpdateAsync(model);

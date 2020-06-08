@@ -62,7 +62,7 @@ namespace Student.Core.API.Controllers
         [Description("添加学生信息，成功后返回当前学生信息，上传图片转Base64存Photos属性中")]
         [OperationId("添加学生信息，通过模型添加")]
         [HttpPost("AddModel")]
-        public async Task<IResultModel> AddModel([FromBody] StudentInfoDTO model)
+        public async Task<IResultModel> AddModel([FromBody]StudentInfoDTO model)
         {
             //保存上传图片
             if (model.Photos.NotNull())

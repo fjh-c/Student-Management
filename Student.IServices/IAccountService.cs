@@ -3,17 +3,17 @@ using System.Threading.Tasks;
 using yrjw.ORM.Chimp.Result;
 using Student.DTO;
 using System;
+using Student.Model;
 
 namespace Student.IServices
 {
-    public interface IAccountService
+    public interface IAccountService : IBaseService<Account, AccountDTO, Guid>
     {
-        IUnitOfWork UnitOfWork { get; }
-
-        Task<IResultModel> Query(Guid id);
-        Task<IResultModel> QueryList();
-        Task<IResultModel> Insert(AccountDTO model);
-        Task<IResultModel> Update(AccountDTO model);
-        Task<IResultModel> Delete(Guid id);
+        /// <summary>
+        /// 修改密码
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        Task<IResultModel> UpdatePassword(UpdatePasswordDTO model);
     }
 }

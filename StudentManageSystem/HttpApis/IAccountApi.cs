@@ -46,5 +46,12 @@ namespace StudentManageSystem.HttpApis
         /// <returns></returns>
         [HttpDelete("api/Account/{id}")]
         ITask<ResultModel<string>> DeleteAccountAsync(Guid id);
+
+        /// <summary>
+        /// 修改密码
+        /// </summary>
+        /// <returns></returns>
+        [HttpPut("api/Account/UpdatePassword")]
+        ITask<ResultModel<string>> UpdatePasswordAsync(Guid id);
     }
 }
