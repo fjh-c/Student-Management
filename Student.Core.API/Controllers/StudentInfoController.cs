@@ -41,10 +41,10 @@ namespace Student.Core.API.Controllers
         [Description("获取全部学生列表")]
         [ResponseCache(Duration = 0)]
         [HttpGet]
-        public async Task<IResultModel> GetAllList()
+        public async Task<IResultModel> GetListAll()
         {
             _logger.LogDebug($"获取全部学生列表");
-            return await StudentInfoService.Value.GetAllListAsync();
+            return await StudentInfoService.Value.GetListAllAsync();
         }
 
         [Description("获取学生分页列表")]
@@ -56,7 +56,7 @@ namespace Student.Core.API.Controllers
         public async Task<IResultModel> GetPagedList([Required]int pageIndex, int pageSize, string search)
         {
             _logger.LogDebug($"获取学生分页列表");
-            return await StudentInfoService.Value.QueryPagedListAsync(pageIndex, pageSize, search);
+            return await StudentInfoService.Value.GetPagedListAsync(pageIndex, pageSize, search);
         }
 
         [Description("添加学生信息，成功后返回当前学生信息，上传图片转Base64存Photos属性中")]

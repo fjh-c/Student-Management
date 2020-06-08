@@ -17,10 +17,10 @@ namespace Student.Services
     public class DepartService : BaseService<Depart, DepartDTO, int>, IDepartService, IDependency
     {
         public DepartService(Lazy<IMapper> mapper, IUnitOfWork unitOfWork, ILogger<DepartService> logger,
-            Lazy<IRepository<Depart>> repDepart) : base(mapper, unitOfWork, logger, repDepart)
+            Lazy<IRepository<Depart>> _repository) : base(mapper, unitOfWork, logger, _repository)
         {}
 
-        public async Task<IResultModel> QueryPagedListAsync(int pageIndex, int pageSize, string search)
+        public async Task<IResultModel> GetPagedListAsync(int pageIndex, int pageSize, string search)
         {
             var data = _repository.Value.TableNoTracking;
             if (!search.IsNull())

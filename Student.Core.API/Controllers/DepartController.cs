@@ -37,10 +37,10 @@ namespace Student.Core.API.Controllers
         [Description("获取全部部门列表")]
         [ResponseCache(Duration = 0)]
         [HttpGet]
-        public async Task<IResultModel> GetAllList()
+        public async Task<IResultModel> GetListAll()
         {
             _logger.LogDebug($"获取全部部门列表");
-            return await DepartService.Value.GetAllListAsync();
+            return await DepartService.Value.GetListAllAsync();
         }
 
         [Description("获取所有班级列表")]
@@ -61,7 +61,7 @@ namespace Student.Core.API.Controllers
         public async Task<IResultModel> GetPagedList([Required]int pageIndex, int pageSize, string search)
         {
             _logger.LogDebug($"获取部门分页列表");
-            return await DepartService.Value.QueryPagedListAsync(pageIndex, pageSize, search);
+            return await DepartService.Value.GetPagedListAsync(pageIndex, pageSize, search);
         }
 
         [Description("添加部门，成功后返回当前部门信息")]

@@ -15,7 +15,7 @@ namespace Student.IServices
         /// <param name="pageSize"></param>
         /// <param name="search"></param>
         /// <returns></returns>
-        Task<IResultModel> QueryPagedListAsync(int pageIndex, int pageSize, string search);
+        Task<IResultModel> GetPagedListAsync(int pageIndex, int pageSize, string search);
 
         /// <summary>
         /// 获取所有班级列表

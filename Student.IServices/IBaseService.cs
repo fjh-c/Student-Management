@@ -30,7 +30,7 @@ namespace Student.IServices
         /// 所有数据
         /// </summary>
         /// <returns></returns>
-        Task<IResultModel> GetAllListAsync();
+        Task<IResultModel> GetListAllAsync();
 
         /// <summary>
         /// 新增数据

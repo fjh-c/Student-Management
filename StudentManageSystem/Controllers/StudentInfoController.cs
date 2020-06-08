@@ -48,7 +48,7 @@ namespace StudentManageSystem.Controllers
         [HttpGet]
         public async Task<IActionResult> EditAsync(long? id)
         {
-            var result = await _studentInfoApi.GetStudentInfoAsync(id.Value);
+            var result = await _studentInfoApi.QueryAsync(id.Value);
             if (result.Success == false)
             {
                 return View();  //建议跳转到指定错误页面
@@ -60,7 +60,7 @@ namespace StudentManageSystem.Controllers
         //获取部门下拉选择列表数据
         private async Task GetDepartList()
         {
-            var result = await _separtApi.GetDepartClassesListAsync();
+            var result = await _separtApi.GetClassesListAsync();
             var list = result.Data.Select(p => new SelectListItem(p.DepartName, p.Id.ToString(), false, p.GradeId == null));
             ViewBag.DepartClassesList = list;
         }
@@ -73,15 +73,8 @@ namespace StudentManageSystem.Controllers
             if (ModelState.IsValid)
             {
                 IResultModel result;
-                MulitpartFile file = null;
-                if (model.PhotosFile != null && model.PhotosFile.Length > 0)
-                {
-                    file = new MulitpartFile(model.PhotosFile.OpenReadStream(), model.PhotosFile.FileName);
-                }
                 if (model.Id == 0)
                 {
-                    //result = await _studentInfoApi.PostStudentInfoInsertAsync(model, file);
-
                     //通过json提交模型，上传图片必须转Base64传输
                     if (model.PhotosFile != null && model.PhotosFile.Length > 0)
                     {
@@ -90,11 +83,17 @@ namespace StudentManageSystem.Controllers
                         model.Photos = Convert.ToBase64String(bytes);
                         model.PhotosFile = null; //这里清空数据，否则传输序列化时出错
                     } 
-                    result = await _studentInfoApi.PostStudentInfoInsertAsync(model);
+                    result = await _studentInfoApi.AddAsync(model);
                 }
                 else
                 {
-                    result = await _studentInfoApi.PutStudentInfoUpdateAsync(model, file);
+                    //通过表单提交文件，使用MulitpartFile传输
+                    MulitpartFile file = null;
+                    if (model.PhotosFile != null && model.PhotosFile.Length > 0)
+                    {
+                        file = new MulitpartFile(model.PhotosFile.OpenReadStream(), model.PhotosFile.FileName);
+                    }
+                    result = await _studentInfoApi.UpdateAsync(model, file);
                 }
                 if (result.Success)
                 {
@@ -124,21 +123,21 @@ namespace StudentManageSystem.Controllers
         //删除操作 ajax请求返回json
         public async Task<IActionResult> DeleteAsync(long id)
         {
-            var result = await _studentInfoApi.DeleteStudentInfoAsync(id);
+            var result = await _studentInfoApi.DeleteAsync(id);
             return Json(new Result() { success = result.Success, msg = result.Msg });
         }
 
         //批量删除操作 ajax请求返回json
         public async Task<IActionResult> DeleteAllAsync(long[] arr)
         {
-            var result = await _studentInfoApi.DeleteAllStudentInfoAsync(arr);
+            var result = await _studentInfoApi.DeleteAllAsync(arr);
             return Json(new Result() { success = result.Success, msg = result.Msg });
         }
 
         //详情页面查看
         public async Task<IActionResult> DetailsAsync(long? id)
         {
-            var result = await _studentInfoApi.GetStudentInfoAsync(id.Value);
+            var result = await _studentInfoApi.QueryAsync(id.Value);
             if (result.Data.Photos.IsNull())
             {
                 result.Data.Photos = "/images/upload-img.jpg";
@@ -160,7 +159,7 @@ namespace StudentManageSystem.Controllers
         [HttpGet]
         public async Task<IActionResult> GetQueryPagedListAsync(int page, int limit, string search)
         {
-            var result = await _studentInfoApi.GetStudentInfoPagedListAsync(page, limit, search);
+            var result = await _studentInfoApi.GetPagedListAsync(page, limit, search);
             foreach (var item in result.Data.Item)
             {
                 if (item.Photos.IsNull())

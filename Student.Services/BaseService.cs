@@ -41,7 +41,7 @@ namespace Student.Services
             return ResultModel.Success(_mapper.Value.Map<TEntityDTO>(info));
         }
 
-        public virtual async Task<IResultModel> GetAllListAsync()
+        public virtual async Task<IResultModel> GetListAllAsync()
         {
             var list = await _repository.Value.TableNoTracking.OrderByDescending(k => k.Id).ProjectTo<TEntityDTO>(_mapper.Value.ConfigurationProvider).ToListAsync();
             return ResultModel.Success(list);

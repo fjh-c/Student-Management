@@ -18,8 +18,8 @@ namespace Student.Services
         private readonly Lazy<IRepository<Depart>> repDepart;
 
         public StudentInfoService(Lazy<IMapper> mapper, IUnitOfWork unitOfWork, ILogger<StudentInfoService> logger,
-            Lazy<IRepository<StudentInfo>> repStudentInfo,
-            Lazy<IRepository<Depart>> repDepart): base(mapper, unitOfWork, logger, repStudentInfo)
+            Lazy<IRepository<StudentInfo>> _repository,
+            Lazy<IRepository<Depart>> repDepart): base(mapper, unitOfWork, logger, _repository)
         {
             this.repDepart = repDepart;
         }
@@ -31,7 +31,7 @@ namespace Student.Services
         /// <param name="pageSize"></param>
         /// <param name="search"></param>
         /// <returns></returns>
-        public async Task<IResultModel> QueryPagedListAsync(int pageIndex, int pageSize, string search)
+        public async Task<IResultModel> GetPagedListAsync(int pageIndex, int pageSize, string search)
         {
             var data = _repository.Value.TableNoTracking.Where(p => p.Deleted == 0);
             if (!search.IsNull())

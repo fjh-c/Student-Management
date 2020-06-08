@@ -38,10 +38,10 @@ namespace Student.Core.API.Controllers
         [Description("获取全部账户列表")]
         [ResponseCache(Duration = 0)]
         [HttpGet]
-        public async Task<IResultModel> GetAllList()
+        public async Task<IResultModel> GetListAll()
         {
             _logger.LogDebug("操作：获取全部账户列表");
-            return await AccountService.Value.GetAllListAsync();
+            return await AccountService.Value.GetListAllAsync();
         }
 
         [Description("添加账户，成功后返回当前账户信息")]

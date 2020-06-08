@@ -17,35 +17,35 @@ namespace StudentManageSystem.HttpApis
         /// </summary>
         /// <returns></returns>
         [HttpGet("api/Account/{id}")]
-        ITask<ResultModel<AccountDTO>> GetAccountAsync(Guid id);
+        ITask<ResultModel<AccountDTO>> QueryAsync(Guid id);
 
         /// <summary>
         /// 获取全部账户信息列表
         /// </summary>
         /// <returns></returns>
         [HttpGet("api/Account")]
-        ITask<ResultModel<List<AccountDTO>>> GetAccountListAsync();
+        ITask<ResultModel<List<AccountDTO>>> GetListAllAsync();
 
         /// <summary>
         /// 添加账户信息
         /// </summary>
         /// <returns></returns>
         [HttpPost("api/Account")]
-        ITask<ResultModel<AccountDTO>> PostAccountInsertAsync([JsonContent]AccountDTO model);
+        ITask<ResultModel<AccountDTO>> AddAsync([JsonContent]AccountDTO model);
 
         /// <summary>
         /// 修改账户信息
         /// </summary>
         /// <returns></returns>
         [HttpPut("api/Account")]
-        ITask<ResultModel<AccountDTO>> PutAccountUpdateAsync([JsonContent]AccountDTO model);
+        ITask<ResultModel<AccountDTO>> UpdateAsync([JsonContent]AccountDTO model);
 
         /// <summary>
         /// 删除账户信息
         /// </summary>
         /// <returns></returns>
         [HttpDelete("api/Account/{id}")]
-        ITask<ResultModel<string>> DeleteAccountAsync(Guid id);
+        ITask<ResultModel<string>> DeleteAsync(Guid id);
 
         /// <summary>
         /// 修改密码

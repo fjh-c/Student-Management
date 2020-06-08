@@ -17,7 +17,7 @@ namespace Student.Services
     public class AccountService : BaseService<Account, AccountDTO, Guid>, IAccountService, IDependency
     {
         public AccountService(Lazy<IMapper> mapper, IUnitOfWork unitOfWork, ILogger<AccountService> logger,
-            Lazy<IRepository<Account>> repAccount) : base(mapper, unitOfWork, logger, repAccount)
+            Lazy<IRepository<Account>> _repository) : base(mapper, unitOfWork, logger, _repository)
         {
         }
 

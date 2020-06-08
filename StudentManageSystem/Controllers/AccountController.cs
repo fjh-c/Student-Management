@@ -44,7 +44,7 @@ namespace StudentManageSystem.Controllers
         [HttpGet]
         public async Task<IActionResult> EditAsync(Guid id)
         {
-            var result = await _accountApi.GetAccountAsync(id);
+            var result = await _accountApi.QueryAsync(id);
             if (result.Success == false)
             {
                 return View();
@@ -62,11 +62,11 @@ namespace StudentManageSystem.Controllers
                 IResultModel result;
                 if (model.Id == Guid.Empty)
                 {
-                    result = await _accountApi.PostAccountInsertAsync(model);
+                    result = await _accountApi.AddAsync(model);
                 }
                 else
                 {
-                    result = await _accountApi.PutAccountUpdateAsync(model);
+                    result = await _accountApi.UpdateAsync(model);
                 }
                 if (result.Success)
                 {
@@ -95,7 +95,7 @@ namespace StudentManageSystem.Controllers
         //删除操作 ajax请求返回json
         public async Task<IActionResult> DeleteAsync(Guid id)
         {
-            var result = await _accountApi.DeleteAccountAsync(id);
+            var result = await _accountApi.DeleteAsync(id);
             return Json(new Result() { success = result.Success, msg = result.Msg });
         }
 
@@ -104,7 +104,7 @@ namespace StudentManageSystem.Controllers
         [HttpGet]
         public async Task<IActionResult> GetQueryListAsync()
         {
-            var result = await _accountApi.GetAccountListAsync();
+            var result = await _accountApi.GetListAllAsync();
             if (result.Success)
             {
                 return Json(new Table() { data = result.Data, count = result.Data.Count });

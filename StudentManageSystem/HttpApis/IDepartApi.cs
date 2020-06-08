@@ -17,18 +17,18 @@ namespace StudentManageSystem.HttpApis
         /// </summary>
         /// <returns></returns>
         [HttpGet("api/Depart/{id}")]
-        ITask<ResultModel<DepartDTO>> GetDepartAsync(int id);
+        ITask<ResultModel<DepartDTO>> QueryAsync(int id);
         /// <summary>
         /// 获取全部部门列表
         /// </summary>
         /// <returns></returns>
         [HttpGet("api/Depart")]
-        ITask<ResultModel<List<DepartDTO>>> GetDepartListAsync();
+        ITask<ResultModel<List<DepartDTO>>> GetListAllAsync();
         /// <summary>
         /// 获取所有班级列表
         /// </summary>
         /// <returns></returns>
         [HttpGet("api/Depart/GetClassesList")]
-        ITask<ResultModel<List<DepartDTO>>> GetDepartClassesListAsync();
+        ITask<ResultModel<List<DepartDTO>>> GetClassesListAsync();
     }
 }
