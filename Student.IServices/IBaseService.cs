@@ -10,6 +10,7 @@ namespace Student.IServices
     /// <summary>
     /// 封装公共方法CURD操作给API直接调用，业务相关操作请在子类中重写基类方法
     /// </summary>
+    /// <typeparam name="TEntity">数据库模型</typeparam>
     /// <typeparam name="TEntityDTO">DTO模型</typeparam>
     /// <typeparam name="TKey">主键类型</typeparam>
     public interface IBaseService<TEntity, TEntityDTO, TKey> where TEntityDTO : class where TEntity : Model.EntityBase<TKey>, new() where TKey : struct
