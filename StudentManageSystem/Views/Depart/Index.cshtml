@@ -67,13 +67,20 @@
                             url: '/Depart/Delete',
                             data: { id: obj.data.id },
                             type: 'POST',
-                            success: function (obj) {
-                                if (obj.success) {
+                            success: function (result) {
+                                if (result.success) {
                                     hg.msghide("删除成功！");
+                                    //本地移除数据
+                                    layui.each(data, function (i, d) {
+                                        if (d.id == obj.data.id) {
+                                            data.splice(i, 1);
+                                            return false;
+                                        }
+                                    });
                                     init(data);
                                 }
                                 else {
-                                    hg.msg(obj.msg);
+                                    hg.msg(result.msg);
                                 }
                             },
                             error: function () {
