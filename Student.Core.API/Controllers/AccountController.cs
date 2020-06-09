@@ -69,7 +69,7 @@ namespace Student.Core.API.Controllers
         public async Task<IResultModel> Delete([BindRequired]Guid id)
         {
             _logger.LogDebug($"操作：删除账户{id}");
-            return await AccountService.Value.DeleteAsync(id);
+            return await AccountService.Value.RemoveAsync(id);
         }
 
         [Description("修改账户密码信息")]
