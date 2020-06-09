@@ -35,9 +35,19 @@ namespace StudentManageSystem.Controllers
 
         //添加页面
         [HttpGet]
-        public IActionResult Create()
+        public IActionResult Create(int id)
         {
-            return View();
+            var model = new DepartDTO();
+            if (id > 0)
+            {
+                model.DeptType = Student.Model.Enums.EnumDeptType.classes;
+                model.GradeId = id;
+            }
+            else
+            {
+                model.DeptType = Student.Model.Enums.EnumDeptType.grade;
+            }
+            return View(model);
         }
 
         //修改页面

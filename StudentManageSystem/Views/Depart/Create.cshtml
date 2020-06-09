@@ -1,0 +1,52 @@
+﻿@model Student.DTO.DepartDTO
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_FormLayout.cshtml";
+}
+
+<style>
+    .control-label {
+        justify-content: flex-end !important;
+    }
+</style>
+
+<div class="row">
+    <div class="col-sm-12">
+        <form enctype="multipart/form-data" method="post" asp-action="Save">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="GradeId" />
+            <div class="form-group form-inline my-sm-1">
+                <label asp-for="DepartName" class="control-label col-sm-3"></label>
+                <input asp-for="DepartName" class="form-control col-sm-8" placeholder="请输入部门名称" aria-describedby="Name-error" />
+                <span asp-validation-for="DepartName" class="text-danger offset-sm-3 my-sm-1"></span>
+            </div>
+            <div class="form-group form-inline my-sm-1">
+                <label asp-for="DeptType" class="control-label col-sm-3"></label>
+                <select asp-for="DeptType" asp-items="Html.GetEnumSelectList<EnumDeptType>()" class="custom-select col-sm-8" disabled></select>
+                <span asp-validation-for="DeptType" class="text-danger offset-sm-3 my-sm-1"></span>
+            </div>
+            <span style="color: firebrick; word-break: break-all;" class="text-danger offset-sm-3">@Html.ValidationMessage("error")</span>
+            <div class="form-group">
+                <input type="submit" value="保存" class="btn btn-primary offset-sm-3" />
+            </div>
+
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        await Html.RenderPartialAsync("_FileinputScriptsPartial");
+    }
+
+<script type="text/javascript">
+        $(document).ready(function () {
+            var error = '@Html.ValidationMessage("error")';
+            if ($(error).text() != '') {
+                parent.hg.msg(error);
+            }
+        });
+</script>
+}

@@ -10,19 +10,36 @@
             <div class="layui-form-item ">
                 <div class="layui-inline"><i class="fa fa-file-text-o fa-fw"></i> @ViewBag.Title</div>
             </div>
-            <div class="layui-form-item layui-layout-left">
-                <div class="layui-inline">
-                    <input class="layui-input layui-input-sm" style="width: 300px;" type="text" name="search" placeholder="快速查找" autocomplete="off">
-                </div>
-                <div class="layui-inline layui-show-xs-block">
-                    <button class="layui-btn layui-btn-sm layui-btn-normal" lay-submit lay-filter="querysubmit">
-                        <i class="layui-icon layui-icon-sm">&#xe615;</i>
-                    </button>
-                </div>
-            </div>
         </div>
     </div>
     <div class="layui-card-body">
+        <div class="layui-form">
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <button type="button" id="btnAdd" class="layui-btn layui-btn-normal layui-btn-sm"><i class="layui-icon">&#xe654;</i>添加部门</button>
+                </div>
+                <div class="layui-inline" style="margin-left:10px;">
+                    <div class="layui-btn-group">
+                        <button type="button" class="layui-btn layui-btn-primary layui-btn-sm refresh"><i class="layui-icon">&#xe669;</i>刷新</button>
+                        <button type="button" class="layui-btn layui-btn-primary layui-btn-sm open-all"><i class="layui-icon">&#xe61a;</i>展开</button>
+                        <button type="button" class="layui-btn layui-btn-primary layui-btn-sm close-all"><i class="layui-icon">&#xe602;</i>折叠</button>
+                    </div>
+                </div>
+                <div class="layui-inline" style="margin-right:0px;">
+                    <input type="text" class="layui-input" id="edtSearch" value="" placeholder="输入关键字" style="display: inline-block;width: 140px;height: 30px;line-height: 30px;margin-left:20px;" />
+                </div>
+                <div class="layui-inline" style="margin-left:0px;">
+                    <div class="layui-btn-group">
+                        <button id="btnSearch" class="layui-btn layui-btn-sm layui-btn-normal">
+                            <i class="layui-icon">&#xe615;</i>搜索
+                        </button>
+                        <button id="btnClearSearch" class="layui-btn layui-btn-sm layui-btn-primary">
+                            <i class="layui-icon">&#x1006;</i>清除
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <table class="layui-hide" id="test" lay-filter="test"></table>
     </div>
 </div>
@@ -36,19 +53,56 @@
             treeTable: 'treetable/treeTable'
         }).use(['treeTable'], function () {
             treeTable = layui.treeTable;
-        });
 
-        $(document).ready(function () {
-            hg.request('/Depart/GetQueryList', function (result) {
-                console.log(result);
-                init(result.data);
+            treeTable.on('tool(test)', function (obj) {
+                if (obj.event == 'add') {
+                    hg.open('添加部门', '/Depart/Create/' + obj.data.id, 580, 270);
+                }
+                if (obj.event == 'edit') {
+                    hg.open('编辑部门', '/Depart/Edit/' + obj.data.id, 580, 270);
+                }
+                if (obj.event == 'del') {
+                    hg.confirm('确定删除[' + obj.data.name + ']吗?', function () {
+                        $.ajax({
+                            url: '/BasicInfo/DelTabDepart',
+                            data: { id: obj.data.id },
+                            type: 'POST',
+                            success: function (data) {
+                                if (data.success) {
+                                    hg.msghide("删除成功！");
+                                    init(data);
+                                }
+                                else {
+                                    hg.msg(data.msg);
+                                }
+                            },
+                            error: function () {
+                                hg.msg("网络请求失败！");
+                            }
+                        });
+
+                    });
+                }
             });
         });
 
+        var data = [];
+        $(document).ready(function () {
+            request();
+        });
+
+        function request() {
+            hg.request('/Depart/GetQueryList', function (result) {
+                data = result.data;
+                console.log(data);
+                init(data);
+            });
+        }
+        var insTb;
         function init(data) {
-            var insTb = treeTable.render({
+            insTb = treeTable.render({
                 elem: '#test',
-                height: 'full-190',
+                height: 'full-180',
                 text: {
                     none: '<div style="padding: 18px 0;">暂无数据</div>'
                 },
@@ -75,112 +129,67 @@
                         align: 'center', title: '操作',
                         templet: function (item) {
                             var btns = '';
+                            if (item.deptType == 0) {
+                                btns = btns + '<a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="add">添加</a>';
+                            }
+                            else {
+                                btns = btns + '<a class="layui-btn layui-btn-xs layui-btn-disabled" lay-event="add">添加</a>';
+                            }
+                            btns = btns + '<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>';
 
-                            //if (item.deptCode.length >= 16) {
-                            //    btns = btns + '<a class="layui-btn layui-btn-xs layui-btn-disabled" lay-event="add">添加</a>';
-                            //}
-                            //else {
-                            //    btns = btns + '<a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="add">添加</a>';
-                            //}
+                            if (item.children != null && item.children.length > 0) {
+                                btns = btns + '<a class="layui-btn layui-btn-danger layui-btn-xs layui-btn-disabled">删除</button>';
+                            }
+                            else {
 
-                            //btns = btns + '<a class="layui-btn layui-btn-xs " lay-event="edit">编辑</a>';
-
-                            //if (item.children != null && item.children.length > 0) {
-                            //    btns = btns + '<a class="layui-btn layui-btn-danger layui-btn-xs layui-btn-disabled">删除</button>';
-                            //}
-                            //else {
-
-                            //    btns = btns + '<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>';
-                            //}
-                            btns = btns + '<a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="add">添加</a>';
-                            btns = btns + '<a class="layui-btn layui-btn-xs " lay-event="edit">编辑</a>';
-                            btns = btns + '<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>';
+                                btns = btns + '<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>';
+                            }
                             return btns;
                         }
                     }
                 ],
                 style: 'margin-top:0;',
                 done: function () {
-
-                    layer.closeAll('loading');
                 }
             });
             insTb.expandAll();
         }
 
-        //监听表单提交事件
-        hg.form.onsubmit('querysubmit', function (data) {
-            table && table.reload(data);
+        
+
+        // 全部展开
+        $('.open-all').click(function () {
+            insTb.expandAll();
         });
-        var tableCols = [[
-            {
-                field: 'id',
-                width: 260,
-                title: '部门编号',
-                sort: true
-            }, {
-                field: 'departName',
-                width: 200,
-                title: '部门名称'
-            }, {
-                field: 'deptTypeName',
-                width: 200,
-                title: '部门类别'
-            }, {
-                field: 'gradeName',
-                title: '年组名称',
-                minWidth: 120
-            }, {
-                field: 'right',
-                minWidth: 160,
-                title: '操作',
-                fixed: 'right',
-                templet: function (d) {
-                    return '<a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit">编辑</a> <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>'
-                }
-            }]
-        ];
-        //通过行tool编辑，lay-event="edit"
-        function edit(obj) {
-            if (obj.data.id) {
-                hg.open('修改账户信息', '/Depart/Edit/' + obj.data.id, 600, 500);
+
+        // 全部折叠
+        $('.close-all').click(function () {
+            insTb.foldAll();
+        });
+
+        //刷新
+        $('.refresh').click(function () {
+            request();
+        });
+
+        //搜索
+        $('#btnSearch').click(function () {
+            var keywords = $('#edtSearch').val();
+            if (keywords) {
+                insTb.filterData(keywords);
+            } else {
+                insTb.clearFilter();
             }
-        }
-        //通过行tool删除，lay-event="del"
-        function del(obj) {
-            if (obj.data.id) {
-                hg.confirm("账户：" + obj.data.name + "，确定要删除吗？", function () {
-                    $.ajax({
-                        url: '/Depart/Delete',
-                        data: {id: obj.data.id},
-                        type: 'POST',
-                        success: function (data) {
-                            if (data.success) {
-                                obj.del(); //只删本地数据
-                                hg.msghide("删除成功！");
-                            }
-                            else {
-                                hg.msg(data.msg);
-                            }
-                        },
-                        error: function () {
-                            hg.msg("网络请求失败！");
-                        }
-                    });
-                });
-            }
-        }
-        var toolbar = [{
-            text: '添加',
-            layuiicon: '&#xe608;',
-            class: 'layui-btn-normal',
-            handler: function () {
-                hg.open('添加账户', '/Depart/Create', 600, 480);
-            }
-        }
-        ];
-        //基本数据表格
-        //var table = hg.table.datatable('test', '部门管理', '/Depart/GetQueryList', {}, tableCols, toolbar, false, 'full-100', ['filter', 'print', 'exports']);
+        });
+        //清除
+        $('#btnClearSearch').click(function () {
+            $('#edtSearch').val("");
+            insTb.clearFilter();
+        });
+
+        $('#btnAdd').click(function () {
+            hg.open('添加部门', '/Depart/Create/0', 580, 270);
+        });
 
     </script>
 }

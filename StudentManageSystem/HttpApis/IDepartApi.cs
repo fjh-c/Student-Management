@@ -38,14 +38,14 @@ namespace StudentManageSystem.HttpApis
         /// </summary>
         /// <returns></returns>
         [HttpPost("api/Depart")]
-        ITask<ResultModel<AccountDTO>> AddAsync([JsonContent]DepartDTO model);
+        ITask<ResultModel<DepartDTO>> AddAsync([JsonContent]DepartDTO model);
 
         /// <summary>
         /// 修改部门
         /// </summary>
         /// <returns></returns>
         [HttpPut("api/Depart")]
-        ITask<ResultModel<AccountDTO>> UpdateAsync([JsonContent]DepartDTO model);
+        ITask<ResultModel<DepartDTO>> UpdateAsync([JsonContent]DepartDTO model);
 
         /// <summary>
         /// 删除部门
