@@ -89,7 +89,7 @@ namespace Student.Core.API.Controllers
         public async Task<IResultModel> Delete([Required]int id)
         {
             _logger.LogDebug("删除部门");
-            return await DepartService.Value.DeleteAsync(id);
+            return await DepartService.Value.RemoveAsync(id);
         }
 
         [Description("传入1个或多个部门ID数组[]，批量删除部门信息")]
@@ -98,7 +98,7 @@ namespace Student.Core.API.Controllers
         public async Task<IResultModel> DeleteAll([FromBody]IList<int> ids)
         {
             _logger.LogDebug("批量删除部门");
-            return await DepartService.Value.DeleteAsync(ids);
+            return await DepartService.Value.RemoveAsync(ids);
         }
     }
 }

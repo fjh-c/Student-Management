@@ -13,16 +13,13 @@ namespace Student.Model
     /// </summary>
     public class EntityBase: EntityBase<int> 
     {
-
     }
 
     /// <summary>
     /// 不包含软删除功能的实体基类，主键int类型自增
     /// </summary>
-    public class EntityBaseNoDeleted : EntityBase<int>
+    public class EntityBaseNoDeleted : EntityBaseNoDeleted<int>
     {
-        [NotMapped]
-        public override int Deleted { get => base.Deleted; set => base.Deleted = value; }
     }
 
     /// <summary>

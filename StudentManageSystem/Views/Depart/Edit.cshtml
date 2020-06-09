@@ -1,7 +1,7 @@
 ﻿@model Student.DTO.DepartDTO
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Edit";
     Layout = "~/Views/Shared/_FormLayout.cshtml";
 }
 
@@ -17,6 +17,11 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="GradeId" />
             <input type="hidden" asp-for="DeptType" />
+            <div class="form-group form-inline my-sm-1">
+                <label asp-for="Id" class="control-label col-sm-3"></label>
+                <input asp-for="Id" class="form-control col-sm-8" style="background-color:white;" readonly />
+                <span asp-validation-for="Id" class="text-danger offset-sm-3 my-sm-1"></span>
+            </div>
             <div class="form-group form-inline my-sm-1">
                 <label asp-for="DepartName" class="control-label col-sm-3"></label>
                 <input asp-for="DepartName" class="form-control col-sm-8" placeholder="请输入部门名称" aria-describedby="Name-error" />
