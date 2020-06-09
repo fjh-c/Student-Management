@@ -12,6 +12,7 @@ using Student.DTO;
 using StudentManageSystem.HttpApis;
 using StudentManageSystem.ViewModels;
 using WebApiClient.Parameterables;
+using yrjw.CommonToolsCore.Helper;
 using yrjw.ORM.Chimp.Result;
 
 namespace StudentManageSystem.Controllers
@@ -69,7 +70,7 @@ namespace StudentManageSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                IResultModel result;
+                ResultModel<DepartDTO> result;
                 if (model.Id == 0)
                 {
                     result = await _departApi.AddAsync(model);
@@ -81,7 +82,7 @@ namespace StudentManageSystem.Controllers
                 if (result.Success)
                 {
                     var _msg = model.Id == 0 ? "添加成功！" : "修改成功！";
-                    return RedirectToAction("ShowMsg", "Home", new { msg = _msg });
+                    return RedirectToAction("ShowMsg", "Home", new { msg = _msg, json = JsonHelper.SerializeJSON(result.Data) });
                 }
                 else
                 {

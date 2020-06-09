@@ -9,8 +9,16 @@
         //关闭弹出层
         hg.close();
         hg.msg('@ViewBag.Msg');
-        //刷新列表
-        parent.table.reload();
+        @if(ViewBag.Data == "")
+        {
+            //刷新列表
+           @: parent.table && parent.table.reload();
+        }
+        else
+        {
+            //本地修改
+           @: parent.table && parent.table.update('@Html.Raw(ViewBag.Data)');
+        }
     </script>
 }
 

@@ -28,9 +28,16 @@ namespace StudentManageSystem.Controllers
             return View();
         }
 
-        public IActionResult ShowMsg(string msg= "保存成功！")
+        /// <summary>
+        /// 弹窗子窗口，保存后刷新父级页面数据表格
+        /// </summary>
+        /// <param name="msg">弹窗提示信息</param>
+        /// <param name="json">不为空时，只刷新本地数据</param>
+        /// <returns></returns>
+        public IActionResult ShowMsg(string msg = "保存成功！", string json = "")
         {
             ViewBag.Msg = msg;
+            ViewBag.Data = json;
             return View();
         }
 
