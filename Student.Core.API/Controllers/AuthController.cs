@@ -18,7 +18,6 @@ using yrjw.ORM.Chimp.Result;
 namespace Student.Core.API.Controllers
 {
     [Description("身份认证")]
-    [ApiExplorerSettings(IgnoreApi = true)]
     public class AuthController : ControllerAbstract
     {
         private readonly ILoginHandler _loginHandler;
@@ -27,7 +26,9 @@ namespace Student.Core.API.Controllers
             _loginHandler = loginHandler;
         }
 
-        [HttpGet]
+        public Lazy<IAccountService> AccountService { get; set; }
+
+        [HttpGet("VerifyCode")]
         [AllowAnonymous]
         [Description("获取验证码")]
         public IResultModel VerifyCode(int length = 6)
@@ -36,7 +37,7 @@ namespace Student.Core.API.Controllers
             return null;
         }
 
-        [HttpPost]
+        [HttpPost("Login")]
         [AllowAnonymous]
         [Description("用户名登录")]
         public async Task<IResultModel> Login(LoginModel model)
@@ -44,7 +45,7 @@ namespace Student.Core.API.Controllers
             return await Task.FromResult<IResultModel>(null);
         }
 
-        [HttpGet]
+        [HttpGet("RefreshToken")]
         [AllowAnonymous]
         [Description("刷新令牌")]
         public async Task<IResultModel> RefreshToken([BindRequired]string refreshToken)
@@ -54,7 +55,7 @@ namespace Student.Core.API.Controllers
             return await Task.FromResult<IResultModel>(null);
         }
 
-        [HttpGet]
+        [HttpGet("AuthInfo")]
         //[Common]
         [Description("获取认证信息")]
         public Task<IResultModel> AuthInfo()

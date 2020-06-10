@@ -41,7 +41,7 @@ namespace Student.Core.API.Controllers
         public async Task<IResultModel> GetListAll()
         {
             _logger.LogDebug("操作：获取全部账户列表");
-            return await AccountService.Value.GetListAllAsync();
+            return await AccountService.Value.GetListAllAsync(true);
         }
 
         [Description("添加账户，成功后返回当前账户信息")]
