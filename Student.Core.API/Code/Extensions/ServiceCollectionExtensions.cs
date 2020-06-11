@@ -31,9 +31,6 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <returns></returns>
         public static IServiceCollection AddWebHost(this IServiceCollection services, IWebHostEnvironment env)
         {
-            //添加缓存
-            services.AddCache();
-
             //将控制器的寄宿器转为注册的服务
             services.AddControllers().AddControllersAsServices().AddNewtonsoftJson(options =>
             {
@@ -44,6 +41,9 @@ namespace Microsoft.Extensions.DependencyInjection
 
             //服务端缓存
             services.AddResponseCaching();
+
+            //添加缓存
+            services.AddCache();
 
             //添加CORS
             services.AddCors(BasicSetting.Setting);
@@ -62,8 +62,6 @@ namespace Microsoft.Extensions.DependencyInjection
 
             //Jwt身份认证
             services.AddJwtAuth();
-
-            
 
             //添加HttpClient相关
             services.AddSingleton<IHttpApiFactory<IWebApiHelper>, HttpApiFactory<IWebApiHelper>>(p =>
