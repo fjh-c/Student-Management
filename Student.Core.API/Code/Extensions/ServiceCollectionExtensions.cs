@@ -1,5 +1,6 @@
 ﻿using Auth.Jwt;
 using AutoMapper;
+using Cache.MemoryCache;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http.Features;
@@ -58,6 +59,9 @@ namespace Microsoft.Extensions.DependencyInjection
 
             //Jwt身份认证
             services.AddJwtAuth();
+
+            //添加缓存
+            services.AddCache();
 
             //添加HttpClient相关
             services.AddSingleton<IHttpApiFactory<IWebApiHelper>, HttpApiFactory<IWebApiHelper>>(p =>

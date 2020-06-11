@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Auth.Jwt;
+using Cache.MemoryCache;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -21,6 +22,7 @@ namespace Student.Core.API.Controllers
     public class AuthController : ControllerAbstract
     {
         private readonly ILoginHandler _loginHandler;
+
         public AuthController(ILogger<ControllerAbstract> logger, ILoginHandler loginHandler) : base(logger)
         {
             _loginHandler = loginHandler;

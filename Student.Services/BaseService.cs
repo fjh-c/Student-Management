@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Cache.MemoryCache;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Student.IServices;
@@ -17,6 +18,7 @@ namespace Student.Services
     {
         protected readonly ILogger<BaseService<TEntity, TEntityDTO, TKey>> _logger;
         protected readonly Lazy<IMapper> _mapper;
+        protected readonly Lazy<ICacheHandler> _cacheHandler;
         /// <summary>
         /// TEntity仓储
         /// </summary>
@@ -31,6 +33,16 @@ namespace Student.Services
         {
             _logger = logger;
             _mapper = mapper;
+            UnitOfWork = unitOfWork;
+            this._repository = repository;
+        }
+
+        public BaseService(Lazy<IMapper> mapper, IUnitOfWork unitOfWork, ILogger<BaseService<TEntity, TEntityDTO, TKey>> logger, Lazy<ICacheHandler> cacheHandler,
+            Lazy<IRepository<TEntity>> repository)
+        {
+            _logger = logger;
+            _mapper = mapper;
+            _cacheHandler = cacheHandler;
             UnitOfWork = unitOfWork;
             this._repository = repository;
         }
