@@ -55,7 +55,7 @@ namespace Student.Services
 
             //把验证码放到内存缓存中，有效期10分钟
             var key = $"{CacheKeys.AUTH_VERIFY_CODE}:{model.Id}";
-            //_cacheHandler.Value.SetAsync(key, code, 10);
+            _cacheHandler.Value.SetAsync(key, code, 10);
 
             return ResultModel.Success(model);
         }

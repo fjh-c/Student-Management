@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -13,6 +14,7 @@ namespace Cache.MemoryCache
         /// <param name="services"></param>
         public static IServiceCollection AddCache(this IServiceCollection services)
         {
+            services.AddMemoryCache();
             services.AddSingleton<ICacheHandler, MemoryCacheHandler>();
             return services;
         }
