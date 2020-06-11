@@ -105,5 +105,17 @@ namespace yrjw.CommonToolsCore.Helper
                 image.Dispose();
             }
         }
+        /// <summary>
+        /// 绘制验证码图片，返回图片的Base64字符串
+        /// </summary>
+        /// <param name="code"></param>
+        /// <param name="length">验证码长度</param>
+        /// <returns></returns>
+        public static string CreateBase64String(out string code, int length = 6)
+        {
+            code = CreateRandomNums(length);
+            var bytes = CreateValidateGraphic(code);
+            return "data:image/png;base64," + Convert.ToBase64String(bytes);
+        }
     }
 }

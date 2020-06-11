@@ -1,9 +1,7 @@
 ﻿using AutoMapper;
-using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Student.DTO;
-using Student.DTO.Login;
 using Student.IServices;
 using Student.Model;
 using System;
@@ -101,18 +99,6 @@ namespace Student.Services
             }
             _logger.LogError($"error：UpdatePassword failed");
             return ResultModel.Failed("error：UpdatePassword failed");
-        }
-
-        public async Task<IResultModel> Login(LoginModel model)
-        {
-            var entity = await _repository.Value.TableNoTracking.FirstAsync(p => p.UserName == model.UserName.Trim() && p.PassWord == model.Password);
-            if(entity == null)
-            {
-                return ResultModel.Failed("用户名密码错误");
-            }
-
-            //更新认证信息并返回登录结果
-            return ResultModel.Success(entity);
         }
     }
 }

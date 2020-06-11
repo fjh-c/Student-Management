@@ -26,15 +26,14 @@ namespace Student.Core.API.Controllers
             _loginHandler = loginHandler;
         }
 
-        public Lazy<IAccountService> AccountService { get; set; }
+        public Lazy<IAuthInfoService> AuthInfoService { get; set; }
 
         [HttpGet("VerifyCode")]
         [AllowAnonymous]
         [Description("获取验证码")]
         public IResultModel VerifyCode(int length = 6)
         {
-            //return _service.CreateVerifyCode(length);
-            return null;
+            return AuthInfoService.Value.CreateVerifyCode(length);
         }
 
         [HttpPost("Login")]
