@@ -33,7 +33,7 @@ namespace Student.Core.API.Controllers
         [HttpGet("VerifyCode")]
         [AllowAnonymous]
         [Description("获取验证码")]
-        public IResultModel VerifyCode(int length = 6)
+        public IResultModel VerifyCode(int length = 4)
         {
             return AuthInfoService.Value.CreateVerifyCode(length);
         }

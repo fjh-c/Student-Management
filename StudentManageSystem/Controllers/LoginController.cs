@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using StudentManageSystem.HttpApis;
 using StudentManageSystem.ViewModels;
 using yrjw.CommonToolsCore.Helper;
 
@@ -10,7 +12,16 @@ namespace StudentManageSystem.Controllers
 {
     public class LoginController : Controller
     {
-        public IActionResult Index()
+        private readonly ILogger<LoginController> _logger;
+        public readonly IAuthApi _authApi;
+
+        public LoginController(ILogger<LoginController> logger, IAuthApi authApi)
+        {
+            _logger = logger;
+            _authApi = authApi;
+        }
+
+        public async Task<IActionResult> IndexAsync()
         {
             var userid = TempData["userid"];
             if (userid != null)
@@ -73,11 +84,18 @@ namespace StudentManageSystem.Controllers
             return 0;
         }
 
-        public IActionResult GetValidataCode()
+        public async Task<IActionResult> GetValidataCodeAsync()
         {
-            var code = ValidateCodeHelper.CreateRandomNums(4);
-            TempData["ValidateCode"] = code;
-            return File(ValidateCodeHelper.CreateValidateGraphic(code), "image/jpeg");
+            var result = await _authApi.GetVerifyCode(4);
+            if (result.Success)
+            {
+                var code = result.Data.Id;
+                TempData["ValidateCode"] = code;
+
+                var imgValidateCode = Convert.FromBase64String(result.Data.Code.Replace("data:image/png;base64,",""));
+                return File(imgValidateCode, "image/jpeg");
+            }
+            return File(ValidateCodeHelper.CreateValidateGraphic(""), "image/jpeg");
         }
 
     }

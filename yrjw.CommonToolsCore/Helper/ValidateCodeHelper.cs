@@ -111,7 +111,7 @@ namespace yrjw.CommonToolsCore.Helper
         /// <param name="code"></param>
         /// <param name="length">验证码长度</param>
         /// <returns></returns>
-        public static string CreateBase64String(out string code, int length = 6)
+        public static string CreateBase64String(out string code, int length = 4)
         {
             code = CreateRandomNums(length);
             var bytes = CreateValidateGraphic(code);
