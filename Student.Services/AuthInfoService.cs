@@ -101,7 +101,7 @@ namespace Student.Services
                 Platform = model.Platform,
                 LoginTime = DateTime.Now.ToTimestamp(),
                 LoginIP = model.IP,
-                //RefreshToken = GenerateRefreshToken(),
+                RefreshToken = GenerateRefreshToken(),
                 RefreshTokenExpiredTime = DateTime.Now.AddDays(7)//默认刷新令牌有效期7天
             };
 
@@ -132,6 +132,15 @@ namespace Student.Services
                 };
             }
             return null;
+        }
+
+        /// <summary>
+        /// 生成刷新令牌
+        /// </summary>
+        /// <returns></returns>
+        private string GenerateRefreshToken()
+        {
+            return Guid.NewGuid().ToString().Replace("-", "");
         }
     }
 }
