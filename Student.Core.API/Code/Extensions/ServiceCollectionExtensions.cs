@@ -5,9 +5,11 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Student.Core.API.Code.Filters;
+using Student.Core.API.Code.Middleware;
 using Student.Core.API.Code.WebApi;
 using Student.Core.API.Config;
 using Student.Model.Code;
@@ -62,6 +64,9 @@ namespace Microsoft.Extensions.DependencyInjection
 
             //Jwt身份认证
             services.AddJwtAuth();
+
+            //开启模型验证结果格式化
+            services.AddValidators();
 
             //添加HttpClient相关
             services.AddSingleton<IHttpApiFactory<IWebApiHelper>, HttpApiFactory<IWebApiHelper>>(p =>
@@ -221,6 +226,17 @@ namespace Microsoft.Extensions.DependencyInjection
                 services.AddChimp<myDbContext>(opt => opt.UseLazyLoadingProxies().UseSqlServer(setting.ConnectionString,
                     b => b.MigrationsAssembly(setting.AssemblyName)));
             }
+            return services;
+        }
+
+        /// <summary>
+        /// 开启模型验证结果格式化
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns></returns>
+        public static IServiceCollection AddValidators(this IServiceCollection services)
+        {
+            services.TryAddSingleton<IValidateResultFormatHandler, ValidateResultFormatHandler>();
             return services;
         }
     }

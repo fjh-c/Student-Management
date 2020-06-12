@@ -32,6 +32,11 @@ namespace Student.Core.API.Config
         /// 接入webapi地址
         /// </summary>
         public string ApiUrl { get; set; }
+        /// <summary>
+        /// 模型验证格式化
+        /// </summary>
+        public int Validator { get; set; }
+
         public static BasicSetting Setting { get; set; } = new BasicSetting();
     }
 }
