@@ -22,10 +22,12 @@ namespace Student.Core.API.Controllers
     public class AuthController : ControllerAbstract
     {
         private readonly ILoginHandler _loginHandler;
+        private readonly IpHelper _ipHelper;
 
-        public AuthController(ILogger<ControllerAbstract> logger, ILoginHandler loginHandler) : base(logger)
+        public AuthController(ILogger<ControllerAbstract> logger, ILoginHandler loginHandler, IpHelper ipHelper) : base(logger)
         {
             _loginHandler = loginHandler;
+            _ipHelper = ipHelper;
         }
 
         public Lazy<IAuthInfoService> AuthInfoService { get; set; }
@@ -43,7 +45,35 @@ namespace Student.Core.API.Controllers
         [Description("用户名登录")]
         public async Task<IResultModel> Login(LoginModel model)
         {
-            return await Task.FromResult<IResultModel>(null);
+            model.IP = _ipHelper.IP;
+            model.UserAgent = _ipHelper.UserAgent;
+            var result = await AuthInfoService.Value.Login(model);
+            return LoginHandle(result);
+        }
+
+        /// <summary>
+        /// 登录处理
+        /// </summary>
+        private IResultModel LoginHandle(IResultModel result)
+        {
+            if (result.Success)
+            {
+                var model = result as ResultModel<LoginResultDTO>;
+                var account = model.Data.Account;
+                var loginInfo = model.Data.AuthInfo;
+                var claims = new List<Claim>
+                {
+                    new Claim(ClaimsName.AccountId, account.Id.ToString()),
+                    new Claim(ClaimsName.AccountName, account.Name),
+                    new Claim(ClaimsName.AccountType, account.Type.ToInt().ToString()),
+                    new Claim(ClaimsName.Platform, loginInfo.Platform.ToInt().ToString()),
+                    new Claim(ClaimsName.LoginTime, loginInfo.LoginTime.ToString())
+                };
+
+                var jwtmodel = _loginHandler.Hand(claims, loginInfo.RefreshToken);
+                return ResultModel.Success(jwtmodel);
+            }
+            return ResultModel.Failed(result.Msg);
         }
 
         [HttpGet("RefreshToken")]

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Student.DTO.Attributes;
+using Student.Model.Enums;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
@@ -23,5 +25,16 @@ namespace Student.DTO.Login
         /// 验证码
         /// </summary>
         public VerifyCodeModel VerifyCode { get; set; }
+
+        /// <summary>
+        /// 平台
+        /// </summary>
+        public EnumPlatform Platform { get; set; }
+
+        [IgnoreProperty]
+        public string IP { get; set; }
+
+        [IgnoreProperty]
+        public string UserAgent { get; set; }
     }
 }

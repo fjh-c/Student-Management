@@ -35,14 +35,26 @@ namespace Student.Services
             if (!verifyCodeCheckResult.Success)
                 return verifyCodeCheckResult;
 
-            var entity = await repAccount.Value.TableNoTracking.FirstAsync(p => p.UserName == model.UserName.Trim() && p.PassWord == model.Password);
+            //检查账户密码
+            var entity = await repAccount.Value.TableNoTracking.FirstAsync(p => p.UserName == model.UserName.Trim());
             if (entity == null)
+            {
+                return ResultModel.Failed("用户名密码错误"); //用户不存在
+            }
+
+            var _passWord = $"{model.UserName}_{model.Password}".ToMd5Hash();
+            if (!_passWord.Equals(entity.PassWord))
             {
                 return ResultModel.Failed("用户名密码错误");
             }
 
             //更新认证信息并返回登录结果
-            return ResultModel.Success(entity);
+            var resultModel = await UpdateAuthInfo(entity, model);
+            if (resultModel != null)
+            {
+                return ResultModel.Success(resultModel);
+            }
+            return ResultModel.Failed("更新认证信息失败");
         }
 
         public IResultModel CreateVerifyCode(int length = 6)
@@ -68,13 +80,58 @@ namespace Student.Services
             if (model.VerifyCode.Id.IsNull())
                 return ResultModel.Failed("验证码不存在");
 
-            //var cacheCode = _cacheHandler.Value.GetAsync($"{CacheKeys.AUTH_VERIFY_CODE}:{model.VerifyCode.Id}").Result;
-            //if (cacheCode.IsNull())
-            //    return ResultModel.Failed("验证码不存在");
+            var cacheCode = _cacheHandler.Value.GetAsync($"{CacheKeys.AUTH_VERIFY_CODE}:{model.VerifyCode.Id}").Result;
+            if (cacheCode.IsNull())
+                return ResultModel.Failed("验证码不存在");
 
-            //if (!cacheCode.Equals(model.VerifyCode.Code))
-            //    return ResultModel.Failed("验证码有误");
+            if (!cacheCode.Equals(model.VerifyCode.Code))
+                return ResultModel.Failed("验证码有误");
             return ResultModel.Success();
+        }
+
+        /// <summary>
+        /// 更新账户认证信息
+        /// </summary>
+        private async Task<LoginResultDTO> UpdateAuthInfo(Account account, LoginModel model)
+        {
+            var accountDTO = _mapper.Value.Map<AccountDTO>(account);
+            var authInfo = new AuthInfoDTO
+            {
+                AccountId = account.Id,
+                Platform = model.Platform,
+                LoginTime = DateTime.Now.ToTimestamp(),
+                LoginIP = model.IP,
+                //RefreshToken = GenerateRefreshToken(),
+                RefreshTokenExpiredTime = DateTime.Now.AddDays(7)//默认刷新令牌有效期7天
+            };
+
+            IResultModel result;
+            var entity = _repository.Value.TableNoTracking.FirstOrDefault(p => p.AccountId == account.Id && p.Platform == model.Platform);
+            if (entity != null)
+            {
+                authInfo.Id = entity.Id;
+                result = await base.UpdateAsync(authInfo);
+            }
+            else
+            {
+                result = await base.InsertAsync(authInfo);
+            }
+
+            if (result.Success)
+            {
+                //删除验证码缓存
+                await _cacheHandler.Value.RemoveAsync($"{CacheKeys.AUTH_VERIFY_CODE}:{model.VerifyCode.Id}");
+
+                //清除账户的认证信息缓存
+                await _cacheHandler.Value.RemoveAsync($"{CacheKeys.ACCOUNT_AUTH_INFO}:{account.Id}:{model.Platform.ToInt()}");
+
+                return new LoginResultDTO
+                {
+                    Account = accountDTO,
+                    AuthInfo = authInfo
+                };
+            }
+            return null;
         }
     }
 }

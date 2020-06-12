@@ -1,5 +1,6 @@
 ﻿using Student.DTO;
 using Student.DTO.Login;
+using StudentManageSystem.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,11 @@ namespace StudentManageSystem.HttpApis
         [HttpGet("api/Auth/VerifyCode")]
         ITask<ResultModel<VerifyCodeModel>> GetVerifyCode(int length);
 
-
+        /// <summary>
+        /// 登录处理
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost("api/Auth/Login")]
+        ITask<ResultModel<JwtTokenModel>> Login(LoginModel model);
     }
 }

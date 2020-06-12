@@ -22,6 +22,9 @@ namespace Student.DTO.Profiles
                 .ForMember(d => d.PassWord, opt => opt.MapFrom(i => "密码保密"));
             CreateMap<AccountDTO, Account>()
                 .ForMember(d => d.PassWord, opt => opt.MapFrom(i => $"{i.UserName}_{i.PassWord}".ToMd5Hash()));
+
+            CreateMap<AuthInfo, AuthInfoDTO>();
+            CreateMap<AuthInfoDTO, AuthInfo>();
         }
     }
 }

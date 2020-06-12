@@ -16,6 +16,6 @@ namespace Auth.Jwt
         /// <param name="claims">信息</param>
         /// <param name="extendData">扩展数据</param>
         /// <returns></returns>
-        JwtTokenModel Hand(Claim[] claims, string extendData);
+        JwtTokenModel Hand(List<Claim> claims, string extendData);
     }
 }

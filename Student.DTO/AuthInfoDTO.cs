@@ -12,6 +12,12 @@ namespace Student.DTO
     public class AuthInfoDTO
     {
         /// <summary>
+        /// 编号
+        /// </summary>
+        [Description("编号")]
+        public int Id { get; set; }
+
+        /// <summary>
         /// 账户编号
         /// </summary>
         [Description("账户编号")]

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -13,6 +14,9 @@ namespace Auth.Jwt
         /// <param name="services"></param>
         public static IServiceCollection AddJwtAuth(this IServiceCollection services)
         {
+            services.AddSingleton<IpHelper>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
             services.AddSingleton<MyJwtSecurityTokenHandler>();
             services.AddSingleton<ILoginHandler, JwtLoginHandler>();
 

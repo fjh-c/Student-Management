@@ -17,7 +17,7 @@ namespace Auth.Jwt
             _logger = logger;
         }
 
-        public JwtTokenModel Hand(Claim[] claims, string extendData)
+        public JwtTokenModel Hand(List<Claim> claims, string extendData)
         {
             var options = AuthConfig.Config.Jwt;
             var token = Build(claims, options);
@@ -34,7 +34,7 @@ namespace Auth.Jwt
             return model;
         }
 
-        private string Build(Claim[] claims, JwtConfig config)
+        private string Build(List<Claim> claims, JwtConfig config)
         {
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config.Key));
             var signingCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
