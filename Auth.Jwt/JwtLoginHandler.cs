@@ -19,7 +19,7 @@ namespace Auth.Jwt
 
         public JwtTokenModel Hand(List<Claim> claims, string extendData)
         {
-            var options = AuthConfig.Config.Jwt;
+            var options = AuthConfigData.AuthConfig.Jwt;
             var token = Build(claims, options);
 
             _logger.LogDebug("生成JwtToken：{token}", token);

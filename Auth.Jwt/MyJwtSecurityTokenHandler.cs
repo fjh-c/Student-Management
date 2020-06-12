@@ -14,7 +14,7 @@ namespace Auth.Jwt
         public override ClaimsPrincipal ValidateToken(string token, TokenValidationParameters validationParameters,
             out SecurityToken validatedToken)
         {
-            var jwtConfig = AuthConfig.Config.Jwt;
+            var jwtConfig = AuthConfigData.AuthConfig.Jwt;
 
             validationParameters.ValidIssuer = jwtConfig.Issuer;
             validationParameters.ValidAudience = jwtConfig.Audience;

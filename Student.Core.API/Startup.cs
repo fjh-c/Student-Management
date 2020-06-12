@@ -23,7 +23,7 @@ namespace Student.Core.API
             //∞Û∂®≈‰÷√–≈œ¢
             configuration.Binding<BasicSetting>("Setting")
                 .Binding<InitializationData>("Initialization")
-                .Binding<AuthConfig>("Config")
+                .Binding<AuthConfigData>("AuthConfig")
                 .OnChange(BasicSetting.Setting, InitializationData.Initialization);
         }
     }

@@ -7,7 +7,7 @@ namespace Auth.Jwt
     /// <summary>
     /// 身份认证和授权配置
     /// </summary>
-    public class AuthConfig
+    public class AuthConfigData
     {
         /// <summary>
         /// 启用验证码功能
@@ -33,7 +33,7 @@ namespace Auth.Jwt
         /// </summary>
         public JwtConfig Jwt { get; set; } = new JwtConfig();
 
-        public static AuthConfig Config { get; set; } = new AuthConfig();
+        public static AuthConfigData AuthConfig { get; set; } = new AuthConfigData();
     }
 
     /// <summary>

@@ -69,7 +69,6 @@ namespace Student.Core.API.Controllers
                     new Claim(ClaimsName.Platform, loginInfo.Platform.ToInt().ToString()),
                     new Claim(ClaimsName.LoginTime, loginInfo.LoginTime.ToString())
                 };
-
                 var jwtmodel = _loginHandler.Hand(claims, loginInfo.RefreshToken);
                 return ResultModel.Success(jwtmodel);
             }
