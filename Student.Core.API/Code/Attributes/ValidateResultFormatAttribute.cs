@@ -16,7 +16,7 @@ namespace Student.Core.API.Code.Attributes
     {
         public override void OnResultExecuting(ResultExecutingContext context)
         {
-            if (!context.ModelState.IsValid && BasicSetting.Setting.Validator == 1)
+            if (!context.ModelState.IsValid)
             {
                 try
                 {
