@@ -42,7 +42,7 @@ namespace Student.Core.API.Code.Middleware
 
             _logger.LogError(error);
 
-            return context.Response.WriteAsync(JsonHelper.SerializeJSON(ResultModel.Failed(error)));
+            return context.Response.WriteAsync(JsonHelper.SerializeJSON(ResultModel.Failed(error, 500)));
         }
     }
 }

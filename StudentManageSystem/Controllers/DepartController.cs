@@ -70,7 +70,7 @@ namespace StudentManageSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                ResultModel<DepartDTO> result;
+                IResultModel<DepartDTO> result;
                 if (model.Id == 0)
                 {
                     result = await _departApi.AddAsync(model);
@@ -86,9 +86,9 @@ namespace StudentManageSystem.Controllers
                 }
                 else
                 {
-                    if (result.FailedId.NotNull())
+                    if (result.Errors.Count > 0)
                     {
-                        ModelState.AddModelError(result.FailedId, result.Msg);
+                        ModelState.AddModelError(result.Errors[0].Id, result.Errors[0].Msg);
                     }
                     else
                     {

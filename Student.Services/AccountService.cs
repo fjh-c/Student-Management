@@ -98,7 +98,7 @@ namespace Student.Services
                 return ResultModel.Success();
             }
             _logger.LogError($"error：UpdatePassword failed");
-            return ResultModel.Failed("error：UpdatePassword failed");
+            return ResultModel.Failed("error：UpdatePassword failed", 500);
         }
     }
 }

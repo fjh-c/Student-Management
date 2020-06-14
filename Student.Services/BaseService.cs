@@ -73,7 +73,7 @@ namespace Student.Services
                 return ResultModel.Success(_mapper.Value.Map<TEntityDTO>(entity));
             }
             _logger.LogError($"error：Insert Save failed");
-            return ResultModel.Failed("error：Insert Save failed");
+            return ResultModel.Failed("error：Insert Save failed", 500);
         }
 
         public virtual async Task<IResultModel> UpdateAsync(TEntityDTO model)
@@ -93,7 +93,7 @@ namespace Student.Services
                 return ResultModel.Success(entity);
             }
             _logger.LogError($"error：Update Save failed");
-            return ResultModel.Failed("error：Update Save failed");
+            return ResultModel.Failed("error：Update Save failed", 500);
         }
 
         public virtual async Task<IResultModel> UpdateAsync(IEnumerable<TEntityDTO> models)
@@ -117,7 +117,7 @@ namespace Student.Services
                 return ResultModel.Success();
             }
             _logger.LogError($"error：Updates Save failed");
-            return ResultModel.Failed("error：Updates Save failed");
+            return ResultModel.Failed("error：Updates Save failed", 500);
         }
 
         public virtual async Task<IResultModel> DeleteAsync(TKey id)
@@ -133,7 +133,7 @@ namespace Student.Services
             if(entity is Model.EntityBaseNoDeleted<TKey>)
             {
                 _logger.LogError($"error：not inheritance for EntityBaseNoDeleted");
-                return ResultModel.Failed("error：not inheritance for EntityBaseNoDeleted");
+                return ResultModel.Failed("error：not inheritance for EntityBaseNoDeleted", 500);
             }
             //软删除
             if (entity.Deleted == 0)
@@ -146,7 +146,7 @@ namespace Student.Services
                 return ResultModel.Success();
             }
             _logger.LogError($"error：Delete failed");
-            return ResultModel.Failed("error：Delete failed");
+            return ResultModel.Failed("error：Delete failed", 500);
         }
 
         public virtual async Task<IResultModel> DeleteAsync(IList<TKey> ids)
@@ -172,7 +172,7 @@ namespace Student.Services
                 return ResultModel.Success();
             }
             _logger.LogError($"error：Delete failed");
-            return ResultModel.Failed("error：Delete failed");
+            return ResultModel.Failed("error：Delete failed", 500);
         }
 
         public virtual async Task<IResultModel> RemoveAsync(TKey id)
@@ -190,7 +190,7 @@ namespace Student.Services
                 return ResultModel.Success();
             }
             _logger.LogError($"error：Remove failed");
-            return ResultModel.Failed("error：Remove failed");
+            return ResultModel.Failed("error：Remove failed", 500);
         }
 
         public virtual async Task<IResultModel> RemoveAsync(IList<TKey> ids)
@@ -211,7 +211,7 @@ namespace Student.Services
                 return ResultModel.Success();
             }
             _logger.LogError($"error：Remove failed");
-            return ResultModel.Failed("error：Remove failed");
+            return ResultModel.Failed("error：Remove failed", 500);
         }
     }
 }

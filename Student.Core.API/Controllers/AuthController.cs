@@ -58,7 +58,7 @@ namespace Student.Core.API.Controllers
         {
             if (result.Success)
             {
-                var model = result as ResultModel<LoginResultDTO>;
+                var model = result as IResultModel<LoginResultDTO>;
                 var account = model.Data.Account;
                 var loginInfo = model.Data.AuthInfo;
                 var claims = new List<Claim>

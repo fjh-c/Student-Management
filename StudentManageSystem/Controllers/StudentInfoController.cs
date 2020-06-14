@@ -102,9 +102,9 @@ namespace StudentManageSystem.Controllers
                 }
                 else
                 {
-                    if (result.FailedId.NotNull())
+                    if (result.Errors.Count > 0)
                     {
-                        ModelState.AddModelError(result.FailedId, result.Msg);
+                        ModelState.AddModelError(result.Errors[0].Id, result.Errors[0].Msg);
                     }
                     else
                     {
