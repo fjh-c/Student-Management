@@ -35,9 +35,9 @@ namespace Student.Core.API.Controllers
         [HttpGet("VerifyCode")]
         [AllowAnonymous]
         [Description("获取验证码")]
-        public IResultModel VerifyCode(int length = 4)
+        public async Task<IResultModel> VerifyCode(int length = 4)
         {
-            return AuthInfoService.Value.CreateVerifyCode(length);
+            return await AuthInfoService.Value.CreateVerifyCode(length);
         }
 
         [HttpPost("Login")]
@@ -88,9 +88,9 @@ namespace Student.Core.API.Controllers
         [HttpGet("AuthInfo")]
         //[Common]
         [Description("获取认证信息")]
-        public Task<IResultModel> AuthInfo()
+        public async Task<IResultModel> AuthInfo()
         {
-            return Task.FromResult<IResultModel>(null);
+            return await Task.FromResult<IResultModel>(null);
         }
     }
 }

@@ -57,7 +57,7 @@ namespace Student.Services
             return ResultModel.Failed("更新认证信息失败");
         }
 
-        public IResultModel CreateVerifyCode(int length = 6)
+        public async Task<IResultModel> CreateVerifyCode(int length = 4)
         {
             var model = new VerifyCodeModel
             {
@@ -67,7 +67,7 @@ namespace Student.Services
 
             //把验证码放到内存缓存中，有效期10分钟
             var key = $"{CacheKeys.AUTH_VERIFY_CODE}:{model.Id}";
-            _cacheHandler.Value.SetAsync(key, code, 10);
+            await _cacheHandler.Value.SetAsync(key, code, 10);
 
             return ResultModel.Success(model);
         }

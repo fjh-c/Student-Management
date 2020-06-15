@@ -21,6 +21,6 @@ namespace Student.IServices
         /// </summary>
         /// <param name="length"></param>
         /// <returns></returns>
-        IResultModel CreateVerifyCode(int length = 6);
+        Task<IResultModel> CreateVerifyCode(int length = 4);
     }
 }
