@@ -80,9 +80,8 @@ namespace Student.Core.API.Controllers
         [Description("刷新令牌")]
         public async Task<IResultModel> RefreshToken([BindRequired]string refreshToken)
         {
-            //var result = await _service.RefreshToken(refreshToken);
-            //return LoginHandle(result);
-            return await Task.FromResult<IResultModel>(null);
+            var result = await AuthInfoService.Value.RefreshToken(refreshToken);
+            return LoginHandle(result);
         }
 
         [HttpGet("AuthInfo")]

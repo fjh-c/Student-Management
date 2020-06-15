@@ -22,5 +22,12 @@ namespace Student.IServices
         /// <param name="length"></param>
         /// <returns></returns>
         Task<IResultModel> CreateVerifyCode(int length = 4);
+
+        /// <summary>
+        /// 刷新令牌
+        /// </summary>
+        /// <param name="refreshToken"></param>
+        /// <returns></returns>
+        Task<IResultModel> RefreshToken(string refreshToken);
     }
 }

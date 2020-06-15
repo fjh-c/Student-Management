@@ -31,7 +31,7 @@ namespace Student.Services
         public async Task<IResultModel> Login(LoginModel model)
         {
             //检测验证码
-            var verifyCodeCheckResult = Check(model);
+            var verifyCodeCheckResult = CheckVerifyCode(model);
             if (!verifyCodeCheckResult.Success)
                 return verifyCodeCheckResult;
 
@@ -72,7 +72,45 @@ namespace Student.Services
             return ResultModel.Success(model);
         }
 
-        private IResultModel Check(LoginModel model)
+        /// <summary>
+        /// 刷新令牌
+        /// </summary>
+        /// <param name="refreshToken"></param>
+        /// <returns></returns>
+        public async Task<IResultModel> RefreshToken(string refreshToken)
+        {
+            var cacheKey = CacheKeys.AUTH_REFRESH_TOKEN + refreshToken;
+            if (!_cacheHandler.Value.TryGetValue(cacheKey, out AuthInfoDTO authInfoDTO))
+            {
+                var authInfo = await _repository.Value.TableNoTracking.FirstOrDefaultAsync(p=>p.RefreshToken==refreshToken);
+                if (authInfo == null)
+                    return ResultModel.Failed("身份认证信息无效，请重新登录");
+                authInfoDTO = _mapper.Value.Map<AuthInfoDTO>(authInfo);
+
+                //加入缓存
+                var expires = (int)(authInfo.RefreshTokenExpiredTime - DateTime.Now).TotalMinutes;
+                await _cacheHandler.Value.SetAsync(cacheKey, authInfoDTO, expires);
+            }
+
+            if (authInfoDTO.RefreshTokenExpiredTime <= DateTime.Now)
+                return ResultModel.Failed("身份认证信息过期，请重新登录~");
+
+            var account = await repAccount.Value.GetByIdAsync(authInfoDTO.AccountId);
+            if (account == null)
+                return ResultModel.Failed("账户信息不存在");
+
+            var accountDTO = _mapper.Value.Map<AccountDTO>(account);
+            if (account.Status != Model.Enums.EnumStatus.Enabled)
+                return ResultModel.Failed($"账户状态：{accountDTO.StatusName}");
+            
+            return ResultModel.Success(new LoginResultDTO
+            {
+                Account = accountDTO,
+                AuthInfo = authInfoDTO
+            });
+        }
+
+        private IResultModel CheckVerifyCode(LoginModel model)
         {
             if (model.VerifyCode == null || model.VerifyCode.Code.IsNull())
                 return ResultModel.Failed("请输入验证码");
