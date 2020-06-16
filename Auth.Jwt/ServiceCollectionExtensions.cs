@@ -20,6 +20,9 @@ namespace Auth.Jwt
             services.AddSingleton<MyJwtSecurityTokenHandler>();
             services.AddSingleton<ILoginHandler, JwtLoginHandler>();
 
+            services.AddSingleton<ILoginInfo, LoginInfo>();
+            services.AddSingleton<IPermissionValidateHandler, PermissionValidateHandler>();
+
             //从服务容器中获取自定义令牌验证处理器
             var securityTokenHandler = services.BuildServiceProvider().GetService<MyJwtSecurityTokenHandler>();
 

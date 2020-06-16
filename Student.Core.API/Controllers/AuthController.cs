@@ -21,11 +21,13 @@ namespace Student.Core.API.Controllers
     [Description("身份认证")]
     public class AuthController : ControllerAbstract
     {
+        private readonly ILoginInfo _loginInfo;
         private readonly ILoginHandler _loginHandler;
         private readonly IpHelper _ipHelper;
 
-        public AuthController(ILogger<ControllerAbstract> logger, ILoginHandler loginHandler, IpHelper ipHelper) : base(logger)
+        public AuthController(ILogger<ControllerAbstract> logger, ILoginInfo loginInfo, ILoginHandler loginHandler, IpHelper ipHelper) : base(logger)
         {
+            _loginInfo = loginInfo;
             _loginHandler = loginHandler;
             _ipHelper = ipHelper;
         }
@@ -82,14 +84,6 @@ namespace Student.Core.API.Controllers
         {
             var result = await AuthInfoService.Value.RefreshToken(refreshToken);
             return LoginHandle(result);
-        }
-
-        [HttpGet("AuthInfo")]
-        //[Common]
-        [Description("获取认证信息")]
-        public async Task<IResultModel> AuthInfo()
-        {
-            return await Task.FromResult<IResultModel>(null);
         }
     }
 }

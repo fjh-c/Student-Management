@@ -11,6 +11,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\yrjw.CommonToolsCore\yrjw.CommonToolsCore.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="Config\authconfig.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

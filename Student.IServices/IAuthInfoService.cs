@@ -4,6 +4,7 @@ using yrjw.ORM.Chimp.Result;
 using Student.DTO;
 using Student.Model;
 using Student.DTO.Login;
+using System;
 
 namespace Student.IServices
 {
@@ -29,5 +30,6 @@ namespace Student.IServices
         /// <param name="refreshToken"></param>
         /// <returns></returns>
         Task<IResultModel> RefreshToken(string refreshToken);
+
     }
 }
