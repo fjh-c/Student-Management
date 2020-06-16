@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Auth.Jwt
 {
@@ -41,6 +43,22 @@ namespace Auth.Jwt
                     //先清除再添加自定义令牌验证器
                     options.SecurityTokenValidators.Clear();
                     options.SecurityTokenValidators.Add(securityTokenHandler);
+
+                    options.Events = new JwtBearerEvents
+                    {
+                        //重写OnMessageReceived
+                        OnMessageReceived = context =>
+                        {
+                            var authorization = context.Request.Headers["Token"];
+                            var token = authorization.FirstOrDefault();
+                            if (token != null)
+                            {
+                                context.Request.Headers.Remove("Authorization");
+                                context.Request.Headers.Add("Authorization", $"Bearer {token}");
+                            }
+                            return Task.CompletedTask;
+                        }
+                    };
                 });
 
             return services;

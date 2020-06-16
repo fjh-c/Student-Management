@@ -123,8 +123,8 @@ namespace Microsoft.Extensions.DependencyInjection
 
                 var securityScheme = new OpenApiSecurityScheme
                 {
-                    Description = "JWT认证请求头格式: \"Authorization: Bearer {token}\"",
-                    Name = "Authorization",
+                    Description = "JWT认证请求头格式: \"Token: {token}\"",
+                    Name = "Token",
                     In = ParameterLocation.Header,
                     Type = SecuritySchemeType.ApiKey,
                     Scheme = "Bearer"
