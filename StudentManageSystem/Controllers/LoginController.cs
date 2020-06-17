@@ -115,7 +115,7 @@ namespace StudentManageSystem.Controllers
             HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identity), new AuthenticationProperties
             {
                 //获取或设置身份验证会话是否跨多个持久化要求
-                IsPersistent = true,
+                IsPersistent = false,
                 ExpiresUtc = null,
                 //AllowRefresh = true,
                 RedirectUri = "/Home/MainPC"

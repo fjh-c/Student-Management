@@ -70,10 +70,10 @@ namespace StudentManageSystem
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-            app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseStaticFiles();
+            app.UseAuthentication();
             app.UseAuthorization();
             app.UseSession();
 
