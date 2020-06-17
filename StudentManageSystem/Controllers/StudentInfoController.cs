@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -31,6 +32,7 @@ namespace StudentManageSystem.Controllers
 
         //学生信息列表展示页面
         [HttpGet]
+        [Authorize]
         public IActionResult Index()
         {
             return View();
@@ -38,6 +40,7 @@ namespace StudentManageSystem.Controllers
 
         //添加页面
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> CreateAsync()
         {
             await GetDepartList();
@@ -46,6 +49,7 @@ namespace StudentManageSystem.Controllers
 
         //修改页面
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> EditAsync(long? id)
         {
             var result = await _studentInfoApi.QueryAsync(id.Value);
@@ -58,6 +62,7 @@ namespace StudentManageSystem.Controllers
         }
 
         //获取部门下拉选择列表数据
+        [Authorize]
         private async Task GetDepartList()
         {
             var result = await _separtApi.GetClassesListAsync();
@@ -67,6 +72,7 @@ namespace StudentManageSystem.Controllers
 
         //表单提交，保存学生信息，id=0 添加，id>0 修改
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> SaveAsync(StudentInfoDTO model)
         {
@@ -121,6 +127,7 @@ namespace StudentManageSystem.Controllers
         }
 
         //删除操作 ajax请求返回json
+        [Authorize]
         public async Task<IActionResult> DeleteAsync(long id)
         {
             var result = await _studentInfoApi.DeleteAsync(id);
@@ -128,6 +135,7 @@ namespace StudentManageSystem.Controllers
         }
 
         //批量删除操作 ajax请求返回json
+        [Authorize]
         public async Task<IActionResult> DeleteAllAsync(long[] arr)
         {
             var result = await _studentInfoApi.DeleteAllAsync(arr);
@@ -135,6 +143,7 @@ namespace StudentManageSystem.Controllers
         }
 
         //详情页面查看
+        [Authorize]
         public async Task<IActionResult> DetailsAsync(long? id)
         {
             var result = await _studentInfoApi.QueryAsync(id.Value);
@@ -157,6 +166,7 @@ namespace StudentManageSystem.Controllers
         //Layui数据表格异步获取展示列表数据
         [ResponseCache(Duration = 0)]
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> GetQueryPagedListAsync(int page, int limit, string search)
         {
             var result = await _studentInfoApi.GetPagedListAsync(page, limit, search);

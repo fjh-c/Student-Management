@@ -32,12 +32,12 @@
                 <div class="login-logo" alt="学生信息管理系统"></div>
                 <div class="login-form" style="padding: 20px 30px">
                     <div class="col">
-                        @Html.TextBoxFor(model => model.userid, new { @id = "userid", @class = "login-input", @placeholder = "用户名", @lay_verify = "required|number", @lay_verType = "tips" })
+                        @Html.TextBoxFor(model => model.userid, new { @id = "userid", @class = "login-input", @placeholder = "用户名", @lay_verify = "required", @lay_verType = "tips" })
                         @*<input name="username" lay-verify="required" placeholder="用户名" type="text" class="login-input">*@
                         <label class="icon user" for="txtUserName"></label>
                     </div>
                     <div class="col">
-                        <input name="password" lay-verify="required|number" placeholder="密码" type="password" lay-verType="tips" class="login-input">
+                        <input name="password" lay-verify="required" placeholder="密码" type="password" lay-verType="tips" class="login-input">
                         <label class="icon pwd" for="txtPassword"></label>
                     </div>
                     <div class="col">

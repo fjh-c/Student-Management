@@ -26,6 +26,6 @@ namespace StudentManageSystem.HttpApis
         /// </summary>
         /// <returns></returns>
         [HttpPost("api/Auth/Login")]
-        ITask<ResultModel<JwtTokenModel>> Login(LoginModel model);
+        ITask<ResultModel<JwtTokenModel>> Login([JsonContent]LoginModel model);
     }
 }

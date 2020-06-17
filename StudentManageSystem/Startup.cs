@@ -2,8 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -37,6 +39,20 @@ namespace StudentManageSystem
                     o.HttpHost = new Uri(StudentManageSystemSetting.Setting.ApiUrl);
                 });
             }
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+              .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
+              {
+                  options.LoginPath = new PathString("/Login/Index");
+                  options.LogoutPath = new PathString("/Login/Logout");
+                  options.AccessDeniedPath = new PathString("/Home/Error");
+                  options.Cookie.Name = "_AdminTicketCookie";
+                  options.Cookie.SameSite = SameSiteMode.None;
+
+                  //当Cookie 过期时间已达一半时，是否重置为ExpireTimeSpan
+                  options.SlidingExpiration = true;
+                  options.Cookie.HttpOnly = true;
+              });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,6 +71,7 @@ namespace StudentManageSystem
             app.UseRouting();
 
             app.UseAuthorization();
+            //app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {
@@ -62,6 +79,7 @@ namespace StudentManageSystem
                     name: "default",
                     pattern: "{controller=Home}/{action=MainPC}/{id?}");
             });
+            app.UseCookiePolicy();
         }
     }
 }

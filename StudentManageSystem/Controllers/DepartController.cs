@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -29,6 +30,7 @@ namespace StudentManageSystem.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult Index()
         {
             return View();
@@ -36,6 +38,7 @@ namespace StudentManageSystem.Controllers
 
         //添加页面
         [HttpGet]
+        [Authorize]
         public IActionResult Create(int id)
         {
             var model = new DepartDTO();
@@ -53,6 +56,7 @@ namespace StudentManageSystem.Controllers
 
         //修改页面
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> EditAsync(int id)
         {
             var result = await _departApi.QueryAsync(id);
@@ -65,6 +69,7 @@ namespace StudentManageSystem.Controllers
 
         //表单提交，保存部门信息，id=0 添加，id>0 修改
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> SaveAsync(DepartDTO model)
         {
@@ -104,6 +109,7 @@ namespace StudentManageSystem.Controllers
         }
 
         //删除操作 ajax请求返回json
+        [Authorize]
         public async Task<IActionResult> DeleteAsync(int id)
         {
             var result = await _departApi.DeleteAsync(id);
@@ -113,6 +119,7 @@ namespace StudentManageSystem.Controllers
         //Layui数据表格异步获取展示列表数据
         [ResponseCache(Duration = 0)]
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> GetQueryListAsync()
         {
             var result = await _departApi.GetListAllAsync();
