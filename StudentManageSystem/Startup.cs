@@ -27,18 +27,9 @@ namespace StudentManageSystem
         {
             //RazorRuntimeCompilation 运行时编译 
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
-            //添加HttpClient相关
-            var types = typeof(Startup).Assembly.GetTypes()
-                        .Where(type => type.IsInterface
-                        && ((System.Reflection.TypeInfo)type).ImplementedInterfaces != null
-                        && type.GetInterfaces().Any(a => a.FullName == typeof(IHttpApi).FullName));
-            foreach (var type in types)
-            {
-                services.AddHttpApi(type);
-                services.ConfigureHttpApi(type, o => {
-                    o.HttpHost = new Uri(StudentManageSystemSetting.Setting.ApiUrl);
-                });
-            }
+
+            //使用Session
+            services.AddSession();
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
               .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
@@ -53,6 +44,19 @@ namespace StudentManageSystem
                   options.SlidingExpiration = true;
                   options.Cookie.HttpOnly = true;
               });
+
+            //添加HttpClient相关
+            var types = typeof(Startup).Assembly.GetTypes()
+                        .Where(type => type.IsInterface
+                        && ((System.Reflection.TypeInfo)type).ImplementedInterfaces != null
+                        && type.GetInterfaces().Any(a => a.FullName == typeof(IHttpApi).FullName));
+            foreach (var type in types)
+            {
+                services.AddHttpApi(type);
+                services.ConfigureHttpApi(type, o => {
+                    o.HttpHost = new Uri(StudentManageSystemSetting.Setting.ApiUrl);
+                });
+            } 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -71,7 +75,7 @@ namespace StudentManageSystem
             app.UseRouting();
 
             app.UseAuthorization();
-            //app.UseSession();
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {
