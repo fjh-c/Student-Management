@@ -15,7 +15,7 @@ namespace StudentManageSystem.Code
         /// <returns></returns>
         public static string GetStudentPhotosPath(string filename)
         {
-            var photosPathroot = Path.Combine(StudentManageSystemSetting.Setting.ApiUrl, "Upload", "StudentPhotos");
+            var photosPathroot = Path.Combine(AppSetting.Setting.ApiUrl, "Upload", "StudentPhotos");
             return Path.Combine(photosPathroot, filename);
         }
     }

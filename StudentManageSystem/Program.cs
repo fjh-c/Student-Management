@@ -22,16 +22,16 @@ namespace StudentManageSystem
                 .SetBasePath(Environment.CurrentDirectory)
                 .AddJsonFile("appsettings.json")
                 .Build();
-            configuration.GetSection("Setting").Bind(StudentManageSystemSetting.Setting);
+            configuration.GetSection("Setting").Bind(AppSetting.Setting);
 
-            if (StudentManageSystemSetting.Setting.Urls.IsNull())
-                StudentManageSystemSetting.Setting.Urls = "http://*:8080";
+            if (AppSetting.Setting.Urls.IsNull())
+                AppSetting.Setting.Urls = "http://*:8080";
 
             return Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>()
-                    .UseUrls(StudentManageSystemSetting.Setting.Urls);
+                    .UseUrls(AppSetting.Setting.Urls);
                 });
         }
 

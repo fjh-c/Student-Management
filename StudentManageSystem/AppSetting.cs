@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace StudentManageSystem
 {
-    public class StudentManageSystemSetting
+    public class AppSetting
     {
         /// <summary>
         /// MVC网站访问IP端口
@@ -16,6 +16,6 @@ namespace StudentManageSystem
         /// </summary>
         public string ApiUrl { get; set; }
 
-        public static StudentManageSystemSetting Setting { get; set; } = new StudentManageSystemSetting();
+        public static AppSetting Setting { get; set; } = new AppSetting();
     }
 }

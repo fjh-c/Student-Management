@@ -58,7 +58,7 @@ namespace StudentManageSystem
             {
                 services.AddHttpApi(type);
                 services.ConfigureHttpApi(type, o => {
-                    o.HttpHost = new Uri(StudentManageSystemSetting.Setting.ApiUrl);
+                    o.HttpHost = new Uri(AppSetting.Setting.ApiUrl);
                 });
             } 
         }
