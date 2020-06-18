@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using Microsoft.VisualBasic;
 using Student.DTO;
+using StudentManageSystem.Code;
 using StudentManageSystem.HttpApis;
 using StudentManageSystem.ViewModels;
 using WebApiClient.Parameterables;
@@ -20,11 +21,13 @@ namespace StudentManageSystem.Controllers
     public class AccountController : Controller
     {
         private readonly ILogger<AccountController> _logger;
+        private readonly ILoginInfo _loginInfo;
         public readonly IAccountApi _accountApi;
 
-        public AccountController(ILogger<AccountController> logger, IAccountApi accountApi)
+        public AccountController(ILogger<AccountController> logger, ILoginInfo loginInfo, IAccountApi accountApi)
         {
             _logger = logger;
+            _loginInfo = loginInfo;
             _accountApi = accountApi;
         }
 

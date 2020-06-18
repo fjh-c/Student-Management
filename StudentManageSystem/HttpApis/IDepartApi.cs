@@ -1,4 +1,5 @@
 ﻿using Student.DTO;
+using StudentManageSystem.Code;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,7 @@ using yrjw.ORM.Chimp.Result;
 
 namespace StudentManageSystem.HttpApis
 {
+    [TokenFilter]
     [JsonReturn]
     public interface IDepartApi : IHttpApi
     {
