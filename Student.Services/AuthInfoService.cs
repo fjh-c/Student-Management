@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using Auth.Jwt;
+using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Cache.MemoryCache;
 using Microsoft.EntityFrameworkCore;
@@ -20,11 +21,13 @@ namespace Student.Services
 {
     public class AuthInfoService : BaseService<AuthInfo, AuthInfoDTO, int>, IAuthInfoService, IDependency
     {
+        private readonly ILoginInfo _loginInfo;
         private readonly Lazy<IRepository<Account>> repAccount;
 
         public AuthInfoService(Lazy<IMapper> mapper, IUnitOfWork unitOfWork, ILogger<AuthInfoService> logger, Lazy<ICacheHandler> cacheHandler,
-            Lazy<IRepository<AuthInfo>> _repository, Lazy<IRepository<Account>> repAccount) : base(mapper, unitOfWork, logger, cacheHandler, _repository)
+            Lazy<IRepository<AuthInfo>> _repository, ILoginInfo loginInfo, Lazy<IRepository<Account>> repAccount) : base(mapper, unitOfWork, logger, cacheHandler, _repository)
         {
+            _loginInfo = loginInfo;
             this.repAccount = repAccount;
         }
 
@@ -108,6 +111,23 @@ namespace Student.Services
                 Account = accountDTO,
                 AuthInfo = authInfoDTO
             });
+        }
+
+        /// <summary>
+        /// 获取认证信息
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IResultModel> GetAuthInfo()
+        {
+            var account = await repAccount.Value.GetByIdAsync(_loginInfo.AccountId);
+            if (account == null)
+                return ResultModel.Failed("账户信息不存在");
+
+            var accountDTO = _mapper.Value.Map<AccountDTO>(account);
+            if (account.Status != Model.Enums.EnumStatus.Enabled)
+                return ResultModel.Failed($"账户状态：{accountDTO.StatusName}");
+
+            return ResultModel.Success(accountDTO);
         }
 
         private IResultModel CheckVerifyCode(LoginModel model)

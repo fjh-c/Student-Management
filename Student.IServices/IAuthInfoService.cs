@@ -31,5 +31,11 @@ namespace Student.IServices
         /// <returns></returns>
         Task<IResultModel> RefreshToken(string refreshToken);
 
+        /// <summary>
+        /// 获取认证信息
+        /// </summary>
+        /// <returns></returns>
+        Task<IResultModel> GetAuthInfo();
+
     }
 }

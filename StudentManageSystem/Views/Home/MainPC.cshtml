@@ -63,14 +63,14 @@
                     </a>
                 </li>
                 <li class="layui-nav-item">
-                    <a href="javascript:;"><img src="~/images/touxiang.jpg" class="layui-nav-img"><span>一如既往</span></a>
+                    <a href="javascript:;"><img src="~/images/touxiang.jpg" class="layui-nav-img"><span> @ViewData["Name"] </span></a>
                     <dl class="layui-nav-child">
                         <dd lay-unselect>
                             <a onclick="hg.add_tab('修改密码','page/changePwd.html')">
                                 <i class="fa fa-pencil-square fa-fw"></i>修改密码
                             </a>
                         </dd>
-                        <dd lay-unselect><a href="~/login.html"><i class="fa fa-sign-out fa-fw"></i>退出</a></dd>
+                        <dd lay-unselect><a href="/Login/LoginOut"><i class="fa fa-sign-out fa-fw"></i>退出</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item layui-hide-xs" lay-unselect>

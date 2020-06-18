@@ -1,7 +1,9 @@
 ﻿using System.Diagnostics;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using StudentManageSystem.HttpApis;
 using StudentManageSystem.ViewModels;
 
 namespace StudentManageSystem.Controllers
@@ -9,10 +11,12 @@ namespace StudentManageSystem.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        public readonly IAuthApi _authApi;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IAuthApi authApi)
         {
             _logger = logger;
+            _authApi = authApi;
         }
 
         public IActionResult Index()
@@ -21,8 +25,11 @@ namespace StudentManageSystem.Controllers
         }
 
         [Authorize]
-        public IActionResult MainPC()
+        public async Task<IActionResult> MainPC()
         {
+            var _info = await _authApi.AuthInfo();
+            if (_info.Success)
+                ViewBag.Name = _info.Data.Name;
             return View();
         }
 
