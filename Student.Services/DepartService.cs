@@ -17,9 +17,13 @@ namespace Student.Services
 {
     public class DepartService : BaseService<Depart, DepartDTO, int>, IDepartService, IDependency
     {
+        private readonly Lazy<IRepository<StudentInfo>> repStudentInfo;
+
         public DepartService(Lazy<IMapper> mapper, IUnitOfWork unitOfWork, ILogger<DepartService> logger, Lazy<ILoginInfo> loginInfo,
-            Lazy<IRepository<Depart>> _repository) : base(mapper, unitOfWork, logger, loginInfo, _repository)
-        { }
+            Lazy<IRepository<Depart>> _repository, Lazy<IRepository<StudentInfo>> repStudentInfo) : base(mapper, unitOfWork, logger, loginInfo, _repository)
+        {
+            this.repStudentInfo = repStudentInfo;
+        }
 
         public async Task<IResultModel> GetPagedListAsync(int pageIndex, int pageSize, string search)
         {
@@ -69,6 +73,29 @@ namespace Student.Services
             }
             //调用父类方法
             return await base.UpdateAsync(model);
+        }
+
+        public override async Task<IResultModel> RemoveAsync(int id)
+        {
+            //级联删除，这里判断部门存在学生禁止删除
+            var count = await repStudentInfo.Value.TableNoTracking.CountAsync(p => p.DepartId == id);
+            if (count > 0)
+                return ResultModel.Failed("部门已分配学生，无法删除");
+            return await base.RemoveAsync(id);
+        }
+
+        public override async Task<IResultModel> RemoveAsync(IList<int> ids)
+        {
+            //这里判断部门存在学生禁止删除
+            foreach (var id in ids)
+            {
+                var count = await repStudentInfo.Value.TableNoTracking.CountAsync(p => p.DepartId == id);
+                if (count > 0)
+                {
+                    return ResultModel.Failed($"部门{id}已分配学生，无法删除");
+                }
+            }
+            return await base.RemoveAsync(ids);
         }
     }
 }
