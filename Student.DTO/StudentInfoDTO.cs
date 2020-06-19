@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Student.DTO.Attributes;
-using Student.Model;
 using Student.Model.Enums;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
