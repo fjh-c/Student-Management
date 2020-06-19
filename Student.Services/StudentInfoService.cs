@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using Auth.Jwt;
+using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -17,9 +18,9 @@ namespace Student.Services
     {
         private readonly Lazy<IRepository<Depart>> repDepart;
 
-        public StudentInfoService(Lazy<IMapper> mapper, IUnitOfWork unitOfWork, ILogger<StudentInfoService> logger,
+        public StudentInfoService(Lazy<IMapper> mapper, IUnitOfWork unitOfWork, ILogger<StudentInfoService> logger, Lazy<ILoginInfo> loginInfo,
             Lazy<IRepository<StudentInfo>> _repository,
-            Lazy<IRepository<Depart>> repDepart): base(mapper, unitOfWork, logger, _repository)
+            Lazy<IRepository<Depart>> repDepart) : base(mapper, unitOfWork, logger, loginInfo, _repository)
         {
             this.repDepart = repDepart;
         }

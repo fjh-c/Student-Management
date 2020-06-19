@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using Auth.Jwt;
+using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -16,9 +17,9 @@ namespace Student.Services
 {
     public class DepartService : BaseService<Depart, DepartDTO, int>, IDepartService, IDependency
     {
-        public DepartService(Lazy<IMapper> mapper, IUnitOfWork unitOfWork, ILogger<DepartService> logger,
-            Lazy<IRepository<Depart>> _repository) : base(mapper, unitOfWork, logger, _repository)
-        {}
+        public DepartService(Lazy<IMapper> mapper, IUnitOfWork unitOfWork, ILogger<DepartService> logger, Lazy<ILoginInfo> loginInfo,
+            Lazy<IRepository<Depart>> _repository) : base(mapper, unitOfWork, logger, loginInfo, _repository)
+        { }
 
         public async Task<IResultModel> GetPagedListAsync(int pageIndex, int pageSize, string search)
         {

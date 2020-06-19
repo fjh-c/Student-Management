@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using Auth.Jwt;
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Student.DTO;
@@ -15,8 +16,8 @@ namespace Student.Services
 {
     public class AccountService : BaseService<Account, AccountDTO, Guid>, IAccountService, IDependency
     {
-        public AccountService(Lazy<IMapper> mapper, IUnitOfWork unitOfWork, ILogger<AccountService> logger,
-            Lazy<IRepository<Account>> _repository) : base(mapper, unitOfWork, logger, _repository)
+        public AccountService(Lazy<IMapper> mapper, IUnitOfWork unitOfWork, ILogger<AccountService> logger, Lazy<ILoginInfo> loginInfo,
+            Lazy<IRepository<Account>> _repository) : base(mapper, unitOfWork, logger, loginInfo, _repository)
         {
         }
 

@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using Auth.Jwt;
+using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Cache.MemoryCache;
 using Microsoft.EntityFrameworkCore;
@@ -19,6 +20,8 @@ namespace Student.Services
         protected readonly ILogger<BaseService<TEntity, TEntityDTO, TKey>> _logger;
         protected readonly Lazy<IMapper> _mapper;
         protected readonly Lazy<ICacheHandler> _cacheHandler;
+        protected readonly Lazy<ILoginInfo> _loginInfo;
+
         /// <summary>
         /// TEntity仓储
         /// </summary>
@@ -28,20 +31,22 @@ namespace Student.Services
         /// </summary>
         public IUnitOfWork UnitOfWork { get; }
 
-        public BaseService(Lazy<IMapper> mapper, IUnitOfWork unitOfWork, ILogger<BaseService<TEntity, TEntityDTO, TKey>> logger,
-            Lazy<IRepository<TEntity>> repository)
+        public BaseService(Lazy<IMapper> mapper, IUnitOfWork unitOfWork, ILogger<BaseService<TEntity, TEntityDTO, TKey>> logger, Lazy<ILoginInfo> loginInfo,
+           Lazy<IRepository<TEntity>> repository)
         {
             _logger = logger;
             _mapper = mapper;
+            _loginInfo = loginInfo;
             UnitOfWork = unitOfWork;
             this._repository = repository;
         }
 
-        public BaseService(Lazy<IMapper> mapper, IUnitOfWork unitOfWork, ILogger<BaseService<TEntity, TEntityDTO, TKey>> logger, Lazy<ICacheHandler> cacheHandler,
+        public BaseService(Lazy<IMapper> mapper, IUnitOfWork unitOfWork, ILogger<BaseService<TEntity, TEntityDTO, TKey>> logger, Lazy<ILoginInfo> loginInfo, Lazy<ICacheHandler> cacheHandler, 
             Lazy<IRepository<TEntity>> repository)
         {
             _logger = logger;
             _mapper = mapper;
+            _loginInfo = loginInfo;
             _cacheHandler = cacheHandler;
             UnitOfWork = unitOfWork;
             this._repository = repository;
@@ -66,6 +71,12 @@ namespace Student.Services
         public virtual async Task<IResultModel> InsertAsync(TEntityDTO model)
         {
             var entity = _mapper.Value.Map<TEntity>(model);
+            entity.CreatedTime = DateTime.Now;
+            entity.ModifiedTime = DateTime.Now;
+            if (_loginInfo != null && _loginInfo.Value != null)
+            {
+                entity.OperatorName = _loginInfo.Value.AccountName;
+            }
             await _repository.Value.InsertAsync(entity);
 
             if (await UnitOfWork.SaveChangesAsync() > 0)
@@ -86,6 +97,11 @@ namespace Student.Services
                 return ResultModel.NotExists;
             }
             _mapper.Value.Map(model, entity);
+            entity.ModifiedTime = DateTime.Now;
+            if (_loginInfo != null && _loginInfo.Value != null)
+            {
+                entity.OperatorName = _loginInfo.Value.AccountName;
+            }
             _repository.Value.Update(entity);
 
             if (await UnitOfWork.SaveChangesAsync() > 0)
