@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using yrjw.CommonToolsCore.Attributes;
 
 namespace Auth.Jwt
 {
     /// <summary>
     /// 权限验证
     /// </summary>
+    [Singleton]
     public class PermissionValidateHandler : IPermissionValidateHandler
     {
         private readonly ILoginInfo _loginInfo;

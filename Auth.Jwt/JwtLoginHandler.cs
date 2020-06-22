@@ -5,9 +5,11 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using yrjw.CommonToolsCore.Attributes;
 
 namespace Auth.Jwt
 {
+    [Singleton]
     public class JwtLoginHandler : ILoginHandler
     {
         private readonly ILogger _logger;

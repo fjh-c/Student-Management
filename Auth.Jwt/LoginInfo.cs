@@ -2,9 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using yrjw.CommonToolsCore.Attributes;
 
 namespace Auth.Jwt
 {
+    [Singleton]
     public class LoginInfo : ILoginInfo
     {
         private readonly IHttpContextAccessor _contextAccessor;
