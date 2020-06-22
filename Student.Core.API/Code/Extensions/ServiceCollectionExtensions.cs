@@ -20,6 +20,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using WebApiClient;
+using yrjw.CommonToolsCore.Extensions;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -40,6 +41,9 @@ namespace Microsoft.Extensions.DependencyInjection
                 options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
             }).SetCompatibilityVersion(AspNetCore.Mvc.CompatibilityVersion.Version_3_0);
             services.AddOptions();
+
+            //添加所有通过特性注入的服务
+            services.AddNetModularServices();
 
             //服务端缓存
             services.AddResponseCaching();
