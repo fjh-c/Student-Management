@@ -44,7 +44,7 @@ namespace Auth.Jwt
         /// <summary>
         /// Key
         /// </summary>
-        public string Key { get; set; } = "twAJ$j5##pVc5*y&";
+        public string Key { get; set; } = "hG#yJ$j3#vPc9*u&";
 
         /// <summary>
         /// 发行人
