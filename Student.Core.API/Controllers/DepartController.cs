@@ -16,12 +16,11 @@ namespace Student.Core.API.Controllers
     [Description("部门信息")]
     public class DepartController : ControllerAbstract
     {
-        public DepartController(ILogger<ControllerAbstract> logger) : base(logger)
+        private readonly Lazy<IDepartService> DepartService;
+        public DepartController(ILogger<ControllerAbstract> logger, Lazy<IDepartService> departService) : base(logger)
         {
+            DepartService = departService;
         }
-
-        public Lazy<IDepartService> DepartService { get; set; }
-
 
         [Description("通过指定部门ID，返回该部门信息")]
         [OperationId("获取部门信息")]

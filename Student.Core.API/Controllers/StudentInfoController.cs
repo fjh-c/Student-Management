@@ -20,12 +20,11 @@ namespace Student.Core.API.Controllers
     [Description("学生信息")]
     public class StudentInfoController : ControllerAbstract
     {
-        public StudentInfoController(ILogger<ControllerAbstract> logger) : base(logger)
+        private readonly Lazy<IStudentInfoService> StudentInfoService;
+        public StudentInfoController(ILogger<ControllerAbstract> logger, Lazy<IStudentInfoService> studentInfoService) : base(logger)
         {
+            StudentInfoService = studentInfoService;
         }
-
-        public Lazy<IStudentInfoService> StudentInfoService { get; set; }
-
         
         [Description("根据ID获取指定学生信息")]
         [OperationId("获取学生信息")]

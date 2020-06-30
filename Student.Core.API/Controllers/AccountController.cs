@@ -17,12 +17,11 @@ namespace Student.Core.API.Controllers
     [Description("账户信息")]
     public class AccountController : ControllerAbstract
     {
-        public AccountController(ILogger<ControllerAbstract> logger) : base(logger)
+        private readonly Lazy<IAccountService> AccountService;
+        public AccountController(ILogger<ControllerAbstract> logger, Lazy<IAccountService> accountService) : base(logger)
         {
+            AccountService = accountService;
         }
-
-        public Lazy<IAccountService> AccountService { get; set; }
-
 
         [Description("通过指定账户ID，返回该账户信息")]
         [OperationId("获取账户信息")]

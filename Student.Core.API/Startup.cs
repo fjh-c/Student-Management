@@ -16,7 +16,7 @@ using Student.Model.Code;
 
 namespace Student.Core.API
 {
-    public class Startup: AutofacStartup
+    public class Startup: AbstractStartup
     {
         public Startup(IConfiguration configuration, IWebHostEnvironment env) : base(env)
         {

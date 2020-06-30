@@ -23,14 +23,14 @@ namespace Student.Core.API.Controllers
     {
         private readonly ILoginHandler _loginHandler;
         private readonly IpHelper _ipHelper;
+        private readonly Lazy<IAuthInfoService> AuthInfoService;
 
-        public AuthController(ILogger<ControllerAbstract> logger, ILoginHandler loginHandler, IpHelper ipHelper) : base(logger)
+        public AuthController(ILogger<ControllerAbstract> logger, ILoginHandler loginHandler, IpHelper ipHelper, Lazy<IAuthInfoService> authInfoService) : base(logger)
         {
             _loginHandler = loginHandler;
             _ipHelper = ipHelper;
+            AuthInfoService = authInfoService;
         }
-
-        public Lazy<IAuthInfoService> AuthInfoService { get; set; }
 
         [HttpGet("VerifyCode")]
         [AllowAnonymous]

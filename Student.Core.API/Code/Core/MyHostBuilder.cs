@@ -1,5 +1,4 @@
-﻿using Autofac.Extensions.DependencyInjection;
-using Logging.Serilog;
+﻿using Logging.Serilog;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
@@ -19,12 +18,12 @@ namespace Student.Core.API.Code.Core
         /// <typeparam name="TStartup"></typeparam>
         /// <param name="args">启动参数</param>
         /// <returns></returns>
-        public IHostBuilder Create<TStartup>(string[] args) where TStartup : AutofacStartup
+        public IHostBuilder Create<TStartup>(string[] args) where TStartup : AbstractStartup
         {
             return CreateBuilder<TStartup>(args);
         }
 
-        private IHostBuilder CreateBuilder<TStartup>(string[] args) where TStartup : AutofacStartup
+        private IHostBuilder CreateBuilder<TStartup>(string[] args) where TStartup : AbstractStartup
         {
             //IConfiguration对象中附加自定义配置文件方式，无法在配置文件中设置自宿主端口，在这里直接获取appsettings.json配置
             //为什么没独立创建IConfiguration对象，原因是热更新时配置中List集合数据无法使用Bind，会出现重复数据。
@@ -38,7 +37,7 @@ namespace Student.Core.API.Code.Core
                 BasicSetting.Setting.Urls = "http://*:5000";
 
             return Host.CreateDefaultBuilder(args)
-                .UseServiceProviderFactory(new AutofacServiceProviderFactory())
+                //.UseServiceProviderFactory(new AutofacServiceProviderFactory())
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<TStartup>()

@@ -57,6 +57,9 @@ namespace Microsoft.Extensions.DependencyInjection
             //添加ORM
             services.AddORM(BasicSetting.Setting);
 
+            //注册懒加载，与Autofac冲突，使用懒加载禁用Autofac注入方式。
+            services.AddTransient(typeof(Lazy<>));
+
             //添加AutoMapper
             services.AddAutoMapper(typeof(Student.DTO.Profiles.AutoMapperProfiles).Assembly);
 
