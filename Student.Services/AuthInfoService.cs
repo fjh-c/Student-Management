@@ -32,9 +32,12 @@ namespace Student.Services
         public async Task<IResultModel> Login(LoginModel model)
         {
             //检测验证码
-            var verifyCodeCheckResult = CheckVerifyCode(model);
-            if (!verifyCodeCheckResult.Success)
-                return verifyCodeCheckResult;
+            if (AuthConfigData.AuthConfig.VerifyCode)
+            {
+                var verifyCodeCheckResult = CheckVerifyCode(model);
+                if (!verifyCodeCheckResult.Success)
+                    return verifyCodeCheckResult;
+            }
 
             //检查账户密码
             var entity = await repAccount.Value.TableNoTracking.FirstAsync(p => p.UserName == model.UserName.Trim());
