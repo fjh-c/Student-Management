@@ -24,13 +24,31 @@ namespace Student.Services
 
         public async Task<IResultModel> GetValue(string code)
         {
+            switch (code)
+            {
+                case "Auth":
+                    return await GetValue<AuthConfigData>(code);
+                default:
+                    return ResultModel.NotExists;
+            } 
+        }
+
+        private async Task<IResultModel> GetValue<T>(string code)
+        {
             var entity = await _repository.Value.TableNoTracking.FirstOrDefaultAsync(p => p.Code == code);
             if (entity == null)
             {
                 _logger.LogError($"error：entity Code {code} does not exist");
                 return ResultModel.NotExists;
             }
-            return ResultModel.Success(_mapper.Value.Map<ConfigDTO>(entity));
+            try
+            {
+                return ResultModel.Success(entity.Value.ToJson<T>());
+            }
+            catch (Exception)
+            {
+                return ResultModel.Failed("error ToJson DeserializeObject");
+            }
         }
     }
 }

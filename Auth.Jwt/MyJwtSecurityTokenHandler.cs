@@ -22,10 +22,10 @@ namespace Auth.Jwt
         public override ClaimsPrincipal ValidateToken(string token, TokenValidationParameters validationParameters,
             out SecurityToken validatedToken)
         {
-            var config = _configService.GetValue("Auth").GetAwaiter().GetResult() as ResultModel<ConfigDTO>;
+            var config = _configService.GetValue("Auth").GetAwaiter().GetResult() as ResultModel<AuthConfigData>;
             if (config.Success)
             {
-                AuthConfigData.AuthConfig = config.Data.Value.ToJson<AuthConfigData>();
+                AuthConfigData.AuthConfig = config.Data;
             }
             var jwtConfig = AuthConfigData.AuthConfig.Jwt;
 
