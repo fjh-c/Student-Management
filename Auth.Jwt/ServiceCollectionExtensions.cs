@@ -19,7 +19,7 @@ namespace Auth.Jwt
             //services.AddSingleton<IpHelper>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-            services.AddSingleton<MyJwtSecurityTokenHandler>();
+            services.AddScoped<MyJwtSecurityTokenHandler>();
             //services.AddSingleton<ILoginHandler, JwtLoginHandler>();
 
             //services.AddSingleton<ILoginInfo, LoginInfo>();
