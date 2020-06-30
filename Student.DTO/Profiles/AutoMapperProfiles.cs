@@ -25,6 +25,9 @@ namespace Student.DTO.Profiles
 
             CreateMap<AuthInfo, AuthInfoDTO>();
             CreateMap<AuthInfoDTO, AuthInfo>();
+
+            CreateMap<Config, ConfigDTO>();
+            CreateMap<ConfigDTO, Config>();
         }
     }
 }
