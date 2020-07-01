@@ -15,5 +15,10 @@ namespace Student.DTO.Login
         /// 认证信息
         /// </summary>
         public AuthInfoDTO AuthInfo { get; set; }
+
+        /// <summary>
+        /// 菜单列表
+        /// </summary>
+        //public IList<AccountMenuItem> Menus { get; set; }
     }
 }
