@@ -107,7 +107,7 @@ namespace Student.Services
             if (account.Status != Model.Enums.EnumStatus.Enabled)
                 return ResultModel.Failed($"账户状态：{accountDTO.StatusName}");
             
-            return ResultModel.Success(new LoginResultDTO
+            return ResultModel.Success(new LoginResultModel
             {
                 Account = accountDTO,
                 AuthInfo = authInfoDTO
@@ -151,7 +151,7 @@ namespace Student.Services
         /// <summary>
         /// 更新账户认证信息
         /// </summary>
-        private async Task<LoginResultDTO> UpdateAuthInfo(Account account, LoginModel model)
+        private async Task<LoginResultModel> UpdateAuthInfo(Account account, LoginModel model)
         {
             var accountDTO = _mapper.Value.Map<AccountDTO>(account);
             var authInfo = new AuthInfoDTO
@@ -184,7 +184,7 @@ namespace Student.Services
                 //清除账户的认证信息缓存
                 await _cacheHandler.Value.RemoveAsync($"{CacheKeys.ACCOUNT_AUTH_INFO}:{account.Id}:{model.Platform.ToInt()}");
 
-                return new LoginResultDTO
+                return new LoginResultModel
                 {
                     Account = accountDTO,
                     AuthInfo = authInfo

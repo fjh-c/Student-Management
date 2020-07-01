@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Student.DTO.Login
 {
-    public class LoginResultDTO
+    public class LoginResultModel
     {
         /// <summary>
         /// 账户信息
