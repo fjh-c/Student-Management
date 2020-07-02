@@ -29,7 +29,7 @@ namespace StudentManageSystem.Controllers
         {
             var _info = await _authApi.AuthInfo();
             if (_info.Success)
-                ViewBag.Name = _info.Data.Name;
+                ViewBag.Name = _info.Data.Account.Name;
             return View();
         }
 

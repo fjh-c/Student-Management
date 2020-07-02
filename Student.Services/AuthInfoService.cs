@@ -9,6 +9,7 @@ using Student.DTO.Login;
 using Student.IServices;
 using Student.Model;
 using Student.Model.Code;
+using Student.Model.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -86,7 +87,7 @@ namespace Student.Services
             var cacheKey = CacheKeys.AUTH_REFRESH_TOKEN + refreshToken;
             if (!_cacheHandler.Value.TryGetValue(cacheKey, out AuthInfoDTO authInfoDTO))
             {
-                var authInfo = await _repository.Value.TableNoTracking.FirstOrDefaultAsync(p=>p.RefreshToken==refreshToken);
+                var authInfo = await _repository.Value.TableNoTracking.FirstOrDefaultAsync(p => p.RefreshToken == refreshToken && p.Platform == (EnumPlatform)_loginInfo.Value.Platform);
                 if (authInfo == null)
                     return ResultModel.Failed("身份认证信息无效，请重新登录");
                 authInfoDTO = _mapper.Value.Map<AuthInfoDTO>(authInfo);
@@ -120,6 +121,12 @@ namespace Student.Services
         /// <returns></returns>
         public async Task<IResultModel> GetAuthInfo()
         {
+            var authInfo = await _repository.Value.TableNoTracking.FirstOrDefaultAsync(p => p.AccountId == _loginInfo.Value.AccountId && p.Platform == (EnumPlatform)_loginInfo.Value.Platform);
+            if (authInfo == null)
+                return ResultModel.Failed("身份认证信息无效，请重新登录");
+            var authInfoDTO = _mapper.Value.Map<AuthInfoDTO>(authInfo);
+
+
             var account = await repAccount.Value.GetByIdAsync(_loginInfo.Value.AccountId);
             if (account == null)
                 return ResultModel.Failed("账户信息不存在");
@@ -128,7 +135,11 @@ namespace Student.Services
             if (account.Status != Model.Enums.EnumStatus.Enabled)
                 return ResultModel.Failed($"账户状态：{accountDTO.StatusName}");
 
-            return ResultModel.Success(accountDTO);
+            return ResultModel.Success(new LoginResultModel
+            {
+                Account = accountDTO,
+                AuthInfo = authInfoDTO
+            });
         }
 
         private IResultModel CheckVerifyCode(LoginModel model)

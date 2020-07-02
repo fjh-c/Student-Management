@@ -38,6 +38,6 @@ namespace StudentManageSystem.HttpApis
         /// </summary>
         /// <returns></returns>
         [HttpGet("api/Auth/AuthInfo")]
-        ITask<ResultModel<AccountDTO>> AuthInfo();
+        ITask<ResultModel<LoginResultModel>> AuthInfo();
     }
 }
