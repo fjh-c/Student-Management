@@ -29,7 +29,13 @@ namespace StudentManageSystem.Controllers
         {
             var _info = await _authApi.AuthInfo();
             if (_info.Success)
+            {
                 ViewBag.Name = _info.Data.Account.Name;
+                if(_info.Data.AuthInfo.Platform == Student.Model.Enums.EnumPlatform.Web)
+                {
+                    return View();
+                }
+            }
             return View();
         }
 
