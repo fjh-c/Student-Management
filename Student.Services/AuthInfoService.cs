@@ -5,10 +5,10 @@ using Cache.MemoryCache;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Student.DTO;
+using Student.DTO.Cache;
 using Student.DTO.Login;
 using Student.IServices;
 using Student.Model;
-using Student.Model.Code;
 using Student.Model.Enums;
 using System;
 using System.Collections.Generic;
@@ -71,7 +71,7 @@ namespace Student.Services
             };
 
             //把验证码放到内存缓存中，有效期10分钟
-            var key = $"{CacheKeys.AUTH_VERIFY_CODE}:{model.Id}";
+            var key = $"{CacheKeys.VERIFY_CODE}:{model.Id}";
             await _cacheHandler.Value.SetAsync(key, code, 10);
 
             return ResultModel.Success(model);
@@ -150,7 +150,7 @@ namespace Student.Services
             if (model.VerifyCode.Id.IsNull())
                 return ResultModel.Failed("验证码不存在");
 
-            var cacheCode = _cacheHandler.Value.GetAsync($"{CacheKeys.AUTH_VERIFY_CODE}:{model.VerifyCode.Id}").Result;
+            var cacheCode = _cacheHandler.Value.GetAsync($"{CacheKeys.VERIFY_CODE}:{model.VerifyCode.Id}").Result;
             if (cacheCode.IsNull())
                 return ResultModel.Failed("验证码不存在");
 
@@ -190,10 +190,10 @@ namespace Student.Services
             if (result.Success)
             {
                 //删除验证码缓存
-                await _cacheHandler.Value.RemoveAsync($"{CacheKeys.AUTH_VERIFY_CODE}:{model.VerifyCode.Id}");
+                await _cacheHandler.Value.RemoveAsync($"{CacheKeys.VERIFY_CODE}:{model.VerifyCode.Id}");
 
-                //清除账户的认证信息缓存
-                await _cacheHandler.Value.RemoveAsync($"{CacheKeys.ACCOUNT_AUTH_INFO}:{account.Id}:{model.Platform.ToInt()}");
+                //删除认证信息缓存
+                await _cacheHandler.Value.RemoveAsync($"{CacheKeys.AUTH_INFO}:{account.Id}:{model.Platform.ToInt()}");
 
                 return new LoginResultModel
                 {
