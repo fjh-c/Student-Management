@@ -84,8 +84,7 @@ namespace Student.Services
         /// <returns></returns>
         public async Task<IResultModel> RefreshToken(string refreshToken)
         {
-            var cacheKey = CacheKeys.AUTH_REFRESH_TOKEN + refreshToken;
-            if (!_cacheHandler.Value.TryGetValue(cacheKey, out AuthInfoDTO authInfoDTO))
+            if (!_cacheHandler.Value.TryGetValue($"{CacheKeys.AUTH_REFRESH_TOKEN}:{refreshToken}", out AuthInfoDTO authInfoDTO))
             {
                 var authInfo = await _repository.Value.TableNoTracking.FirstOrDefaultAsync(p => p.RefreshToken == refreshToken && p.Platform == (EnumPlatform)_loginInfo.Value.Platform);
                 if (authInfo == null)
@@ -94,7 +93,7 @@ namespace Student.Services
 
                 //加入缓存
                 var expires = (int)(authInfo.RefreshTokenExpiredTime - DateTime.Now).TotalMinutes;
-                await _cacheHandler.Value.SetAsync(cacheKey, authInfoDTO, expires);
+                await _cacheHandler.Value.SetAsync($"{CacheKeys.AUTH_REFRESH_TOKEN}:{refreshToken}", authInfoDTO, expires);
             }
 
             if (authInfoDTO.RefreshTokenExpiredTime <= DateTime.Now)
@@ -105,7 +104,7 @@ namespace Student.Services
                 return ResultModel.Failed("账户信息不存在");
 
             var accountDTO = _mapper.Value.Map<AccountDTO>(account);
-            if (account.Status != Model.Enums.EnumStatus.Enabled)
+            if (account.Status != EnumStatus.Enabled)
                 return ResultModel.Failed($"账户状态：{accountDTO.StatusName}");
             
             return ResultModel.Success(new LoginResultModel
@@ -121,18 +120,27 @@ namespace Student.Services
         /// <returns></returns>
         public async Task<IResultModel> GetAuthInfo()
         {
-            var authInfo = await _repository.Value.TableNoTracking.FirstOrDefaultAsync(p => p.AccountId == _loginInfo.Value.AccountId && p.Platform == (EnumPlatform)_loginInfo.Value.Platform);
-            if (authInfo == null)
-                return ResultModel.Failed("身份认证信息无效，请重新登录");
-            var authInfoDTO = _mapper.Value.Map<AuthInfoDTO>(authInfo);
+            if (!_cacheHandler.Value.TryGetValue($"{CacheKeys.AUTH_INFO}:{_loginInfo.Value.AccountId}:{_loginInfo.Value.Platform}", out AuthInfoDTO authInfoDTO))
+            {
+                var authInfo = await _repository.Value.TableNoTracking.FirstOrDefaultAsync(p => p.AccountId == _loginInfo.Value.AccountId && p.Platform == (EnumPlatform)_loginInfo.Value.Platform);
+                if (authInfo == null)
+                    return ResultModel.Failed("身份认证信息无效，请重新登录");
+                authInfoDTO = _mapper.Value.Map<AuthInfoDTO>(authInfo);
 
+                //加入缓存
+                var expires = (int)(authInfo.RefreshTokenExpiredTime - DateTime.Now).TotalMinutes;
+                await _cacheHandler.Value.SetAsync($"{CacheKeys.AUTH_INFO}:{_loginInfo.Value.AccountId}:{_loginInfo.Value.Platform}", authInfoDTO, expires);
+            }
 
-            var account = await repAccount.Value.GetByIdAsync(_loginInfo.Value.AccountId);
+            if (authInfoDTO.RefreshTokenExpiredTime <= DateTime.Now)
+                return ResultModel.Failed("身份认证信息过期，请重新登录~");
+
+            var account = await repAccount.Value.GetByIdAsync(authInfoDTO.AccountId);
             if (account == null)
                 return ResultModel.Failed("账户信息不存在");
 
             var accountDTO = _mapper.Value.Map<AccountDTO>(account);
-            if (account.Status != Model.Enums.EnumStatus.Enabled)
+            if (account.Status != EnumStatus.Enabled)
                 return ResultModel.Failed($"账户状态：{accountDTO.StatusName}");
 
             return ResultModel.Success(new LoginResultModel
