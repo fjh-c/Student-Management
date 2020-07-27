@@ -1,4 +1,3 @@
-using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
@@ -16,8 +15,7 @@ namespace Student.Core.API
         {
             return new MyHostBuilder().Create<Startup>(args)
                 .Configure("initializationdata", false, true)
-                .Configure("logging", false, false)
-                .Configure("authconfig", false, false);
+                .Configure("logging", false, false);
         }
             
     }

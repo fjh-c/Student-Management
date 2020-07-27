@@ -37,7 +37,6 @@ namespace Student.Core.API.Code.Core
                 BasicSetting.Setting.Urls = "http://*:5000";
 
             return Host.CreateDefaultBuilder(args)
-                //.UseServiceProviderFactory(new AutofacServiceProviderFactory())
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<TStartup>()

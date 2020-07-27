@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Auth.Jwt;
-using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -23,7 +22,6 @@ namespace Student.Core.API
             //∞Û∂®≈‰÷√–≈œ¢
             configuration.Binding<BasicSetting>("Setting")
                 .Binding<InitializationData>("Initialization")
-                .Binding<AuthConfigData>("AuthConfig")
                 .OnChange(BasicSetting.Setting, InitializationData.Initialization);
         }
     }

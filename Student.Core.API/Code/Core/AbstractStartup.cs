@@ -12,13 +12,6 @@ namespace Student.Core.API.Code.Core
         }
         protected readonly IWebHostEnvironment Env;
 
-        //protected ILifetimeScope AutofacContainer { get; set; }
-
-        //public virtual void ConfigureContainer(ContainerBuilder builder)
-        //{
-        //    builder.RegisterModule<yrjw.ORM.Chimp.AutofacModule>();
-        //}
-
         public virtual void ConfigureServices(IServiceCollection services)
         {
             services.AddWebHost(Env);
@@ -26,7 +19,6 @@ namespace Student.Core.API.Code.Core
 
         public virtual void Configure(IApplicationBuilder app)
         {
-            //AutofacContainer = app.ApplicationServices.GetAutofacRoot();
             app.UseWebHost(Env);
         }
     }
