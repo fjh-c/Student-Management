@@ -66,7 +66,7 @@ namespace Student.Services
             return await base.UpdateAsync(model);
         }
 
-        public override async Task<IResultModel> DeleteAsync(Guid id)
+        public override async Task<IResultModel> RemoveAsync(Guid id)
         {
             //初始化操作员禁止删除
             if (id == Guid.Parse("39F08CFD-8E0D-771B-A2F3-2639A62CA2FA"))
@@ -74,7 +74,7 @@ namespace Student.Services
                 return ResultModel.Failed("初始化数据不能删除");
             }
             //调用父类方法
-            return await base.DeleteAsync(id);
+            return await base.RemoveAsync(id);
         }
 
         public async Task<IResultModel> UpdatePassword(UpdatePasswordDTO model)
