@@ -13,6 +13,16 @@
         max-width: 60px;
         max-height: 28px;
     }
+    .layui-tree-main {
+        cursor: pointer;
+        padding-right: 10px;
+        float: left;
+        border-width: 1px;
+        border-style: solid;
+        border-color: #e6e6e6;
+        height: 814px;
+        margin: 10px 0;
+    }
 </style> 
 
 <div class="layui-card">
@@ -33,8 +43,28 @@
             </div>
         </div>
     </div>
-    <div class="layui-card-body">
-        <table class="layui-hide" id="test" lay-filter="test"></table>
+    <div class="layui-card-body layui-tree">
+        <div class="layui-tree-main">
+            <div class="">
+                <button class="layui-btn layui-btn-sm layui-btn-normal"
+                        onclick="hg.open('添加部门','./DataGrid-add.html',600,400)">
+                    <i class="layui-icon">&#xe654;</i>添加
+                </button>
+                <button class="layui-btn layui-btn-sm layui-btn-warm" onclick="getTreeChecked()">
+                    <i class="layui-icon">&#xe642;</i>修改
+                </button>
+                <button class="layui-btn layui-btn-sm layui-btn-danger" onclick="getTreeChecked()">
+                    <i class="layui-icon">&#xe640;</i>删除
+                </button>
+            </div>
+            <div class="demo-tree">
+                <div id="treeid" class="demo-tree-box"></div>
+            </div>
+        </div>
+        <div style="margin-left: 225px;">
+            <table class="layui-hide" id="test" lay-filter="test"></table>
+        </div>
+        
     </div>
 </div>
 
