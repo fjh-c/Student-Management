@@ -30,11 +30,28 @@ namespace Student.Services
         /// </summary>
         /// <param name="pageIndex"></param>
         /// <param name="pageSize"></param>
+        /// <param name="dept"></param>
         /// <param name="search"></param>
         /// <returns></returns>
-        public async Task<IResultModel> GetPagedListAsync(int pageIndex, int pageSize, string search)
+        public async Task<IResultModel> GetPagedListAsync(int pageIndex, int pageSize, int dept, string search)
         {
             var data = _repository.Value.TableNoTracking.Where(p => p.Deleted == 0);
+            if(dept > 0)
+            {
+                var deptlist = repDepart.Value.GetById(dept);
+                if (deptlist != null)
+                {
+                    if(deptlist.DeptType== Model.Enums.EnumDeptType.grade)
+                    {
+                        var ids = repDepart.Value.Table.Where(p => p.DeptType == Model.Enums.EnumDeptType.classes && p.GradeId == dept).Select(s=>s.Id).ToList();
+                        data = data.Where(p => ids.Contains(p.DepartId));
+                    }
+                    else
+                    {
+                        data = data.Where(p => p.DepartId == dept);
+                    }
+                }
+            }
             if (!search.IsNull())
             {
                 if (search.IsMobileNumber())

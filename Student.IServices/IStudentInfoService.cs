@@ -13,8 +13,9 @@ namespace Student.IServices
         /// </summary>
         /// <param name="pageIndex"></param>
         /// <param name="pageSize"></param>
+        /// <param name="dept"></param>
         /// <param name="search"></param>
         /// <returns></returns>
-        Task<IResultModel> GetPagedListAsync(int pageIndex, int pageSize, string search);
+        Task<IResultModel> GetPagedListAsync(int pageIndex, int pageSize, int dept, string search);
     }
 }

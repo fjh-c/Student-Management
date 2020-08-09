@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -120,6 +121,27 @@ namespace StudentManageSystem.Controllers
                 return Json(new Table() { data = result.Data, count = result.Data.Count });
             }
             return Json(new Table() { data = null, count = 0 });
+        }
+
+        //Layui-dtree
+        [ResponseCache(Duration = 0)]
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> GetTreeListAsync()
+        {
+            var result = await _departApi.GetListAllAsync();
+            if (result.Success)
+            {
+                var list = result.Data.Select(s => new { Id = s.Id.ToString(), s.DepartName, GradeId = s.GradeId == null ? "0" : s.GradeId.ToString() });
+                return Json(
+                new
+                {
+                    status = new { code = 200, message = "操作成功" },
+                    data = list
+                }
+            );
+            }
+            return Json(new NotFoundResult());
         }
     }
 }

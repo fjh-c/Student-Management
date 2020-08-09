@@ -23,8 +23,8 @@ namespace StudentManageSystem.HttpApis
         /// 获取学生分页列表
         /// </summary>
         /// <returns></returns>
-        [HttpGet("api/StudentInfo/{pageIndex}/{pageSize}/{search}")]
-        ITask<ResultModel<PagedList<StudentInfoDTO>>> GetPagedListAsync(int pageIndex, int pageSize, string search);
+        [HttpGet("api/StudentInfo/{pageIndex}/{pageSize}/{dept}/{search}")]
+        ITask<ResultModel<PagedList<StudentInfoDTO>>> GetPagedListAsync(int pageIndex, int pageSize, int dept, string search);
         /// <summary>
         /// 添加学生信息，通过json提交
         /// </summary>

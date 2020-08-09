@@ -50,12 +50,13 @@ namespace Student.Core.API.Controllers
         [Parameters(name = "pageIndex", param = "索引页")]
         [Parameters(name = "pageSize", param = "单页条数")]
         [Parameters(name = "search", param = "检索条件")]
+        [Parameters(name = "dept", param = "部门")]
         [ResponseCache(Duration = 0)]
-        [HttpGet("{pageIndex}/{pageSize}/{search?}")]
-        public async Task<IResultModel> GetPagedList([Required]int pageIndex, int pageSize, string search)
+        [HttpGet("{pageIndex}/{pageSize}/{dept}/{search?}")]
+        public async Task<IResultModel> GetPagedList([Required]int pageIndex, int pageSize, int dept, string search)
         {
             _logger.LogDebug($"获取学生分页列表");
-            return await StudentInfoService.Value.GetPagedListAsync(pageIndex, pageSize, search);
+            return await StudentInfoService.Value.GetPagedListAsync(pageIndex, pageSize, dept, search);
         }
 
         [Description("添加学生信息，成功后返回当前学生信息，上传图片转Base64存Photos属性中")]

@@ -20,10 +20,9 @@
         border-width: 1px;
         border-style: solid;
         border-color: #e6e6e6;
-        height: 814px;
         margin: 10px 0;
     }
-</style> 
+</style>
 
 <div class="layui-card">
     <div class="layui-card-header">
@@ -34,6 +33,7 @@
             <div class="layui-form-item layui-layout-left">
                 <div class="layui-inline">
                     <input class="layui-input layui-input-sm" style="width: 300px;" type="text" name="search" placeholder="快速查找" autocomplete="off">
+                    <input id="dept" type="hidden" name="dept" value="0" />
                 </div>
                 <div class="layui-inline layui-show-xs-block">
                     <button class="layui-btn layui-btn-sm layui-btn-normal" lay-submit lay-filter="querysubmit">
@@ -45,31 +45,59 @@
     </div>
     <div class="layui-card-body layui-tree">
         <div class="layui-tree-main">
-            <div class="">
-                <button class="layui-btn layui-btn-sm layui-btn-normal"
-                        onclick="hg.open('添加部门','./DataGrid-add.html',600,400)">
-                    <i class="layui-icon">&#xe654;</i>添加
-                </button>
-                <button class="layui-btn layui-btn-sm layui-btn-warm" onclick="getTreeChecked()">
-                    <i class="layui-icon">&#xe642;</i>修改
-                </button>
-                <button class="layui-btn layui-btn-sm layui-btn-danger" onclick="getTreeChecked()">
-                    <i class="layui-icon">&#xe640;</i>删除
-                </button>
-            </div>
             <div class="demo-tree">
-                <div id="treeid" class="demo-tree-box"></div>
+                <ul id="deptTree" class="dtree" data-id="0"></ul>
             </div>
         </div>
         <div style="margin-left: 225px;">
             <table class="layui-hide" id="test" lay-filter="test"></table>
         </div>
-        
+
     </div>
 </div>
 
 @section Scripts{
     <script type="text/javascript">
+        //树形列表初始化
+        layui.config({
+            base: '../lib/'
+        }).extend({
+            dtree: 'layui_ext/dtree/dtree'
+        }).use(['dtree'], function () {
+            var dtree = layui.dtree;
+            // 初始化树
+            var treeDept = dtree.render({
+                elem: "#deptTree",
+                width: "200",
+                height: "full-100",
+                dataFormat: "list", //list数据id-pid关联模式，不设置为children模式
+                method: "Get",
+                url: "/Depart/GetTreeList",
+                selectTips: "请选择末级部门",
+                initLevel: 3, //默认展开层次
+                load: false, //加载数据时是否显示遮罩
+                menubar: true, //下拉框中开启菜单栏
+                checkbar: false,
+                response: {
+                    treeId: "id", //绑定数据中ID字段名
+                    parentId: "gradeId", //绑定数据中父ID字段名
+                    title: "departName", //绑定数据中显示字段名
+                },
+                //data: [{ "id": 1, "departName": "2020\u7EA7", "gradeId": 0 }, { "id": 2, "departName": ".net core \u57FA\u7840\u73ED", "gradeId": 1 }, { "id": 3, "departName": ".net core \u7CBE\u82F1\u73ED", "gradeId": 1 }, { "id": 4, "departName": "java EE \u57FA\u7840\u73ED", "gradeId": 1 }]
+            });
+            dtree.on("node('deptTree')", function (obj) {
+                var aa = $('button[lay-filter="querysubmit"]');
+                if (obj.param.leaf) {
+                    $("#dept").val(obj.param.nodeId);
+                    aa.click();
+                }
+                else {
+                    $("#dept").val(obj.param.nodeId);
+                    aa.click();
+                }
+            });
+        });
+
         //监听表单提交事件
         hg.form.onsubmit('querysubmit', function (data) {
             hg.msghide("重新加载数据..");
@@ -82,14 +110,14 @@
                 width: 80,
                 title: '编号',
                 sort: true
-            }, {
-                field: 'photos',
-                title: '学生照片',
-                width: 100,
-                align: 'center',
-                templet: function (d) {
-                    return '<img src="' + d.photos + '" />';
-                }
+            //}, {
+            //    field: 'photos',
+            //    title: '学生照片',
+            //    width: 100,
+            //    align: 'center',
+            //    templet: function (d) {
+            //        return '<img src="' + d.photos + '" />';
+            //    }
             }, {
                 field: 'name',
                 width: 100,
@@ -113,19 +141,6 @@
                 templet: function (d) {
                     return layui.util.toDateString(d.enrollmentDT, "yyyy-MM-dd");
                 }
-            }, {
-                field: 'departName',
-                title: '学生部门',
-                minWidth: 120,
-                sort: true
-            }, {
-                field: 'phone',
-                title: '学生电话',
-                width: 120
-            }, {
-                field: 'email',
-                title: '学生邮箱',
-                minWidth: 160
             }, {
                 field: 'address',
                 title: '学生地址',
@@ -227,5 +242,5 @@
         //基本数据表格
         var table = hg.table.datatable('test', '学生信息管理', '/StudentInfo/GetQueryPagedList', {}, tableCols, toolbar, true, 'full-100', ['filter', 'print', 'exports']);
 
-    </script>
+</script>
 }

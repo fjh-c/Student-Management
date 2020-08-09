@@ -163,9 +163,9 @@ namespace StudentManageSystem.Controllers
         [ResponseCache(Duration = 0)]
         [HttpGet]
         [Authorize]
-        public async Task<IActionResult> GetQueryPagedListAsync(int page, int limit, string search)
+        public async Task<IActionResult> GetQueryPagedListAsync(int page, int limit, string search, int dept = 0)
         {
-            var result = await _studentInfoApi.GetPagedListAsync(page, limit, search);
+            var result = await _studentInfoApi.GetPagedListAsync(page, limit, dept, search);
             foreach (var item in result.Data.Item)
             {
                 if (item.Photos.IsNull())
