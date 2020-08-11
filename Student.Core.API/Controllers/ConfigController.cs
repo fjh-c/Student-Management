@@ -27,7 +27,7 @@ namespace Student.Core.API.Controllers
         [OperationId("获取一条配置信息")]
         [Parameters(name="code", param = "配置代码")]
         [ResponseCache(Duration = 0)]
-        [HttpGet("{id}")]
+        [HttpGet("{code}")]
         public async Task<IResultModel> Query([Required]string code)
         {
             _logger.LogDebug($"获取一条配置信息,Code:{code}");

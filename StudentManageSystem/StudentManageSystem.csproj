@@ -39,6 +39,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Auth.Jwt\Auth.Jwt.csproj" />
     <ProjectReference Include="..\Student.DTO\Student.DTO.csproj" />
     <ProjectReference Include="..\yrjw.CommonToolsCore\yrjw.CommonToolsCore.csproj" />
   </ItemGroup>
