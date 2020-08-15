@@ -84,7 +84,8 @@ namespace Student.Services
         /// <returns></returns>
         public async Task<IResultModel> RefreshToken(string refreshToken)
         {
-            if (!_cacheHandler.Value.TryGetValue($"{CacheKeys.AUTH_REFRESH_TOKEN}:{refreshToken}", out AuthInfoDTO authInfoDTO))
+            var _cachekey = $"{CacheKeys.AUTH_REFRESH_TOKEN}:{refreshToken}";
+            if (!_cacheHandler.Value.TryGetValue(_cachekey, out AuthInfoDTO authInfoDTO))
             {
                 var authInfo = await _repository.Value.TableNoTracking.FirstOrDefaultAsync(p => p.RefreshToken == refreshToken && p.Platform == (EnumPlatform)_loginInfo.Value.Platform);
                 if (authInfo == null)
@@ -93,7 +94,7 @@ namespace Student.Services
 
                 //加入缓存
                 var expires = (int)(authInfo.RefreshTokenExpiredTime - DateTime.Now).TotalMinutes;
-                await _cacheHandler.Value.SetAsync($"{CacheKeys.AUTH_REFRESH_TOKEN}:{refreshToken}", authInfoDTO, expires);
+                await _cacheHandler.Value.SetAsync(_cachekey, authInfoDTO, expires);
             }
 
             if (authInfoDTO.RefreshTokenExpiredTime <= DateTime.Now)
@@ -120,7 +121,8 @@ namespace Student.Services
         /// <returns></returns>
         public async Task<IResultModel> GetAuthInfo()
         {
-            if (!_cacheHandler.Value.TryGetValue($"{CacheKeys.AUTH_INFO}:{_loginInfo.Value.AccountId}:{_loginInfo.Value.Platform}", out AuthInfoDTO authInfoDTO))
+            var _cachekey = $"{CacheKeys.AUTH_INFO}:{_loginInfo.Value.AccountId}:{_loginInfo.Value.Platform}";
+            if (!_cacheHandler.Value.TryGetValue(_cachekey, out AuthInfoDTO authInfoDTO))
             {
                 var authInfo = await _repository.Value.TableNoTracking.FirstOrDefaultAsync(p => p.AccountId == _loginInfo.Value.AccountId && p.Platform == (EnumPlatform)_loginInfo.Value.Platform);
                 if (authInfo == null)
@@ -129,7 +131,7 @@ namespace Student.Services
 
                 //加入缓存
                 var expires = (int)(authInfo.RefreshTokenExpiredTime - DateTime.Now).TotalMinutes;
-                await _cacheHandler.Value.SetAsync($"{CacheKeys.AUTH_INFO}:{_loginInfo.Value.AccountId}:{_loginInfo.Value.Platform}", authInfoDTO, expires);
+                await _cacheHandler.Value.SetAsync(_cachekey, authInfoDTO, expires);
             }
 
             if (authInfoDTO.RefreshTokenExpiredTime <= DateTime.Now)

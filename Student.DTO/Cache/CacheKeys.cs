@@ -29,6 +29,14 @@ namespace Student.DTO.Cache
         public const string AUTH_INFO = "AUTH_INFO";
 
         /// <summary>
+        /// 配置信息
+        /// <para>CONFIG_CODE:配置代码</para>
+        /// </summary>
+        [Description("配置信息")]
+        public const string CONFIG_CODE = "CONFIG_CODE";
+
+
+        /// <summary>
         /// 权限列表
         /// <para>PERMISSIONS:账户编号:平台类型</para>
         /// </summary>

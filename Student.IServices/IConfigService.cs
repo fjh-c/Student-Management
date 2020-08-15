@@ -14,5 +14,12 @@ namespace Student.IServices
         /// <param name="code"></param>
         /// <returns></returns>
         Task<IResultModel> GetValue(string code);
+
+        /// <summary>
+        /// 更新配置脚本
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        Task<IResultModel> SetValue(ConfigDTO model);
     }
 }

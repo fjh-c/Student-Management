@@ -49,7 +49,7 @@ namespace Student.Core.API.Controllers
         public async Task<IResultModel> Update([FromBody]ConfigDTO model)
         {
             _logger.LogDebug("修改配置信息");
-            return await ConfigService.Value.UpdateAsync(model);
+            return await ConfigService.Value.SetValue(model);
         }
     }
 }
