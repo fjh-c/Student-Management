@@ -22,12 +22,13 @@ namespace Auth.Jwt
         public override ClaimsPrincipal ValidateToken(string token, TokenValidationParameters validationParameters,
             out SecurityToken validatedToken)
         {
-            var config = _configService.GetValue("Auth").GetAwaiter().GetResult() as ResultModel<AuthConfigData>;
-            if (config.Success)
+            var _authConfig = new AuthConfigData();
+            var config = _configService.GetValue("Auth").GetAwaiter().GetResult() as ResultModel<ConfigDTO>;
+            if (config.Success && config.Data.Code.EqualsIgnoreCase("Auth"))
             {
-                AuthConfigData.AuthConfig = config.Data;
+                _authConfig = config.Data.Value.ToJson<AuthConfigData>();
             }
-            var jwtConfig = AuthConfigData.AuthConfig.Jwt;
+            var jwtConfig = _authConfig.Jwt;
 
             validationParameters.ValidIssuer = jwtConfig.Issuer;
             validationParameters.ValidAudience = jwtConfig.Audience;

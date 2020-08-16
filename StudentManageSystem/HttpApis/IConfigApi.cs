@@ -1,4 +1,4 @@
-﻿using Auth.Jwt;
+﻿using Student.DTO;
 using StudentManageSystem.Code;
 using WebApiClient;
 using WebApiClient.Attributes;
@@ -15,7 +15,15 @@ namespace StudentManageSystem.HttpApis
         /// </summary>
         /// <returns></returns>
         [HttpGet("api/Config/Auth")]
-        ITask<ResultModel<AuthConfigData>> QueryAsync();
+        ITask<ResultModel<ConfigDTO>> QueryAuthAsync();
+
+        /// <summary>
+        /// 修改配置信息
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [HttpPut("api/Config")]
+        ITask<ResultModel<ConfigDTO>> UpdateAsync([JsonContent]ConfigDTO model);
 
     }
 }

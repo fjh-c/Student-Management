@@ -26,13 +26,20 @@ namespace Student.Services
 
         public async Task<IResultModel> GetValue(string code)
         {
-            switch (code)
+            var _cachekey = $"{CacheKeys.CONFIG_CODE}:{code.ToUpper()}";
+            if (!_cacheHandler.Value.TryGetValue(_cachekey, out ConfigDTO configDTO))
             {
-                case "Auth":
-                    return await GetValue<AuthConfigData>(code);
-                default:
+                var entity = await _repository.Value.TableNoTracking.FirstOrDefaultAsync(p => p.Code.ToUpper() == code.ToUpper());
+                if (entity == null)
+                {
+                    _logger.LogError($"error：entity Code {code} does not exist");
                     return ResultModel.NotExists;
-            } 
+                }
+                configDTO = _mapper.Value.Map<ConfigDTO>(entity);
+                //加入缓存
+                await _cacheHandler.Value.SetAsync(_cachekey, configDTO);
+            }
+            return ResultModel.Success(configDTO);
         }
 
         public async Task<IResultModel> SetValue(ConfigDTO model)
@@ -65,31 +72,6 @@ namespace Student.Services
 
             configDTO.Value = model.Value;
             return await base.UpdateAsync(configDTO);
-        }
-
-        private async Task<IResultModel> GetValue<T>(string code)
-        {
-            var _cachekey = $"{CacheKeys.CONFIG_CODE}:{code.ToUpper()}";
-            if (!_cacheHandler.Value.TryGetValue(_cachekey, out ConfigDTO configDTO))
-            {
-                var entity = await _repository.Value.TableNoTracking.FirstOrDefaultAsync(p => p.Code.ToUpper() == code.ToUpper());
-                if (entity == null)
-                {
-                    _logger.LogError($"error：entity Code {code} does not exist");
-                    return ResultModel.NotExists;
-                }
-                configDTO = _mapper.Value.Map<ConfigDTO>(entity);
-                //加入缓存
-                await _cacheHandler.Value.SetAsync(_cachekey, configDTO);
-            }     
-            try
-            {
-                return ResultModel.Success(configDTO.Value.ToJson<T>());
-            }
-            catch (Exception)
-            {
-                return ResultModel.Failed("error ToJson DeserializeObject");
-            }
         }
     }
 }
