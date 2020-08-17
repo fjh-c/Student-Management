@@ -1,5 +1,7 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
+using Auth.Jwt;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -24,36 +26,33 @@ namespace StudentManageSystem.Controllers
 
         [HttpGet]
         [Authorize]
-        public IActionResult Index()
+        public async Task<IActionResult> IndexAsync()
         {
-            return View();
+            var model = new ConfigViewModel();
+            var config = await _configApi.QueryAuthAsync();
+            if (config.Success)
+            {
+                if (config.Data.Code.EqualsIgnoreCase("Auth"))
+                {
+                    model.AuthConfigData = config.Data.Value.ToJson<AuthConfigData>();
+                }
+            }
+            return View(model);
         }
 
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> SaveAsync(ConfigDTO model)
+        public async Task<IActionResult> SaveAsync(ConfigViewModel model)
         {
             if (ModelState.IsValid)
             {
-                IResultModel<ConfigDTO> result = await _configApi.UpdateAsync(model);
-                if (result.Success)
-                {
-                    return RedirectToAction("ShowMsg", "Home", new { msg = "保存成功！", json = JsonHelper.SerializeJSON(result.Data) });
-                }
-                else
-                {
-                    if (result.Errors.Count > 0)
-                    {
-                        ModelState.AddModelError(result.Errors[0].Id, result.Errors[0].Msg);
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("error", result.Msg);
-                    }
-                }
+                var config = new ConfigDTO();
+                config.Code = "Auth";
+                config.Value = JsonHelper.SerializeJSON(model.AuthConfigData, true);
+                IResultModel<ConfigDTO> result = await _configApi.UpdateAsync(config);
             }
-            return View("Edit", model);
+            return View("Index", model);
         }
     }
 }

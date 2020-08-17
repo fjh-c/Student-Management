@@ -1,4 +1,5 @@
-﻿
+﻿@model ConfigViewModel
+
 @{
     ViewData["Title"] = "配置信息";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
@@ -13,11 +14,11 @@
         </div>
     </div>
     <div class="layui-card-body" style="padding: 15px;">
-        <form class="layui-form" action="" lay-filter="config-form">
+        <form class="layui-form"  method="post" asp-action="Save"lay-filter="config-form">
             <div class="layui-form-item">
                 <label class="layui-form-label">系统名称</label>
                 <div class="layui-input-block">
-                    <input type="text" name="Title" lay-verify="required|title" placeholder="请输入系统名称" value="学生信息管理系统1.0" class="layui-input">
+                    <input asp-for="Title" type="text" class="layui-input" lay-verify="required|title" placeholder="请输入系统名称" value="学生信息管理系统1.0" />
                 </div>
             </div>
 
@@ -25,19 +26,28 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">启用验证码</label>
                     <div class="layui-input-inline">
-                        <input type="checkbox" name="VerifyCode" lay-skin="switch" lay-text="ON|OFF" checked="">
+                        <input asp-for="AuthConfigData.VerifyCode" type="checkbox" lay-skin="switch" lay-text="ON|OFF">
                     </div>
                 </div>
                 <div class="layui-inline">
+                    <label class="layui-form-label">单账户登录</label>
+                    <div class="layui-input-inline">
+                        <input asp-for="AuthConfigData.SingleAccount" type="checkbox" lay-skin="switch" lay-text="ON|OFF">
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <div class="layui-inline">
                     <label class="layui-form-label">开启权限验证</label>
                     <div class="layui-input-inline">
-                        <input type="checkbox" name="Validate" lay-skin="switch" lay-text="ON|OFF">
+                        <input asp-for="AuthConfigData.Validate" type="checkbox" lay-skin="switch" lay-text="ON|OFF">
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label">开启按钮权限</label>
                     <div class="layui-input-inline">
-                        <input type="checkbox" name="Button" lay-skin="switch" lay-text="ON|OFF">
+                        <input asp-for="AuthConfigData.Button" type="checkbox" lay-skin="switch" lay-text="ON|OFF">
                     </div>
                 </div>
             </div>
@@ -46,19 +56,19 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">JWT_Key</label>
                     <div class="layui-input-inline">
-                        <input type="tel" name="Jwt_Key" lay-verify="required" autocomplete="off" class="layui-input" value="hG#yJ$j3#vPc9*u&">
+                        <input asp-for="AuthConfigData.Jwt.Key" lay-verify="required" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label">发行人</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="Jwt_Issuer" lay-verify="required" autocomplete="off" class="layui-input" value="http://127.0.0.1:5000">
+                        <input asp-for="AuthConfigData.Jwt.Issuer" type="text" lay-verify="required" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label">消费者</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="Jwt_Audience" lay-verify="required" autocomplete="off" class="layui-input" value="http://127.0.0.1:5000">
+                        <input asp-for="AuthConfigData.Jwt.Audience" type="text" lay-verify="required" autocomplete="off" class="layui-input">
                     </div>
                 </div>
             </div>
@@ -67,13 +77,13 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">有效期</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="Jwt_Expires" lay-verify="required|number" autocomplete="off" class="layui-input" value="120">
+                        <input asp-for="AuthConfigData.Jwt.Expires" type="text" lay-verify="required|number" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label">刷新令牌</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="Jwt_RefreshTokenExpires" lay-verify="required|number" autocomplete="off" class="layui-input" value="7">
+                        <input asp-for="AuthConfigData.Jwt.RefreshTokenExpires" type="text" lay-verify="required|number" autocomplete="off" class="layui-input">
                     </div>
                 </div>
             </div>
@@ -97,25 +107,10 @@
 
         });
 
-        //重置
-        $('.layui-btn-primary').click(function () {
-
-            form.val("config-form", {
-                "Title": "学生信息管理系统1.0", 
-                "check[VerifyCode]": true, 
-                "check[Validate]": false, 
-                "check[Button]": false, 
-                "Jwt_Key": "hG#yJ$j3#vPc9*u&",
-                "Jwt_Issuer": "http://127.0.0.1:5000",
-                "Jwt_Audience": "http://127.0.0.1:5000",
-                "Jwt_Expires": 120,
-                "Jwt_RefreshTokenExpires": 7
-            });
-        });
-
         // 监听表单提交事件
         hg.form.onsubmit('config-form-btn', function (data) {
-            hg.msg(JSON.stringify(data));
+            $(this).onsubmit();
+            hg.msg('保存成功!');
         });
 
 
