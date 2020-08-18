@@ -42,7 +42,7 @@ namespace StudentManageSystem
                   options.LogoutPath = new PathString("/Login/Logout");
                   options.AccessDeniedPath = new PathString("/Home/Error");
                   options.Cookie.Name = "_AdminTicketCookie";
-                  options.Cookie.SameSite = SameSiteMode.None;
+                  //options.Cookie.SameSite = SameSiteMode.None;
 
                   //当Cookie 过期时间已达一半时，是否重置为ExpireTimeSpan
                   options.SlidingExpiration = true;
