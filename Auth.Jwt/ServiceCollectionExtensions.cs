@@ -29,7 +29,7 @@ namespace Auth.Jwt
                     {
                         ValidateIssuer = true,
                         ValidateAudience = true,
-                        ValidateLifetime = true,
+                        ValidateLifetime = false, //是否验证超时，MVC版Token保存Cookies时不验证
                         ValidateIssuerSigningKey = true,
                         ClockSkew = TimeSpan.Zero,
                     };
