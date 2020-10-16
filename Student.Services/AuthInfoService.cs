@@ -87,7 +87,7 @@ namespace Student.Services
             var _cachekey = $"{CacheKeys.AUTH_REFRESH_TOKEN}:{refreshToken}";
             if (!_cacheHandler.Value.TryGetValue(_cachekey, out AuthInfoDTO authInfoDTO))
             {
-                var authInfo = await _repository.Value.TableNoTracking.FirstOrDefaultAsync(p => p.RefreshToken == refreshToken && p.Platform == (EnumPlatform)_loginInfo.Value.Platform);
+                var authInfo = await _repository.Value.TableNoTracking.FirstOrDefaultAsync(p => p.RefreshToken == refreshToken);
                 if (authInfo == null)
                     return ResultModel.Failed("身份认证信息无效，请重新登录");
                 authInfoDTO = _mapper.Value.Map<AuthInfoDTO>(authInfo);
